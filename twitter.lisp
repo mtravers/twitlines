@@ -43,11 +43,18 @@
 		     (if (stringp v)
 			 (8ify-string v)
 			 v))))
-	  (mt:collect
-	   `((:title . ,(format nil "~A: ~A" (field :screen_name (field :user)) (field :text)))
-	     (:start . ,(field :created_at))
-;	   (:link . ...)
-	   ))))))))
+	    (let ((user (field :screen_name (field :user))))
+	      (mt:collect
+	       `((:title . ,(format nil "~A: ~A" user (field :text)))
+		 (:start . ,(field :created_at))
+		 (:link . ,(format nil "http://twitter.com/~A/status/~A" user (field :id)))
+;		 (:icon . ,(field :profile_image_url (field :user)))
+;;; smaller, but still too big for timeline...
+		 (:icon . ,(format nil "http://twivatar.org/~A/mini" user))
+;;; use the big one in bubble
+		 (:image . ,(field :profile_image_url (field :user)))
+		 ))
+	      )))))))
 
 (net.aserve:publish :path "/twitter.json"
 		    :function 'publish-timeline-twitter

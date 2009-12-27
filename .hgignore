@@ -1,0 +1,8 @@
+syntax: glob
+*.fasl
+*.dx64fsl
+*~
+*\#
+.\#*
+.DS_Store
+*.orig

@@ -1,0 +1,19 @@
+Twitter API:
+  http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-statuses-friends_timeline
+
+Timeline API:
+
+
+Todo:
+- links
+  - done in annoying popups, but:
+  - need to have internal links as links
+  - need to set _target
+- icons
+  - done, but formatting needs adjusting (see       /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/webapp/api/scripts/compact-painter.js
+- Webpage for user/password
+- Use OAuth
+- dynamic update on scroll
+- styling
+
+- I wonder if I could get tweets folded into two lines, would match icons and generally 

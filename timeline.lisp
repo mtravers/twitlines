@@ -4,7 +4,7 @@
 	 :function 'html-timeline)
 
 (publish-file :path "/timeline.js"
-	      :file "/misc/working/cru-timeline/timeline.js")
+	      :file "/misc/sourceforge/twitline/timeline.js")
 
 (defun html-timeline (req ent)
   (with-http-response (req ent)
