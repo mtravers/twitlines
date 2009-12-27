@@ -45,9 +45,13 @@
 			 v))))
 	    (let ((user (field :screen_name (field :user))))
 	      (mt:collect
-	       `((:title . ,(format nil "~A: ~A" user (field :text)))
+	       `(
+		 (:title . ,(format nil "~A: ~A" user (linkify-string (field :text))))
 		 (:start . ,(field :created_at))
-		 (:link . ,(format nil "http://twitter.com/~A/status/~A" user (field :id)))
+;		 (:link . ,(format nil "http://twitter.com/~A/status/~A" user (field :id)))
+		 (:link . ,(if (equal (field :text) (linkify-string (field :text)))
+			       (format nil "http://twitter.com/~A/status/~A" user (field :id))
+			       nil))
 ;		 (:icon . ,(field :profile_image_url (field :user)))
 ;;; smaller, but still too big for timeline...
 		 (:icon . ,(format nil "http://twivatar.org/~A/mini" user))
@@ -76,3 +80,8 @@
     (unless (typep (char s n) 'standard-char)
       (setf (char s n) #\-)))
   s)
+
+(defparameter url-scanner (cl-ppcre:create-scanner "http://\\S+"))
+(defun linkify-string (s)
+  (cl-ppcre:regex-replace-all url-scanner s "<a href='\\&' target='twitgraphview'>\\&</a>")
+  )
