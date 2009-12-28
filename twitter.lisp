@@ -46,7 +46,11 @@
 	    (let ((user (field :screen_name (field :user))))
 	      (mt:collect
 	       `(
-		 (:title . ,(format nil "~A: ~A" user (linkify-string (field :text))))
+;;; Links show up nice in timeline, but not in bubble.
+;;;  villain: /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/webapp/api/scripts/sources.js:554 createTextNode
+		 (:title . ,(format nil "~A: ~A" user (linkify-string (break-string (field :text)))))
+;;; Nope, redundant.
+;		 (:description . ,(field :text))
 		 (:start . ,(field :created_at))
 ;		 (:link . ,(format nil "http://twitter.com/~A/status/~A" user (field :id)))
 		 (:link . ,(if (equal (field :text) (linkify-string (field :text)))
@@ -63,6 +67,14 @@
 (net.aserve:publish :path "/twitter.json"
 		    :function 'publish-timeline-twitter
 		    :content-type "application/x-javascript; charset=utf-8")
+
+;;; "works", but inter-item spacing is wrong.  Also needs to look for a word boundary, duh.
+(defun break-string (s)
+  (let ((split (position #\Space s :start (floor (length s) 2))))
+    (if split
+	(format nil "~A<br/>~A" (subseq s 0 split) (subseq s split))
+	s
+	)))
 
 (defun publish-timeline-twitter (req ent)
   (with-http-response (req ent :content-type "application/x-javascript; charset=utf-8")

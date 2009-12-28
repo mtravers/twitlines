@@ -12,7 +12,7 @@ Todo:
   - need to set _target (DONE)
 - icons
   - done, but formatting needs adjusting (see       /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/webapp/api/scripts/compact-painter.js
-  - some appear huge!  God knows why.
+  - some appear huge!  Argh, I guess this is a known twitter problem
 - Webpage for user/password
 - Use OAuth
 - dynamic update on scroll
@@ -25,3 +25,26 @@ Deployment:
 - EC2 (expensive)
 - rewrite in Rails and use that groovy new hosting service.
   there's hardly any code so this is perfectly fine.
+
+
+
+
+-----
+Message to twivatar author (but I think the problem may be at twitter)
+  http://code.google.com/p/twitter-api/issues/detail?id=396
+
+Thanks for building Twivatar and making it available as a public resource!  
+
+However, I'm writing to report a bug, which is that some mini icons are not in fact very miniaturized.  For instance, this URL:
+
+   http://twivatar.org/danbri/mini
+
+Redirects to this one, which is fairly large:
+
+   http://a3.twimg.com/profile_images/502641047/danbri-4x-buttons-foaf_mini.jpg
+
+It looks like the string "mini" in the original image name is confusing things somehow -- all the cases where this is happening look like that.
+
+Anyway, thanks again, let me know if I can help.
+
+Mike Travers
