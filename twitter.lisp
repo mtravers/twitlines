@@ -23,9 +23,22 @@
 
 (defun get-twitter-friends-timeline (&key (count 100))
   (json:decode-json-from-string 
-   (sw::get-url (format nil "http://twitter.com/statuses/friends_timeline.json")
+   (sw::get-url (format nil "http://twitter.com/statuses/home_timeline.json")
 		:basic-authorization (cons *twitter-user* *twitter-password*)
 		:query `(("count" . ,count)))))
+
+;;; only returns 20
+(defun get-twitter-public-timeline ()
+  (json:decode-json-from-string 
+   (sw::get-url (format nil "http://twitter.com/statuses/public_timeline.json")
+		)))
+
+(defun get-twitter-search (&key (count 100) term)
+  (json:decode-json-from-string 
+   (sw::get-url (format nil "http://search.twitter.com/search.json")
+		:query `(("q" . ,term)
+			 ("rpp" . ,count))
+		)))
 
 '(with-open-file (s "/misc/working/cru-timeline/friend_timeline.json" :direction :output :if-exists :supersede)
   (write-string (get-twitter-friends-timeline :count 100) s))
@@ -48,7 +61,8 @@
 	       `(
 ;;; Links show up nice in timeline, but not in bubble.
 ;;;  villain: /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/webapp/api/scripts/sources.js:554 createTextNode
-		 (:title . ,(format nil "~A: ~A" user (linkify-string (break-string (field :text)))))
+;;; Also, see here: http://simile.mit.edu/mail/ReadMsg?listId=9&msgId=16981
+		 (:title . ,(linkify-string (break-string (format nil "~A: ~A" user (field :text)))))
 ;;; Nope, redundant.
 ;		 (:description . ,(field :text))
 		 (:start . ,(field :created_at))
@@ -64,11 +78,14 @@
 		 ))
 	      )))))))
 
+;;; Search has a slightly different format, sigh
+(defun twitter-search->timeline-json (twit-json)
+
 (net.aserve:publish :path "/twitter.json"
 		    :function 'publish-timeline-twitter
 		    :content-type "application/x-javascript; charset=utf-8")
 
-;;; "works", but inter-item spacing is wrong.  Also needs to look for a word boundary, duh.
+;;; "works", but inter-item spacing is wrong.  Also should look backwards for word boundary as well.
 (defun break-string (s)
   (let ((split (position #\Space s :start (floor (length s) 2))))
     (if split
@@ -81,7 +98,11 @@
     (with-http-body (req ent :external-format (crlf-base-ef :utf-16))
       (json:encode-json 
        (twitter->timeline-json 
-	(get-twitter-friends-timeline :count 100))
+	(get-twitter-friends-timeline :count 100)
+;;; Useless because they will all be posted at the same time!
+;	(get-twitter-public-timeline)
+;	(get-twitter-search :count 100 :term "tsa")
+	)
        net.aserve::*html-stream*))))	;??? why isn't this defined.
 	       
 

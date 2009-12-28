@@ -4,9 +4,10 @@ function onLoad() {
     var eventSource = new Timeline.DefaultEventSource();
     
     var topTheme = Timeline.ClassicTheme.create();
-    topTheme.event.iconWidth = 16;
-    topTheme.event.iconHeight = 16;
-    
+// does not work
+//    topTheme.event.iconWidth = 16;
+//    topTheme.event.iconHeight = 16;
+    topTheme.event.track.height = 30;
 
     var bandInfos = [
 	Timeline.createBandInfo({
@@ -18,6 +19,7 @@ function onLoad() {
 	}),
 	Timeline.createBandInfo({
 	    eventSource:    eventSource,
+	    theme:          topTheme,
             width:          "30%", 
             intervalUnit:   Timeline.DateTime.HOUR, 
             intervalPixels: 100
