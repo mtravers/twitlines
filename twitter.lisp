@@ -40,15 +40,16 @@
 			 ("rpp" . ,count))
 		)))
 
-'(with-open-file (s "/misc/working/cru-timeline/friend_timeline.json" :direction :output :if-exists :supersede)
+#|
+(with-open-file (s "/misc/working/cru-timeline/friend_timeline.json" :direction :output :if-exists :supersede)
   (write-string (get-twitter-friends-timeline :count 100) s))
    
 (setq tj (get-twitter-friends-timeline :count 20))
+|#
 
 ;;; input: array of events, lisp encoded
 (defun twitter->timeline-json (twit-json)
-  `(; whatevers
-    (:events 
+  `((:events 
      ,@(mt:collecting
 	(dolist (event twit-json)
 	  (flet ((field (field &optional (from event))
@@ -58,28 +59,57 @@
 			 v))))
 	    (let ((user (field :screen_name (field :user))))
 	      (mt:collect
-	       `(
-;;; Links show up nice in timeline, but not in bubble.
-;;;  villain: /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/webapp/api/scripts/sources.js:554 createTextNode
-;;; Also, see here: http://simile.mit.edu/mail/ReadMsg?listId=9&msgId=16981
-		 (:title . ,(linkify-string (break-string (format nil "~A: ~A" user (field :text)))))
-;;; Nope, redundant.
-;		 (:description . ,(field :text))
-		 (:start . ,(field :created_at))
-;		 (:link . ,(format nil "http://twitter.com/~A/status/~A" user (field :id)))
-		 (:link . ,(if (equal (field :text) (linkify-string (field :text)))
-			       (format nil "http://twitter.com/~A/status/~A" user (field :id))
-			       nil))
-;		 (:icon . ,(field :profile_image_url (field :user)))
-;;; smaller, but still too big for timeline...
-		 (:icon . ,(format nil "http://twivatar.org/~A/mini" user))
-;;; use the big one in bubble
-		 (:image . ,(field :profile_image_url (field :user)))
-		 ))
+	       (timeline-entry-json
+		:user user
+		:text (field :text)
+		:time (field :created_at)
+		:id (field :id)
+		:image (field :profile_image_url (field :user)))
+	       )
 	      )))))))
 
 ;;; Search has a slightly different format, sigh
-(defun twitter-search->timeline-json (twit-json)
+(defun twitter-search->timeline-json (twit-search-json)
+  `((:events
+     ,@(mt:collecting
+	(dolist (event (mt:assocdr :results twit-search-json))
+	  (flet ((field (field &optional (from event))
+		   (let ((v (mt:assocdr field from)))
+		     (if (stringp v)
+			 (8ify-string v)
+			 v))))
+	    (mt:collect
+	     (timeline-entry-json
+	      :user (field :from_user)
+	      :text (field :text)
+	      :time (field :created_at)
+	      :id (field :id)
+	      :image (field :profile_image_url))
+	     )))))))
+     
+  
+
+(defun timeline-entry-json (&key user text time id image)
+  `(
+;;; Links show up nice in timeline, but not in bubble.
+;;;  villain: /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/webapp/api/scripts/sources.js:554 createTextNode
+;;; Also, see here: http://simile.mit.edu/mail/ReadMsg?listId=9&msgId=16981
+    (:title . ,(linkify-string (break-string (format nil "~A: ~A" user text))))
+;;; Nope, redundant.
+;		 (:description . ,(field :text))
+    (:start . ,time)
+    
+    ,@(if (equal text (linkify-string text))
+	  `((:link . ,(format nil "http://twitter.com/~A/status/~A" user id)))
+	  nil)
+;		 (:icon . ,(field :profile_image_url (field :user)))
+;;; smaller, but still too big for timeline...
+    (:icon . ,(format nil "http://twivatar.org/~A/mini" user))
+;;; use the big one in bubble
+    (:image . ,image)
+    ))
+
+
 
 (net.aserve:publish :path "/twitter.json"
 		    :function 'publish-timeline-twitter
@@ -97,12 +127,15 @@
   (with-http-response (req ent :content-type "application/x-javascript; charset=utf-8")
     (with-http-body (req ent :external-format (crlf-base-ef :utf-16))
       (json:encode-json 
-       (twitter->timeline-json 
-	(get-twitter-friends-timeline :count 100)
-;;; Useless because they will all be posted at the same time!
-;	(get-twitter-public-timeline)
-;	(get-twitter-search :count 100 :term "tsa")
-	)
+
+;;        (twitter->timeline-json 
+;; 	(get-twitter-friends-timeline :count 100)
+;; ;;; Useless because they will all be posted at the same time!
+;; ;	(get-twitter-public-timeline)
+;; 	)
+
+       (twitter-search->timeline-json
+	(get-twitter-search :count 100 :term "lisp"))
        net.aserve::*html-stream*))))	;??? why isn't this defined.
 	       
 

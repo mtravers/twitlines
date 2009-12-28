@@ -9,24 +9,29 @@ Todo:
   - done in annoying popups, but:
   - need to have internal links as links
      - can put <a>'s in title, works OK, but then shows up escaped in Bubble!  Fuck!
-  - need to set _target (DONE)
+     - and they stopped working!  God damn, worked last night, now not, nothing has changed!  Er, the styling? (NO)
+        Oh, it actually works (in CHrome at least) but also puts up the bubble.
+  - need to set _target (DONE?)
 - icons
   - done, but formatting needs adjusting (see       /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/webapp/api/scripts/compact-painter.js
   - some appear huge!  Argh, I guess this is a known twitter problem
 - Webpage for user/password
 - Use OAuth
 - dynamic update on scroll
-- styling
-
-- I wonder if I could get tweets folded into two lines, would match icons and generally 
-
+- styling (DONE, well, in progress)
+- search (DONE to first cut)
+   - problem is that really popular terms ("tsa", right now) stack up too much.   "Lisp" is OK.
+   - paging for search is entirely different
+- unames, @foo, #foo could all be links as well.
+- timezone
 
 Deployment:
 - EC2 (expensive)
-- rewrite in Rails and use that groovy new hosting service.
+- rewrite in Rails and use that groovy new hosting service. (Heroku)
   there's hardly any code so this is perfectly fine.
-
-
+  - and there's an OAuth plugin, of course
+- or PHP even, and it can run on hyperphor
+- Need to get local version of simile to guart against breakage.
 
 
 -----
@@ -48,3 +53,10 @@ It looks like the string "mini" in the original image name is confusing things s
 Anyway, thanks again, let me know if I can help.
 
 Mike Travers
+
+
+------------------------
+
+
+DONE depo
+- I wonder if I could get tweets folded into two lines, would match icons and generally  (DONE)
