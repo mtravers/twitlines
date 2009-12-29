@@ -1,8 +1,22 @@
 var tl;
+var eventSource;
+
+function loadData(search) {
+    var url = "twitter.json";
+    if (search != null) {
+	url = url + "?search=" + search;
+    }
+    tl.showLoadingMessage(); 
+    eventSource.clear();
+    Timeline.loadJSON(url, function(json, url) { 
+	eventSource.loadJSON(json, url);
+	tl.hideLoadingMessage();
+    });
+}
 
 function onLoad() {
-    var eventSource = new Timeline.DefaultEventSource();
-    
+
+    eventSource = new Timeline.DefaultEventSource();
     var topTheme = Timeline.ClassicTheme.create();
 // does not work
 //    topTheme.event.iconWidth = 16;
@@ -13,7 +27,7 @@ function onLoad() {
 	Timeline.createBandInfo({
 	    eventSource:    eventSource,
 	    theme:          topTheme,
-	    timeZone:       8,	// should be dynamic
+	    timeZone:       -8,	// should be dynamic
             width:          "70%", 
             intervalUnit:   Timeline.DateTime.MINUTE, 
             intervalPixels: 50
@@ -21,7 +35,7 @@ function onLoad() {
 	Timeline.createBandInfo({
 	    eventSource:    eventSource,
 	    theme:          topTheme,
-	    timeZone:       8,	// should be dynamic
+	    timeZone:       -8,	// should be dynamic
             width:          "30%", 
             intervalUnit:   Timeline.DateTime.HOUR, 
             intervalPixels: 100
@@ -30,11 +44,17 @@ function onLoad() {
     bandInfos[1].syncWith = 0;
     bandInfos[1].highlight = true;
     tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
-    tl.showLoadingMessage(); 
-    Timeline.loadJSON("twitter.json", function(json, url) { 
-	eventSource.loadJSON(json, url);
-	tl.hideLoadingMessage();
-    });
+    loadData();
+
+    // load new data on scroll -- not yet
+//     tl.getBand(0).addOnScrollListener(function(band) {
+// 	var minDate = band.getMinDate();
+// 	var maxDate = band.getMaxDate();
+// 	if (... need to reload events ...) {
+//             eventSource.clear();
+//             tl.loadXML(...);
+// 	}
+//     });
 
     // patching this
     Timeline.OriginalEventPainter.prototype._onClickInstantEvent = function(icon, domEvt, evt) {

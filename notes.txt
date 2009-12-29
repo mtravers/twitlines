@@ -19,7 +19,7 @@ Todo:
 - Use OAuth
 - dynamic update on scroll
 - styling (DONE, well, in progress)
-- search (DONE to first cut)
+- search (DONE to second cut)
    - problem is that really popular terms ("tsa", right now) stack up too much.   "Lisp" is OK.
    - paging for search is entirely different
 - unames, @foo, #foo could all be links as well.

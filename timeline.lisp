@@ -11,6 +11,7 @@
     (with-http-body (req ent)
       (html
        (:head
+	(:title "Twitlines")
 	;; normal
 ;	((:script :src "http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=true" :type "text/javascript"))
 	;; for debugging
@@ -31,5 +32,10 @@
 ]]
 	))
        ((:body :onload "onLoad();" :onresize "onResize();")
+;	((:form :name "search" :method "POST" :onsubmit "loadData(document.getElementById('sterm').value);")
+	(:div 
+	 ((:input :name "search" :id "sterm"))
+	 ((:input :type :submit :value "Search" :onclick "loadData(document.getElementById('sterm').value);")))
+									
 	((:div :id "my-timeline" :style "height: 500px; border: 1px solid #aaa")))))))
 
