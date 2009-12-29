@@ -11,7 +11,13 @@
     (with-http-body (req ent)
       (html
        (:head
-	((:script :src "http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=true" :type "text/javascript"))
+	;; normal
+;	((:script :src "http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=true" :type "text/javascript"))
+	;; for debugging
+	(:script
+	 (:princ "var Timeline_ajax_url = 'http://api.simile-widgets.org/ajax/2.2.1/simile-ajax-api.js?bundle=false'"))
+	((:script :src "http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=false" :type "text/javascript"))
+
 	((:script :src "timeline.js" :type "text/javascript"))
 	((:style :type "text/css")
 ;;; margin-left is to clear the icon.

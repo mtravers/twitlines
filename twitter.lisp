@@ -1,9 +1,6 @@
 (in-package :cl-user)
-
-(use-package :net.aserve)
-
-
 (require :cl-json)
+(use-package :net.aserve)
 
 
 (defvar *twitter-user* "mtraven")
@@ -119,24 +116,21 @@
 (defun break-string (s)
   (let ((split (position #\Space s :start (floor (length s) 2))))
     (if split
-	(format nil "~A<br/>~A" (subseq s 0 split) (subseq s split))
+	(format nil "~A <br/>~A" (subseq s 0 split) (subseq s split))
 	s
 	)))
 
 (defun publish-timeline-twitter (req ent)
   (with-http-response (req ent :content-type "application/x-javascript; charset=utf-8")
     (with-http-body (req ent :external-format (crlf-base-ef :utf-16))
-      (json:encode-json 
-
-;;        (twitter->timeline-json 
-;; 	(get-twitter-friends-timeline :count 100)
-;; ;;; Useless because they will all be posted at the same time!
-;; ;	(get-twitter-public-timeline)
-;; 	)
-
-       (twitter-search->timeline-json
-	(get-twitter-search :count 100 :term "lisp"))
-       net.aserve::*html-stream*))))	;??? why isn't this defined.
+      (let ((search (request-query-value "search" req)))
+	(json:encode-json 
+	 (if search
+	     (twitter-search->timeline-json
+	      (get-twitter-search :count 100 :term search))
+	     (twitter->timeline-json 
+	      (get-twitter-friends-timeline :count 100)))
+	 net.aserve::*html-stream*)))))	;??? why isn't this defined.
 	       
 
 ;;; motherfucking lisp can't handle non-8-bit-chars.  What decade is this?

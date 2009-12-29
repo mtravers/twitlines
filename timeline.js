@@ -13,6 +13,7 @@ function onLoad() {
 	Timeline.createBandInfo({
 	    eventSource:    eventSource,
 	    theme:          topTheme,
+	    timeZone:       8,	// should be dynamic
             width:          "70%", 
             intervalUnit:   Timeline.DateTime.MINUTE, 
             intervalPixels: 50
@@ -20,6 +21,7 @@ function onLoad() {
 	Timeline.createBandInfo({
 	    eventSource:    eventSource,
 	    theme:          topTheme,
+	    timeZone:       8,	// should be dynamic
             width:          "30%", 
             intervalUnit:   Timeline.DateTime.HOUR, 
             intervalPixels: 100
@@ -33,6 +35,23 @@ function onLoad() {
 	eventSource.loadJSON(json, url);
 	tl.hideLoadingMessage();
     });
+
+    // patching this
+    Timeline.OriginalEventPainter.prototype._onClickInstantEvent = function(icon, domEvt, evt) {
+	var c = SimileAjax.DOM.getPageCoordinates(icon);
+	// if click on a link, don't do the bubble
+	if (domEvt.target.tagName != "A") {
+	    this._showBubble(
+		c.left + Math.ceil(icon.offsetWidth / 2),
+		c.top + Math.ceil(icon.offsetHeight / 2),
+		evt
+	    );
+	    this._fireOnSelect(evt.getID());
+	    domEvt.cancelBubble = true;
+	    SimileAjax.DOM.cancelEvent(domEvt);
+	    return false;
+	}
+    }; 
 }
 
 var resizeTimerID = null;
