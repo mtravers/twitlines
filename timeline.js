@@ -6,9 +6,9 @@ function loadData(search) {
     if (search != null) {
 	url = url + "?search=" + search;
     }
-    tl.showLoadingMessage(); 
-    eventSource.clear();
     Timeline.loadJSON(url, function(json, url) { 
+	eventSource.clear();
+	tl.showLoadingMessage(); 
 	eventSource.loadJSON(json, url);
 	tl.hideLoadingMessage();
     });
@@ -47,14 +47,14 @@ function onLoad() {
     loadData();
 
     // load new data on scroll -- not yet
-//     tl.getBand(0).addOnScrollListener(function(band) {
-// 	var minDate = band.getMinDate();
-// 	var maxDate = band.getMaxDate();
-// 	if (... need to reload events ...) {
-//             eventSource.clear();
+     tl.getBand(0).addOnScrollListener(function(band) {
+ 	var minDate = band.getMinDate();
+ 	var maxDate = band.getMaxDate();
+//	 console.log('f' + minDate + ', ' + maxDate);
+//	 if (... need to reload events ...) {
 //             tl.loadXML(...);
 // 	}
-//     });
+     });
 
     // patching this
     Timeline.OriginalEventPainter.prototype._onClickInstantEvent = function(icon, domEvt, evt) {

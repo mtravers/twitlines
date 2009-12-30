@@ -35,7 +35,10 @@
 ;	((:form :name "search" :method "POST" :onsubmit "loadData(document.getElementById('sterm').value);")
 	(:div 
 	 ((:input :name "search" :id "sterm"))
-	 ((:input :type :submit :value "Search" :onclick "loadData(document.getElementById('sterm').value);")))
-									
+	 ((:input :type :submit :value "Search" :onclick "loadData(document.getElementById('sterm').value);"))
+	 ((:input :type :submit :value "Reload" :onclick "loadData();"))
+;	 ((:input :type :submit :value "Now" :onclick "tl.getBand(0).setCenterVisibleDate(new Date());"))
+	 ((:input :type :submit :value "Now" :onclick "tl.getBand(0).scrollToCenter(new Date());"))
+	 )
 	((:div :id "my-timeline" :style "height: 500px; border: 1px solid #aaa")))))))
 

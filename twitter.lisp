@@ -1,6 +1,6 @@
-(in-package :cl-user)
-(require :cl-json)
-(use-package :net.aserve)
+(in-package :wu)
+;(require :cl-json)
+;(use-package :net.aserve)
 
 
 (defvar *twitter-user* "mtraven")
@@ -142,6 +142,11 @@
   s)
 
 (defparameter url-scanner (cl-ppcre:create-scanner "http://\\S+"))
+(defparameter @-scanner (cl-ppcre:create-scanner "@([A-Za-z0-9-]+)"))
+(defparameter uname-scanner  (cl-ppcre:create-scanner "\\A([A-Za-z0-9-]+):"))
+
 (defun linkify-string (s)
-  (cl-ppcre:regex-replace-all url-scanner s "<a href='\\&' target='twitgraphview'>\\&</a>")
+  (setf s (cl-ppcre:regex-replace-all url-scanner s "<a href='\\&' target='_blank'>\\&</a>"))
+  (setf s (cl-ppcre:regex-replace-all uname-scanner s "<a href='http://twitter.com/\\1' target='_blank'>\\1</a>:"))
+  (cl-ppcre:regex-replace-all @-scanner s "@<a href='http://twitter.com/\\1' target='_blank'>\\1</a>")
   )
