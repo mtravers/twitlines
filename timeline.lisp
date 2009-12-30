@@ -25,7 +25,7 @@
 ;;; the icon-size params do not work, for some reason (style from timeline css overrides -- why there and not elsewhere is mysterious)
 #[[
 	 body { background: #111; color: #aaa; font-family: arial, helvetica, sans-serif;}
-	.timeline-event-label,.timeline-event-tape{font-size: 10px; color: #fff; background: #222; padding: 2px; margin-left:11px; margin-top: 8px}	 
+	.timeline-event-label,.timeline-event-tape{font-size: 10px; color: #fff; background: #222; padding: 2px; margin-left:11px; margin-top: 7px}	 
 	 .timeline-event-label a { color:#ff0;}
 	 .timeline-event-icon {width: 16px; height:16px; }
 	 

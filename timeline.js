@@ -61,11 +61,13 @@ function onLoad() {
 	var c = SimileAjax.DOM.getPageCoordinates(icon);
 	// if click on a link, don't do the bubble
 	if (domEvt.target.tagName != "A") {
-	    this._showBubble(
-		c.left + Math.ceil(icon.offsetWidth / 2),
-		c.top + Math.ceil(icon.offsetHeight / 2),
-		evt
-	    );
+	    // punt bubble, it's useless
+// 	    this._showBubble(
+// 		c.left + Math.ceil(icon.offsetWidth / 2),
+// 		c.top + Math.ceil(icon.offsetHeight / 2),
+// 		evt
+// 	    );
+	    open(evt.getLink(), "_blank");
 	    this._fireOnSelect(evt.getID());
 	    domEvt.cancelBubble = true;
 	    SimileAjax.DOM.cancelEvent(domEvt);

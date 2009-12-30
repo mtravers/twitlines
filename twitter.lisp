@@ -96,14 +96,14 @@
 ;		 (:description . ,(field :text))
     (:start . ,time)
     
-    ,@(if (equal text (linkify-string text))
+    ,@(if t ; (equal text (linkify-string text))
 	  `((:link . ,(format nil "http://twitter.com/~A/status/~A" user id)))
 	  nil)
 ;		 (:icon . ,(field :profile_image_url (field :user)))
 ;;; smaller, but still too big for timeline...
     (:icon . ,(format nil "http://twivatar.org/~A/mini" user))
-;;; use the big one in bubble
-    (:image . ,image)
+;;; use the big one in bubble (bubble putend)
+;    (:image . ,image)
     ))
 
 

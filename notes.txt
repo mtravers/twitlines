@@ -2,30 +2,20 @@ Twitter API:
   http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-statuses-friends_timeline
 
 Timeline API:
-
+  http://simile-widgets.org/wiki/Timeline
 
 Todo:
-- needs some kind of link back to regular twitter site (on unames?)
-  - would be cool to do it in a frame on the same page!
 
-- easy to get lost, need a way to get back to current time.
-
-- bubble is useless and text has html guff in it.  Maybe just get rid of it?
+- would be cool to open links it in a frame on the same page!
 
 - dates aren't shown anywhere
 
-- links
-  - done in annoying popups, but:
-  - need to have internal links as links
-     - can put <a>'s in title, works OK, but then shows up escaped in Bubble!  Fuck!
-     - and they stopped working!  God damn, worked last night, now not, nothing has changed! 
-         (FIXED with a patch, yay me)
-  - need to set _target (DONE?)
 - icons
-  - done, but formatting needs adjusting (see       /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/webapp/api/scripts/compact-painter.js
+  - done, but formatting needs adjusting (see         /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/webapp/api/scripts/compact-painter.js
   - some appear huge!  Argh, I guess this is a known twitter problem
 
 - Webpage for user/password
+
 - Use OAuth
 
 - dynamic update on scroll
@@ -34,8 +24,10 @@ Todo:
 - search (DONE to second cut)
    - problem is that really popular terms ("tsa", right now) stack up too much.   "Lisp" is OK.
    - paging for search is entirely different
+   - need to indicate mode
 
-- unames, @foo, #foo could all be links as well.
+- unames (DONE), @foo(DONE), #foo could all be links as well.
+  #foo should do a search in the timeline
 
 - timezone
 
@@ -79,3 +71,14 @@ Mike Travers
 
 DONE depo
 - I wonder if I could get tweets folded into two lines, would match icons and generally  (DONE)
+- needs some kind of link back to regular twitter site (on unames?)
+- easy to get lost, need a way to get back to current time. (DONE)
+- links
+  - done in annoying popups, but:
+  - need to have internal links as links
+     - can put <a>'s in title, works OK, but then shows up escaped in Bubble!  Fuck!
+     - and they stopped working!  God damn, worked last night, now not, nothing has changed! 
+         (FIXED with a patch, yay me)
+  - need to set _target (DONE?)
+- bubble is useless and text has html guff in it.  Maybe just get rid of it?
+    DONE
