@@ -6,9 +6,9 @@ function loadData(search) {
     if (search != null) {
 	url = url + "?search=" + search;
     }
+    tl.showLoadingMessage(); 
     Timeline.loadJSON(url, function(json, url) { 
 	eventSource.clear();
-	tl.showLoadingMessage(); 
 	eventSource.loadJSON(json, url);
 	tl.hideLoadingMessage();
     });
