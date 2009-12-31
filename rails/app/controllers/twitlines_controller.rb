@@ -5,19 +5,38 @@ class TwitlinesController < ApplicationController
   end
 
   def search
+    render :json => twitter_search(params[:term])
   end
 
   def public
-    render :json => { :events => twitter_call.map { |evt| twitter_timeline_event(evt)}}
+    render :json => twitter_public
   end
 
   #basic_auth(acct, pwd)
 
-  def twitter_call
+  def twitter_search(term)
+    count = 100
+    params = { :q => term, :rpp => count}
+    url = "http://search.twitter.com/search.json?#{params.to_query}" 
+    resp = Net::HTTP.get(URI.parse(url))
+    json = JSON.parse(resp)
+    return { :events => json['results'].map { |evt| twitter_search_event(evt)}}
+  end
+
+  def twitter_public
 #    params = {:db => :pubmed, :retmode => "xml", :tool => :collabrx, :email => "support@collabrx.com"  }.merge(params)
     url = "http://twitter.com/statuses/public_timeline.json"
     resp = Net::HTTP.get(URI.parse(url))
     json = JSON.parse(resp)
+    return { :events => json.map { |evt| twitter_timeline_event(evt)}}
+  end
+
+  def twitter_search_event(evt)
+    timeline_entry(evt['from_user'],
+                   evt['text'],
+                   evt['created_at'],
+                   evt['id'],
+                   evt['profile_image_url'])
   end
 
   def twitter_timeline_event(evt)

@@ -4,8 +4,9 @@ var eventSource;
 function loadData(search) {
     var url = "/twitlines/public";
     if (search != null) {
-	url = url + "?search=" + search;
-    }
+	// +++ needs urlencoding probably
+	url = "/twitlines/search?term=" + search;
+    } 
     tl.showLoadingMessage(); 
     Timeline.loadJSON(url, function(json, url) { 
 	eventSource.clear();
