@@ -1,0 +1,23 @@
+<head><title>Twitlines</title>
+  <script>
+    var Timeline_ajax_url = 'http://api.simile-widgets.org/ajax/2.2.1/simile-ajax-api.js?bundle=false'
+  </script>
+  <script SRC="http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=false" TYPE="text/javascript"></script>
+  <%= javascript_include_tag 'twitlines' %>
+  <style TYPE="text/css">
+    body { background: #111; color: #aaa; font-family: arial, helvetica, sans-serif;}
+    .timeline-event-label,.timeline-event-tape{font-size: 10px; color: #fff; background: #222; padding: 2px; margin-left:11px; margin-top: 7px}	 
+    .timeline-event-label a { color:#ff0;}
+    .timeline-event-icon {width: 16px; height:16px; }
+</style>
+</head>
+<body ONLOAD="onLoad();" ONRESIZE="onResize();">
+  <div>
+    <input NAME="search" ID="sterm">
+    <input TYPE="SUBMIT" VALUE="Search" ONCLICK="loadData(document.getElementById('sterm').value);">
+    <input TYPE="SUBMIT" VALUE="Reload" ONCLICK="loadData();">
+    <input TYPE="SUBMIT" VALUE="Now" ONCLICK="tl.getBand(0).scrollToCenter(new Date());">
+  </div>
+  <div ID="my-timeline" STYLE="height: 500px; border: 1px solid #aaa">
+</div>
+</body>

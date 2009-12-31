@@ -34,13 +34,17 @@ Todo:
 - what's with 127.0.0.1 - - [Mon, 28 Dec 2009 18:17:10 GMT] "GET /__history__.html?0 HTTP/1.1" 404 -1
 
 Deployment:
-- EC2 (expensive)
+- Lisp on EC2 (expensive and highly unncessary)
+  http://tech.coop/Hosting%20Services SBCL hosting $10/month!  GOod for future ref
+
 - rewrite in Rails and use that groovy new hosting service. (Heroku)
   there's hardly any code so this is perfectly fine.
   - and there's an OAuth plugin, of course
- - or PHP even, and it can run on hyperphor
- - or do everything in Javascript with no server involvement...
-     - hm, bad-timeline.js does this by using the &callback option to the search API, which returns an executable piece of javascript that gets put into a script element.  This options does not exist for the home_timeline, for some reason.  NO, it does exist, just not documented!
+
+- or PHP even, and it can run on hyperphor
+
+- or do everything in Javascript with no server involvement...
+    Unfortunately this can't work (could with a simple PHP proxy, but lose the no-server advantages)
 
 - Need to get local version of simile to guart against breakage.
 

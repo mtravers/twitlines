@@ -1,0 +1,21 @@
+
+
+Processing TwitlinesController#public (for 127.0.0.1 at 2009-12-30 19:26:08) [GET]
+Completed in 828ms (View: 95, DB: 0) | 200 OK [http://localhost/twitlines/public]
+
+
+Processing TwitlinesController#public (for 127.0.0.1 at 2009-12-30 19:44:35) [GET]
+
+
+Processing TwitlinesController#public (for 127.0.0.1 at 2009-12-30 20:40:09) [GET]
+
+NameError (undefined local variable or method `twitter_call' for #<TwitlinesController:0x24f9d70>):
+  app/controllers/twitlines_controller.rb:11:in `public'
+
+Rendered rescues/_trace (185.9ms)
+Rendered rescues/_request_and_response (69.8ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TwitlinesController#public (for 127.0.0.1 at 2009-12-30 20:41:15) [GET]
+Completed in 867ms (View: 79, DB: 0) | 200 OK [http://localhost/twitlines/public]
