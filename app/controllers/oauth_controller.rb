@@ -13,7 +13,7 @@ class OauthController < ApplicationController
   end
 
   def connect
-    request_token = @client.request_token(:oauth_callback => ENV['CALLBACK_URL'] || 'http:://localhost:3000/oauth_callback')
+    request_token = @client.request_token(:oauth_callback => ENV['CALLBACK_URL'] || 'http://localhost:3000/oauth_callback')
     session[:request_token] = request_token.token
     session[:request_token_secret] = request_token.secret
     redirect_to request_token.authorize_url.gsub('authorize', 'authenticate') 
@@ -35,7 +35,7 @@ class OauthController < ApplicationController
       session[:access_token] = @access_token.token
       session[:secret_token] = @access_token.secret
       session[:user] = true
-      redirect_to '/timeline'
+      redirect_to '/twitline/twitline'
     else
       redirect_to '/'
     end
