@@ -128,3 +128,41 @@ Rendering rescues/layout (not_found)
 
 Processing TwitlinesController#public (for 127.0.0.1 at 2009-12-30 21:35:49) [GET]
 Completed in 894ms (View: 17, DB: 0) | 200 OK [http://localhost/twitlines/public]
+
+
+Processing OauthController#connect (for 127.0.0.1 at 2009-12-30 23:03:02) [GET]
+
+NameError (uninitialized class variable @@config in OauthController):
+  app/controllers/oauth_controller.rb:8:in `make_client'
+
+Rendered rescues/_trace (53.2ms)
+Rendered rescues/_request_and_response (1.6ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing OauthController#connect (for 127.0.0.1 at 2009-12-30 23:09:25) [GET]
+
+OAuth::Unauthorized (401 Unauthorized):
+  oauth (0.3.6) lib/oauth/consumer.rb:200:in `token_request'
+  oauth (0.3.6) lib/oauth/consumer.rb:128:in `get_request_token'
+  /Library/Ruby/Gems/1.8/gems/twitter_oauth-0.3.2/lib/twitter_oauth/client.rb:47:in `request_token'
+  app/controllers/oauth_controller.rb:16:in `connect'
+
+Rendered rescues/_trace (69.9ms)
+Rendered rescues/_request_and_response (0.5ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing OauthController#connect (for 127.0.0.1 at 2009-12-30 23:13:16) [GET]
+
+NoMethodError (undefined method `redirect' for #<OauthController:0x257798c>):
+  app/controllers/oauth_controller.rb:19:in `connect'
+
+Rendered rescues/_trace (31.6ms)
+Rendered rescues/_request_and_response (1.5ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing OauthController#connect (for 127.0.0.1 at 2009-12-30 23:14:05) [GET]
+Redirected to http://twitter.com/oauth/authenticate?oauth_token=ltMa19piAlfE38Z3xogs8kJvdbv6mPPQouPdv2Q6M
+Completed in 222ms (DB: 0) | 302 Found [http://localhost/connect]

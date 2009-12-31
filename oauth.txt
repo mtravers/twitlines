@@ -1,0 +1,16 @@
+Callback
+twitlines.net/oauth_callback
+
+
+Here's what twitter generated:
+
+#  Consumer key
+ftYX5V6tCN7GF2yw0PRzw
+# Consumer secret
+svcTyQ8UrlG2awFqeaQHUPG1XHiQjcrmhVn0H8dDbyg
+# Request token URL
+http://twitter.com/oauth/request_token
+# Access token URL
+http://twitter.com/oauth/access_token
+# Authorize URL
+http://twitter.com/oauth/authorize

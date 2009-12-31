@@ -23,6 +23,7 @@ Rails::Initializer.run do |config|
   config.gem "json"
   config.gem "oauth"
   config.gem "oauth-plugin"
+  config.gem "twitter_oauth"
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
