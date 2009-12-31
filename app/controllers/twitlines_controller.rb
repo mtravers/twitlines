@@ -1,5 +1,15 @@
 class TwitlinesController < ApplicationController
 
+  before_filter :make_client
+
+  def default
+    if session[:user]
+      render :json => twitter_home
+    else
+      render :json => twitter_public      
+    end
+  end
+
   def home
     
   end
@@ -11,6 +21,7 @@ class TwitlinesController < ApplicationController
   def public
     render :json => twitter_public
   end
+
 
   #basic_auth(acct, pwd)
 
@@ -28,6 +39,15 @@ class TwitlinesController < ApplicationController
     url = "http://twitter.com/statuses/public_timeline.json"
     resp = Net::HTTP.get(URI.parse(url))
     json = JSON.parse(resp)
+    return { :events => json.map { |evt| twitter_timeline_event(evt)}}
+  end
+
+  def twitter_home
+    get_access
+    params = { "count" => 100 }
+    url = "http://twitter.com/statuses/home_timeline.json?#{params.to_query}" 
+    response = @access_token.get(url)
+    json = JSON.parse(response.body) # +++ should do an error check
     return { :events => json.map { |evt| twitter_timeline_event(evt)}}
   end
 

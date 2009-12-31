@@ -2,7 +2,7 @@ var tl;
 var eventSource;
 
 function loadData(search) {
-    var url = "/twitlines/public";
+    var url = "/twitlines/default";
     if (search != null) {
 	// +++ needs urlencoding probably
 	url = "/twitlines/search?term=" + search;

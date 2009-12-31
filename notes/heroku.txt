@@ -1,0 +1,8 @@
+Wow, heroku is great. I'm in love!
+
+Push: (can prob abbreviat this)
+hg push git+ssh://git@heroku.com:twitlines.git
+
+Logs:
+heroku logs --app twitlines
+
