@@ -2,7 +2,7 @@ var tl;
 var eventSource;
 
 function loadData(search) {
-    var url = "twitter.json";
+    var url = "/twitlines/public";
     if (search != null) {
 	url = url + "?search=" + search;
     }
