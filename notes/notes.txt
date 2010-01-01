@@ -6,7 +6,15 @@ Timeline API:
 
 Todo:
 
-- would be cool to open links it in a frame on the same page!
+- oh fuck, oauth is not actually working
+
+- Use standard rather than debug
+
+- credits
+
+- fix urls to be more neat, and get landing page right
+
+- Login/search/etc flow
 
 - dates aren't shown anywhere
 

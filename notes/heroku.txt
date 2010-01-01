@@ -6,3 +6,6 @@ hg push git+ssh://git@heroku.com:twitlines.git
 Logs:
 heroku logs --app twitlines
 
+
+Adjusting the callback:
+heroku  config:add --app twitlines CALLBACK_URL=http://twitlines.heroku.com/oauth_callback

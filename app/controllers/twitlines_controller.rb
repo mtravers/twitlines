@@ -1,6 +1,6 @@
 class TwitlinesController < ApplicationController
 
-  before_filter :make_client
+  before_filter :make_consumer
 
   def default
     if session[:user]
