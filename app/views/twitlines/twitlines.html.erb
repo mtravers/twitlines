@@ -16,14 +16,16 @@
 </head>
 
 <body ONLOAD="onLoad();" ONRESIZE="onResize();">
-  <div>
+  <div style="padding-bottom: 5px;">
     <% if !@user %>
-      <a href="/connect"><%= image_tag "sign_in_with_twitter.gif" %></a>
+    <a href="/connect"><%= image_tag("sign_in_with_twitter.gif", :border => 0) %></a>
     <% end %>
-    <input NAME="search" ID="sterm">
-    <input TYPE="SUBMIT" VALUE="Search" ONCLICK="loadData(document.getElementById('sterm').value);">
-    <input TYPE="SUBMIT" VALUE="Reload" ONCLICK="loadData();">
-    <input TYPE="SUBMIT" VALUE="Now" ONCLICK="tl.getBand(0).scrollToCenter(new Date());">
+    <div style="padding: 5px;display:inline;">
+      <input NAME="search" ID="sterm">
+      <input TYPE="SUBMIT" VALUE="Search" ONCLICK="loadData(document.getElementById('sterm').value);">
+      <input TYPE="SUBMIT" VALUE="Reload" ONCLICK="loadData();">
+      <input TYPE="SUBMIT" VALUE="Now" ONCLICK="tl.getBand(0).scrollToCenter(new Date());">
+    </div>
   </div>
   <div ID="my-timeline" STYLE="height: 500px; border: 1px solid #aaa">
   </div>
