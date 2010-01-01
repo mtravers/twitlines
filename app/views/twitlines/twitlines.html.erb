@@ -14,15 +14,7 @@
     .timeline-event-icon {width: 16px; height:16px; }
 </style>
 </head>
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-345282-3");
-pageTracker._trackPageview();
-} catch(err) {}</script>
+
 <body ONLOAD="onLoad();" ONRESIZE="onResize();">
   <div>
     <% if !@user %>
@@ -40,4 +32,13 @@ pageTracker._trackPageview();
     Timeline widget by <a href="http://www.simile-widgets.org/">MIT Simile Project</a><br/>
     Hosted by <a href="http://heroku.com">Heroku</a><br/>
   </div>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-345282-3");
+pageTracker._trackPageview();
+} catch(err) {}</script>
 </body>
