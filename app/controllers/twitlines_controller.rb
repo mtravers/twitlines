@@ -25,7 +25,7 @@ class TwitlinesController < ApplicationController
   def twitter_search(term)
     count = 100
     params = { :q => term, :rpp => count}
-    url = "http://search.twitter.com/search.json?#{params.to_query}" 
+    url = "http://twitter.com/search.json?#{params.to_query}" 
     resp = Net::HTTP.get(URI.parse(url))
     json = JSON.parse(resp)
     return { :events => json['results'].map { |evt| twitter_search_event(evt)}}
