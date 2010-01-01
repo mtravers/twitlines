@@ -2,16 +2,14 @@ class TwitlinesController < ApplicationController
 
   before_filter :make_consumer
 
+  # JSON providers
+
   def default
     if session[:user]
       render :json => twitter_home
     else
       render :json => twitter_public      
     end
-  end
-
-  def home
-    
   end
 
   def search
@@ -21,7 +19,6 @@ class TwitlinesController < ApplicationController
   def public
     render :json => twitter_public
   end
-
 
   #basic_auth(acct, pwd)
 

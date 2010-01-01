@@ -24,7 +24,7 @@ class OauthController < ApplicationController
     session[:access_token] = @access_token.token
     session[:secret_token] = @access_token.secret
     session[:user] = true
-    redirect_to '/twitlines/twitlines'
+    redirect_to ''
   end
 
 end

@@ -1,6 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
 
+  map.connect '', :controller => 'twitlines', :action => 'twitlines'
+
   map.connect 'connect', :controller => 'oauth', :action => 'connect'
   map.connect 'oauth_callback', :controller => 'oauth', :action => 'oauth_callback'
 
