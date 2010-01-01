@@ -1,8 +1,11 @@
 <head><title>Twitlines</title>
-  <script>
-    var Timeline_ajax_url = 'http://api.simile-widgets.org/ajax/2.2.1/simile-ajax-api.js?bundle=false'
-  </script>
-  <script SRC="http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=false" TYPE="text/javascript"></script>
+  <% if ENV['DEBUG'] %>
+   <script>
+     var Timeline_ajax_url = 'http://api.simile-widgets.org/ajax/2.2.1/simile-ajax-api.js?bundle=false'
+   </script>
+   <script SRC="http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=false" TYPE="text/javascript"></script>
+   <% else %>
+   <script SRC="http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=true" TYPE="text/javascript"></script>     <% end %>
   <%= javascript_include_tag 'twitlines' %>
   <style TYPE="text/css">
     body { background: #111; color: #aaa; font-family: arial, helvetica, sans-serif;}
@@ -19,8 +22,13 @@
     <input TYPE="SUBMIT" VALUE="Now" ONCLICK="tl.getBand(0).scrollToCenter(new Date());">
   </div>
   <div id="connect_button">
-    <a href="/connect"><%= image_tag "sign_in_with_twitter.gif" %>
+    <a href="/connect"><%= image_tag "sign_in_with_twitter.gif" %></a>
   </div>
   <div ID="my-timeline" STYLE="height: 500px; border: 1px solid #aaa">
-</div>
+  </div>
+  <div>
+    Product of <a href="http://hyperphor.com">Hyperphor</a><br/>
+    Timeline widget by <a href="http://www.simile-widgets.org/">MIT Simile Project</a><br/>
+    Hosted by <a href="http://heroku.com">Heroku</a><br/>
+  </div>
 </body>

@@ -6,8 +6,6 @@ Timeline API:
 
 Todo:
 
-- oh fuck, oauth is not actually working
-
 - Use standard rather than debug
 
 - credits
@@ -94,3 +92,5 @@ DONE depo
   - need to set _target (DONE?)
 - bubble is useless and text has html guff in it.  Maybe just get rid of it?
     DONE
+- oh fuck, oauth is not actually working
+

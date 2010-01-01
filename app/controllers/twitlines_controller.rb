@@ -81,7 +81,8 @@ class TwitlinesController < ApplicationController
 
   def linkify_string(s)
     s = s.gsub(/(http:\/\/\S+)/, "<a href='\\1' target='_blank'>\\1</a>")
-    # other subs
+    s = s.gsub(/@([A-Za-z0-9-]+)/, "@<a href='http://twitter.com/\\1' target='_blank'>\\1</a>")
+    s = s.gsub(/\A([A-Za-z0-9-]+):/, "<a href='http://twitter.com/\\1' target='_blank'>\\1</a>:")
   end
 
   def break_string(s)
