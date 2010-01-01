@@ -6,9 +6,9 @@ Timeline API:
 
 Todo:
 
-- Use standard rather than debug
+- host name (Did DNS setup, waiting)
 
-- credits
+- search is broken at server
 
 - fix urls to be more neat, and get landing page right
 
@@ -94,3 +94,5 @@ DONE depo
     DONE
 - oh fuck, oauth is not actually working
 
+- Use standard rather than debug (DONE, with flag that I need to test)
+- credits (DONE)

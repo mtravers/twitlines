@@ -79,6 +79,9 @@ class TwitlinesController < ApplicationController
     s = linkify_string(s)
   end
 
+  # alleged to be good url matcher
+  # \b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))
+
   def linkify_string(s)
     s = s.gsub(/(http:\/\/\S+)/, "<a href='\\1' target='_blank'>\\1</a>")
     s = s.gsub(/@([A-Za-z0-9-]+)/, "@<a href='http://twitter.com/\\1' target='_blank'>\\1</a>")

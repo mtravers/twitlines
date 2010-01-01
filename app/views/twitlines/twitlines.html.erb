@@ -16,13 +16,13 @@
 </head>
 <body ONLOAD="onLoad();" ONRESIZE="onResize();">
   <div>
+    <% if !@user %>
+      <a href="/connect"><%= image_tag "sign_in_with_twitter.gif" %></a>
+    <% end %>
     <input NAME="search" ID="sterm">
     <input TYPE="SUBMIT" VALUE="Search" ONCLICK="loadData(document.getElementById('sterm').value);">
     <input TYPE="SUBMIT" VALUE="Reload" ONCLICK="loadData();">
     <input TYPE="SUBMIT" VALUE="Now" ONCLICK="tl.getBand(0).scrollToCenter(new Date());">
-  </div>
-  <div id="connect_button">
-    <a href="/connect"><%= image_tag "sign_in_with_twitter.gif" %></a>
   </div>
   <div ID="my-timeline" STYLE="height: 500px; border: 1px solid #aaa">
   </div>
