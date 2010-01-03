@@ -6,23 +6,27 @@ Timeline API:
 
 Todo:
 
-- host name (Did DNS setup, waiting)
-
-- search is broken at server
-
-- fix urls to be more neat, and get landing page right
-
 - Login/search/etc flow
+   Logout: http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-account%C2%A0end_session
+
+- #foo in search doesn't work (url encoding I think)
+
+- (minor) Enter in search box
 
 - dates aren't shown anywhere
 
-- icons
-  - done, but formatting needs adjusting (see         /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/webapp/api/scripts/compact-painter.js
-  - some appear huge!  Argh, I guess this is a known twitter problem
+- maybe images should not come from twivatr
 
-- Webpage for user/password
+- twitter queries should have user-agent string  
+  http://apiwiki.twitter.com/Rate-limiting
 
-- Use OAuth
+- should do better url extraction, ie: 
+   People are upset that I criticized some atheists (http://is.gd/5Kgj8). We should be the ones to welcome constructive criticism.
+Note that twitter itself fucks this one up
+
+- local search 
+  Here's how you do it...would need a gmap or something for specifying it.
+  url = "http://search.twitter.com/search.json?&rpp=100&geocode=37.638015%2C-122.494812%2C10km"
 
 - dynamic update on scroll
 
@@ -96,3 +100,18 @@ DONE depo
 
 - Use standard rather than debug (DONE, with flag that I need to test)
 - credits (DONE)
+- fix urls to be more neat, and get landing page right (DONE)
+
+- host name (Did DNS setup, waiting)
+
+- search is broken at server (FIXED by changing URL)
+
+- icons
+  - done, but formatting needs adjusting (see         /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/webapp/api/scripts/compact-painter.js
+  - some appear huge!  Argh, I guess this is a known twitter problem
+  (FIXED)
+
+- Use OAuth (DONE)
+
+- Webpage for user/password (not necessary with OAuth)
+
