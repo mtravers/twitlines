@@ -15,6 +15,10 @@ Todo:
 
 - dates aren't shown anywhere
 
+- would like to change layout so later things appear under rather than over.
+
+- layout -- if there are too many things in one time slice, you lose.  That's kind of sucky.
+
 - maybe images should not come from twivatr
 
 - twitter queries should have user-agent string  
