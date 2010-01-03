@@ -20,21 +20,18 @@ class TwitlinesController < ApplicationController
     render :json => twitter_public
   end
 
-  #basic_auth(acct, pwd)
-
   def twitter_search(term)
     count = 100
     params = { :q => term, :rpp => count}
     url = "http://twitter.com/search.json?#{params.to_query}" 
-    resp = Net::HTTP.get(URI.parse(url))
+    resp = Net::HTTP.get(URI.parse(url), {"User-Agent" => "twitlines"})
     json = JSON.parse(resp)
     return { :events => json['results'].map { |evt| twitter_search_event(evt)}}
   end
 
   def twitter_public
-#    params = {:db => :pubmed, :retmode => "xml", :tool => :collabrx, :email => "support@collabrx.com"  }.merge(params)
     url = "http://twitter.com/statuses/public_timeline.json"
-    resp = Net::HTTP.get(URI.parse(url))
+    resp = Net::HTTP.get(URI.parse(url),{"User-Agent" => "twitlines"})
     json = JSON.parse(resp)
     return { :events => json.map { |evt| twitter_timeline_event(evt)}}
   end
@@ -43,7 +40,7 @@ class TwitlinesController < ApplicationController
     get_access
     params = { "count" => 100 }
     url = "http://twitter.com/statuses/home_timeline.json?#{params.to_query}" 
-    response = @access_token.get(url)
+    response = @access_token.get(url, {"User-Agent" => "twitlines"})
     json = JSON.parse(response.body) # +++ should do an error check
     return { :events => json.map { |evt| twitter_timeline_event(evt)}}
   end
