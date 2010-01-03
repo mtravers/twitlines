@@ -28,7 +28,7 @@ function onLoad() {
 	    timeZone:       -8,	// should be dynamic
             width:          "70%", 
             intervalUnit:   Timeline.DateTime.MINUTE, 
-            intervalPixels: 50
+            intervalPixels: 45
 	}),
 	Timeline.createBandInfo({
 	    eventSource:    eventSource,
@@ -36,7 +36,7 @@ function onLoad() {
 	    timeZone:       -8,	// should be dynamic
             width:          "30%", 
             intervalUnit:   Timeline.DateTime.HOUR, 
-            intervalPixels: 100
+            intervalPixels: 80
 	})
     ];
     bandInfos[1].syncWith = 0;

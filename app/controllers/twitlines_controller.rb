@@ -24,14 +24,14 @@ class TwitlinesController < ApplicationController
     count = 100
     params = { :q => term, :rpp => count}
     url = "http://twitter.com/search.json?#{params.to_query}" 
-    resp = Net::HTTP.get(URI.parse(url), {"User-Agent" => "twitlines"})
+    resp = twitter_request(url)
     json = JSON.parse(resp)
     return { :events => json['results'].map { |evt| twitter_search_event(evt)}}
   end
 
   def twitter_public
     url = "http://twitter.com/statuses/public_timeline.json"
-    resp = Net::HTTP.get(URI.parse(url),{"User-Agent" => "twitlines"})
+    resp = twitter_request(url)
     json = JSON.parse(resp)
     return { :events => json.map { |evt| twitter_timeline_event(evt)}}
   end
@@ -43,6 +43,14 @@ class TwitlinesController < ApplicationController
     response = @access_token.get(url, {"User-Agent" => "twitlines"})
     json = JSON.parse(response.body) # +++ should do an error check
     return { :events => json.map { |evt| twitter_timeline_event(evt)}}
+  end
+
+  # you have to do some rigamrole to set the user-agent, apparently.
+  # this is only for unauthenticated requests
+  def twitter_request(url)
+    purl = URI.parse(url)
+    res = Net::HTTP.start(purl.host, purl.port) { |http| http.get(url, {"User-Agent" => "twitlines"}) }
+    res.body
   end
 
   def twitter_search_event(evt)
