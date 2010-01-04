@@ -23,13 +23,15 @@ function loadData(search, incremental, low, high) {
 	url += "&low=" + low;
 	url += "&high=" + high;
     }
+    if (incremental == null) {
+	eventSource.clear();
+	rangeLow = null
+	rangeHigh = null;
+    } else {
+	updateRange(low, high);
+    }
     tl.showLoadingMessage(); 
     Timeline.loadJSON(url, function(json, url) { 
-	if (incremental != null) {
-	    eventSource.clear();
-	    rangeLow = null
-	    rangeHigh = null;
-	}
 	eventSource.loadJSON(json, url);
 	updateRange(eventSource.getEarliestDate(), eventSource.getLatestDate());
 	tl.hideLoadingMessage();

@@ -36,10 +36,17 @@ class TwitlinesController < ApplicationController
     return { :events => json.map { |evt| twitter_timeline_event(evt)}}
   end
 
+  def reset_range
+    session[:low_date] = session[:high_date] = nil
+    session[:low_id] = session[:high_id] = nil
+  end
+
   def twitter_home(low, high)
     get_access
     params = { "count" => 100 }
-    if low != nil
+    if low == nil
+      reset_range
+    else
       puts "TwitMe: " + low + high
       low = Time.parse(low)
       high = Time.parse(high)
