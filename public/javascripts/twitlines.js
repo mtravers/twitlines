@@ -1,18 +1,46 @@
 var tl;
 var eventSource;
+var rangeLow = null;
+var rangeHigh = null;
 
-function loadData(search) {
-    var url = "/twitlines/default";
+function loadDataIncremental(low, high) {
+    if (low < rangeLow) {
+	loadData(null, true, low, rangeLow);
+    }
+    if (high > rangeHigh) {
+	loadData(null, true, rangeHigh, high);
+    }
+}
+
+function loadData(search, incremental, low, high) {
+    console.log('load data: ' + low + high);
+    var url = "/twitlines/default?";
     if (search != null) {
 	// +++ needs urlencoding probably
 	url = "/twitlines/search?term=" + search;
     } 
+    if (low != null) {
+	url += "&low=" + low;
+	url += "&high=" + high;
+    }
     tl.showLoadingMessage(); 
     Timeline.loadJSON(url, function(json, url) { 
-	eventSource.clear();
+	if (incremental != null) {
+	    eventSource.clear();
+	    rangeLow = null
+	    rangeHigh = null;
+	}
 	eventSource.loadJSON(json, url);
+	updateRange(eventSource.getEarliestDate(), eventSource.getLatestDate());
 	tl.hideLoadingMessage();
     });
+}
+
+function updateRange(low, high) {
+    if (rangeLow == null || low < rangeLow)
+	rangeLow = low;
+    if (rangeHigh == null || high > rangeHigh)
+	rangeHigh = high;
 }
 
 function onLoad() {
@@ -45,13 +73,12 @@ function onLoad() {
     loadData();
 
     // load new data on scroll -- not yet
+    // gets called on every little bitty scroll
      tl.getBand(0).addOnScrollListener(function(band) {
  	var minDate = band.getMinDate();
  	var maxDate = band.getMaxDate();
-//	 console.log('f' + minDate + ', ' + maxDate);
-//	 if (... need to reload events ...) {
-//             tl.loadXML(...);
-// 	}
+	 console.log('f' + minDate + ', ' + maxDate);
+	 loadDataIncremental(minDate, maxDate);
      });
 
     // patching to do right thing when clicking on embedded link
