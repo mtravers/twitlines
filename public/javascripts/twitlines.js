@@ -2,6 +2,14 @@ var tl;
 var eventSource;
 var rangeLow = null;
 var rangeHigh = null;
+var lastQueryTime = null;
+
+function rateLimit(limit, func) {
+    if (lastQueryTime == null || new Date().getTime() > lastQueryTime.getTime() + limit) {
+	func.call();
+	lastQueryTime = new Date();
+    }
+}
 
 function loadDataIncremental(low, high) {
     if (low < rangeLow) {
@@ -32,6 +40,7 @@ function loadData(search, incremental, low, high) {
     }
     tl.showLoadingMessage(); 
     Timeline.loadJSON(url, function(json, url) { 
+	
 	eventSource.loadJSON(json, url);
 	updateRange(eventSource.getEarliestDate(), eventSource.getLatestDate());
 	tl.hideLoadingMessage();
@@ -77,10 +86,12 @@ function onLoad() {
     // load new data on scroll -- not yet
     // gets called on every little bitty scroll
      tl.getBand(0).addOnScrollListener(function(band) {
- 	var minDate = band.getMinDate();
- 	var maxDate = band.getMaxDate();
-	 console.log('f' + minDate + ', ' + maxDate);
-	 loadDataIncremental(minDate, maxDate);
+ 	 var minDate = band.getMinDate();
+ 	 var maxDate = band.getMaxDate();
+	 rateLimit(5000, function() {
+	     console.log('f' + minDate + ', ' + maxDate);
+	     loadDataIncremental(minDate, maxDate);
+	 });
      });
 
     // patching to do right thing when clicking on embedded link
