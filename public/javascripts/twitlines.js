@@ -1,57 +1,18 @@
 var tl;
 var eventSource;
-var rangeLow = null;
-var rangeHigh = null;
-var lastQueryTime = null;
 
-function rateLimit(limit, func) {
-    if (lastQueryTime == null || new Date().getTime() > lastQueryTime.getTime() + limit) {
-	func.call();
-	lastQueryTime = new Date();
-    }
-}
-
-function loadDataIncremental(low, high) {
-    if (low < rangeLow) {
-	loadData(null, true, low, rangeLow);
-    }
-    if (high > rangeHigh) {
-	loadData(null, true, rangeHigh, high);
-    }
-}
-
-function loadData(search, incremental, low, high) {
-//    console.log('load data: ' + low + high);
-    var url = "/twitlines/default?";
+function loadData(search) {
+    var url = "/twitlines/default";
     if (search != null) {
 	// +++ needs urlencoding probably
 	url = "/twitlines/search?term=" + search;
     } 
-    if (low != null) {
-	url += "&low=" + low;
-	url += "&high=" + high;
-    }
-    if (incremental == null) {
-	eventSource.clear();
-	rangeLow = null
-	rangeHigh = null;
-    } else {
-	updateRange(low, high);
-    }
     tl.showLoadingMessage(); 
     Timeline.loadJSON(url, function(json, url) { 
-	
+	eventSource.clear();
 	eventSource.loadJSON(json, url);
-	updateRange(eventSource.getEarliestDate(), eventSource.getLatestDate());
 	tl.hideLoadingMessage();
     });
-}
-
-function updateRange(low, high) {
-    if (rangeLow == null || low < rangeLow)
-	rangeLow = low;
-    if (rangeHigh == null || high > rangeHigh)
-	rangeHigh = high;
 }
 
 function onLoad() {
@@ -84,14 +45,13 @@ function onLoad() {
     loadData();
 
     // load new data on scroll -- not yet
-    // gets called on every little bitty scroll
      tl.getBand(0).addOnScrollListener(function(band) {
- 	 var minDate = band.getMinDate();
- 	 var maxDate = band.getMaxDate();
-	 rateLimit(5000, function() {
-//	     console.log('f' + minDate + ', ' + maxDate);
-	     loadDataIncremental(minDate, maxDate);
-	 });
+ 	var minDate = band.getMinDate();
+ 	var maxDate = band.getMaxDate();
+//	 console.log('f' + minDate + ', ' + maxDate);
+//	 if (... need to reload events ...) {
+//             tl.loadXML(...);
+// 	}
      });
 
     // patching to do right thing when clicking on embedded link
