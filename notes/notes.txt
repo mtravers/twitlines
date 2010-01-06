@@ -6,39 +6,59 @@ Timeline API:
 
 Todo:
 
-- Login/search/etc flow
-   Logout: http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-account%C2%A0end_session
+- ought to expand vertically for big screenss
+  (done, but needs to be smarter)
+
+- dynamic update on scroll
+  sort of working (in branch) but completely breaks search
+  - it ought to be driven by lower band I guess.
+  - Re "nowing" doesn't update, I think theres a bug in the range related to current-time (whcih can change)
 
 - #foo in search doesn't work (url encoding I think)
 
-- (minor) Enter in search box
+- (minor) embedded LFs in tweets break formatting?
 
-- dates aren't shown anywhere
+- This one gets <br> attached to url, so doesn't work
+ http://twitter.com/orgnet/status/7387708381
+
+- (minor) line break should be smarter, go backwards if necessary.
+
+- should do better url extraction, ie: 
+   People are upset that I criticized some atheists (http://is.gd/5Kgj8). We should be the ones to welcome constructive criticism.
+Note that twitter itself fucks this one up
+
+- (minor) Enter in search box
 
 - would like to change layout so later things appear under rather than over.
 
 - layout -- if there are too many things in one time slice, you lose.  That's kind of sucky.
+
+- redo colors, roundrects. 
 
 - maybe images should not come from twivatr
 
 - twitter queries should have user-agent string  
   http://apiwiki.twitter.com/Rate-limiting
 
-- should do better url extraction, ie: 
-   People are upset that I criticized some atheists (http://is.gd/5Kgj8). We should be the ones to welcome constructive criticism.
-Note that twitter itself fucks this one up
+- auto-scroll
+
+- I'm doing this all wrong:
+   http://docs.heroku.com/background-jobs
+
+- Flow: Login/search/etc 
+   Login is unnecessary
+   Logout: http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-account%C2%A0end_session
+   need to indicate mode (public, home, search, etc)
 
 - local search 
   Here's how you do it...would need a gmap or something for specifying it.
   url = "http://search.twitter.com/search.json?&rpp=100&geocode=37.638015%2C-122.494812%2C10km"
 
-- dynamic update on scroll
-
 - styling (DONE, well, in progress)
 - search (DONE to second cut)
    - problem is that really popular terms ("tsa", right now) stack up too much.   "Lisp" is OK.
    - paging for search is entirely different
-   - need to indicate mode
+
 
 - unames (DONE), @foo(DONE), #foo could all be links as well.
   #foo should do a search in the timeline
@@ -118,4 +138,6 @@ DONE depo
 - Use OAuth (DONE)
 
 - Webpage for user/password (not necessary with OAuth)
+
+- dates aren't shown anywhere (FIXED, shows days now)
 
