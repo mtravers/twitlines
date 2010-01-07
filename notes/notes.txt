@@ -14,6 +14,9 @@ Todo:
   - it ought to be driven by lower band I guess.
   - Re "nowing" doesn't update, I think theres a bug in the range related to current-time (whcih can change)
 
+- hashtags work!  But need to update search box.
+
+- hm, and I guess clicking on names should take you to the timeline view by default.  And there should be a link somewhere for normal twitter view
 
 - (minor) embedded LFs in tweets break formatting?
 
