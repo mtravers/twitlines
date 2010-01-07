@@ -24,8 +24,7 @@ function loadData(search, incremental, low, high) {
     console.log('load data: ' + low + high);
     var url = "/twitlines/default?";
     if (search != null) {
-	// +++ needs urlencoding probably
-	url = "/twitlines/search?term=" + search;
+	url = "/twitlines/search?term=" + escape(search);
     } 
     if (low != null) {
 	url += "&low=" + low;

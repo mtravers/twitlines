@@ -114,13 +114,13 @@ class TwitlinesController < ApplicationController
     s = linkify_string(s)
   end
 
-  # alleged to be good url matcher
-  # \b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))
-
   def linkify_string(s)
-    s = s.gsub(/(http:\/\/\S+)/, "<a href='\\1' target='_blank'>\\1</a>")
+    # This is a hairy URL matcher
+    s = s.gsub(/\b(([\w-]+:\/\/?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|\/)))/, "<a href='\\1' target='_blank'>\\1</a>")
     s = s.gsub(/@([A-Za-z0-9\-_]+)/, "@<a href='http://twitter.com/\\1' target='_blank'>\\1</a>")
     s = s.gsub(/\A([A-Za-z0-9\-_]+):/, "<a href='http://twitter.com/\\1' target='_blank'>\\1</a>:")
+    # hashtags
+    s = s.gsub(/#([A-Za-z0-9\-_]+)/, "\#<a onclick=\"loadData(\'#\\1\')\">\\1</a>:")
   end
 
   def break_string(s)

@@ -6,11 +6,38 @@ Timeline API:
 
 Todo:
 
-- #foo in search doesn't work (url encoding I think)
+- ought to expand vertically for big screenss
+  (done, but needs to be smarter)
 
-- should do better url extraction, ie: 
-   People are upset that I criticized some atheists (http://is.gd/5Kgj8). We should be the ones to welcome constructive criticism.
-Note that twitter itself fucks this one up
+- dynamic update on scroll
+  sort of working (in branch) but completely breaks search
+  - it ought to be driven by lower band I guess.
+  - Re "nowing" doesn't update, I think theres a bug in the range related to current-time (whcih can change)
+
+- hashtags work!  But need to update search box.
+
+- hm, and I guess clicking on names should take you to the timeline view by default.  And there should be a link somewhere for normal twitter view
+
+- (minor) embedded LFs in tweets break formatting?
+
+- wild-ass idea: include feedback, scale blocks depending on how much we like this person/term.  Could make it practical to have busy streams.  
+
+- idea: do same for Friendfeed!
+  http://friendfeed.com/api/documentation#read_feed
+  uses Oauth and Json, should be easy.
+
+- idea: use this api to get identity of user (and key state to it)
+  http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-statuses-user_timeline
+
+- would be nice to visually indicate the last-clicked block, so when you go back to that window you can find it.
+
+- this is getting linkified wrong:
+  http://www.flickr.com/photos/38345565@N08/4251812514/ wonky rails
+
+- This one gets <br> attached to url, so doesn't work
+ http://twitter.com/orgnet/status/7387708381
+
+- (minor) line break should be smarter, go backwards if necessary.
 
 - (minor) Enter in search box
 
@@ -39,16 +66,12 @@ Note that twitter itself fucks this one up
   Here's how you do it...would need a gmap or something for specifying it.
   url = "http://search.twitter.com/search.json?&rpp=100&geocode=37.638015%2C-122.494812%2C10km"
 
-- dynamic update on scroll
-
 - styling (DONE, well, in progress)
 - search (DONE to second cut)
    - problem is that really popular terms ("tsa", right now) stack up too much.   "Lisp" is OK.
    - paging for search is entirely different
 
 
-- unames (DONE), @foo(DONE), #foo could all be links as well.
-  #foo should do a search in the timeline
 
 - timezone
 
@@ -128,3 +151,7 @@ DONE depo
 
 - dates aren't shown anywhere (FIXED, shows days now)
 
+- #foo in search doesn't work (url encoding I think) (FXIED)
+
+- unames (DONE), @foo(DONE), #foo could all be links as well. (DONE)
+  #foo should do a search in the timeline (DONE)
