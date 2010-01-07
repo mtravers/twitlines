@@ -90,6 +90,8 @@ class TwitlinesController < ApplicationController
     s = s.gsub(/\b(([\w-]+:\/\/?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|\/)))/, "<a href='\\1' target='_blank'>\\1</a>")
     s = s.gsub(/@([A-Za-z0-9\-_]+)/, "@<a href='http://twitter.com/\\1' target='_blank'>\\1</a>")
     s = s.gsub(/\A([A-Za-z0-9\-_]+):/, "<a href='http://twitter.com/\\1' target='_blank'>\\1</a>:")
+    # hashtags
+    s = s.gsub(/#([A-Za-z0-9\-_]+)/, "\#<a onclick=\"loadData(\'#\\1\')\">\\1</a>:")
   end
 
   def break_string(s)
