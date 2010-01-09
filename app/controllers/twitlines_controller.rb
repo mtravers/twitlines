@@ -13,16 +13,23 @@ class TwitlinesController < ApplicationController
   end
 
   def search
-    render :json => twitter_search(params[:term])
+    render :json => twitter_search(params[:term], params[:incremental])
   end
 
   def public
     render :json => twitter_public
   end
 
-  def twitter_search(term)
+  def twitter_search(term, incremental)
     count = 100
     params = { :q => term, :rpp => count}
+    if incremental == "earlier"
+      return { :events => [] }  # search API can't do this (should test)
+    elsif incremental == "later"
+      params[:since_id] = session[:high_id]
+    else
+      reset_range
+    end
     url = "http://twitter.com/search.json?#{params.to_query}" 
     resp = twitter_request(url)
     json = JSON.parse(resp)
@@ -112,7 +119,7 @@ class TwitlinesController < ApplicationController
     s = s.gsub(/@([A-Za-z0-9\-_]+)/, "@<a href='http://twitter.com/\\1' target='_blank'>\\1</a>")
     s = s.gsub(/\A([A-Za-z0-9\-_]+):/, "<a href='http://twitter.com/\\1' target='_blank'>\\1</a>:")
     # hashtags
-    s = s.gsub(/#([A-Za-z0-9\-_]+)/, "\#<a onclick=\"loadData(\'#\\1\')\">\\1</a>:")
+    s = s.gsub(/#([A-Za-z0-9\-_]+)/, "\#<a onclick=\"newSearch(\'#\\1\')\">\\1</a>:")
   end
 
   def break_string(s)

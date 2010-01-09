@@ -15,6 +15,10 @@ I think that will do it...wont' support scrolling to arb. date, but that's life.
 
 Todo:
 
+- search needs to work with new incremental mechanisms
+   twitter search takes since_id, not max_id...sigh.
+
+
 - console.log only works when Firebug is open!  So make sure it isn't in deployed version
 
 - auto-scroll, ambience.
@@ -22,8 +26,7 @@ Todo:
   or experiment with since parameter.
   
 
-
-
+- IDEA: follow links, if they are images put them in the timeline..
 
 - holy shit seems like this could be useful:
   http://apiwiki.twitter.com/Streaming-API-Documentation#statuses/firehose

@@ -1,9 +1,9 @@
 var tl;
 var eventSource;
-// these are the dates of lowest and highest displayed items
-var rangeLow = null;
+var rangeLow = null;		// these are the dates of lowest and highest displayed items
 var rangeHigh = null;
 var lastQueryTime = null;
+var queryUrl = null;
 
 function rateLimit(limit, func) {
     if (lastQueryTime == null || new Date().getTime() > lastQueryTime.getTime() + limit) {
@@ -14,27 +14,38 @@ function rateLimit(limit, func) {
 
 function loadDataIncremental(low, high) {
     if (low < rangeLow) {
-	loadData(null, true, true);
+	loadData(null, true);
     }
     if (high > rangeHigh) {
-	loadData(null, true, false);
+	loadData(null, false);
     }
 }
 
-// incremental is boolean
+function newHome() {
+    loadData("/twitlines/default");
+}
+
+function newSearch(term) {
+    loadData("/twitlines/search?term=" + escape(term));
+}
+
+function addParam(url, param, value) {
+    var first = url.indexOf('?') < 0;
+    return url + (first ? "?" : "&") + param + "=" + value
+}
+
+// url is base url or null for incremental search
 // earlier: true to load more earlier, else later
-function loadData(search, incremental, earlier) {
-    var url = "/twitlines/default?";
-    if (search != null) {
-	url = "/twitlines/search?term=" + escape(search);
-    } 
-    if (incremental == null) {
+function loadData(url, earlier) {
+    if (url == null) {
+	// incremental
+	url = addParam(queryUrl, "incremental", earlier ? "earlier" : "later")
+    } else {
+	// new query
+	queryUrl = url;
 	eventSource.clear();
 	rangeLow = null
 	rangeHigh = null;
-    } else {
-	url += "&incremental="
-	url += earlier ? "earlier" : "later"
     }
     tl.showLoadingMessage(); 
     Timeline.loadJSON(url, function(json, url) { 
@@ -78,7 +89,7 @@ function onLoad() {
     bandInfos[1].syncWith = 0;
     bandInfos[1].highlight = true;
     tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
-    loadData();
+    newHome();
 
     // load new data on scroll -- not yet
     // gets called on every little bitty scroll

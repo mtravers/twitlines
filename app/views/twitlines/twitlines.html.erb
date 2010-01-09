@@ -21,7 +21,7 @@
     <% end %>
     <div style="padding: 5px;display:inline;">
       <input NAME="search" ID="sterm">
-      <input TYPE="SUBMIT" VALUE="Search" ONCLICK="loadData(document.getElementById('sterm').value);">
+      <input TYPE="SUBMIT" VALUE="Search" ONCLICK="newSearch(document.getElementById('sterm').value);">
       <input TYPE="SUBMIT" VALUE="Reload" ONCLICK="loadData();">
       <input TYPE="SUBMIT" VALUE="Now" ONCLICK="tl.getBand(0).scrollToCenter(new Date());">
     </div>
