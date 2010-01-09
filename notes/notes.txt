@@ -104,6 +104,9 @@ Todo:
 - timezone
 
 - what's with 127.0.0.1 - - [Mon, 28 Dec 2009 18:17:10 GMT] "GET /__history__.html?0 HTTP/1.1" 404 -1
+     OK, has to do with some history mechanism, but I'm not sure what. 
+     /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/ajax/api/scripts/history.js
+
 
 Deployment:
 - Lisp on EC2 (expensive and highly unncessary)
