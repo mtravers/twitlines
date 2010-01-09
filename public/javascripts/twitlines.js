@@ -88,7 +88,7 @@ function onLoad() {
  	 var minDate = band.getMinDate();
  	 var maxDate = band.getMaxDate();
 	 rateLimit(5000, function() {
-	     console.log('f' + minDate + ', ' + maxDate);
+//	     console.log('f' + minDate + ', ' + maxDate);
 	     loadDataIncremental(minDate, maxDate);
 	 });
      });

@@ -6,6 +6,21 @@ Timeline API:
 
 Todo:
 
+- console.log only works when Firebug is open!  So make sure it isn't in deployed version
+
+- auto-scroll, ambience.
+  RESOLVED: just do auto-scroll forward, forget going into past, solves all the time crap.
+  or experiment with since parameter.
+
+
+- holy shit seems like this could be useful:
+  http://apiwiki.twitter.com/Streaming-API-Documentation#statuses/firehose
+   curl -u mtraven http://stream.twitter.com/1/statuses/sample.json
+
+- want way to go to specific time (reload has to work)
+
+- would be nice to AND search, and have persistent searches, and sort of automatically cons you a timeline based on them.
+
 - ought to expand vertically for big screenss
   (done, but needs to be smarter)
 
@@ -51,8 +66,6 @@ Todo:
 
 - twitter queries should have user-agent string  
   http://apiwiki.twitter.com/Rate-limiting
-
-- auto-scroll
 
 - I'm doing this all wrong:
    http://docs.heroku.com/background-jobs
@@ -155,3 +168,4 @@ DONE depo
 
 - unames (DONE), @foo(DONE), #foo could all be links as well. (DONE)
   #foo should do a search in the timeline (DONE)
+

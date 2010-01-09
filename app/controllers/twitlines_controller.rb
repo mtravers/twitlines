@@ -59,7 +59,7 @@ class TwitlinesController < ApplicationController
       end
     end
     url = "http://twitter.com/statuses/home_timeline.json?#{params.to_query}" 
-    puts = "TwitUrl: " + url
+#    puts = "TwitUrl: " + url
     response = @access_token.get(url, {"User-Agent" => "twitlines"})
     json = JSON.parse(response.body) # +++ should do an error check
     return { :events => json.map { |evt| twitter_timeline_event(evt)}}
