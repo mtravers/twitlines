@@ -1,17 +1,65 @@
 var tl;
 var eventSource;
+var rangeLow = null;		// these are the dates of lowest and highest displayed items
+var rangeHigh = null;
+var lastQueryTime = null;
+var queryUrl = null;
 
-function loadData(search) {
-    var url = "/twitlines/default";
-    if (search != null) {
-	url = "/twitlines/search?term=" + escape(search);
-    } 
+function rateLimit(limit, func) {
+    if (lastQueryTime == null || new Date().getTime() > lastQueryTime.getTime() + limit) {
+	func.call();
+	lastQueryTime = new Date();
+    }
+}
+
+function loadDataIncremental(low, high) {
+    if (low < rangeLow) {
+	loadData(null, true);
+    }
+    if (high > rangeHigh) {
+	loadData(null, false);
+    }
+}
+
+function newHome() {
+    loadData("/twitlines/default");
+}
+
+function newSearch(term) {
+    loadData("/twitlines/search?term=" + escape(term));
+}
+
+function addParam(url, param, value) {
+    var first = url.indexOf('?') < 0;
+    return url + (first ? "?" : "&") + param + "=" + value
+}
+
+// url is base url or null for incremental search
+// earlier: true to load more earlier, else later
+function loadData(url, earlier) {
+    if (url == null) {
+	// incremental
+	url = addParam(queryUrl, "incremental", earlier ? "earlier" : "later")
+    } else {
+	// new query
+	queryUrl = url;
+	eventSource.clear();
+	rangeLow = null
+	rangeHigh = null;
+    }
     tl.showLoadingMessage(); 
     Timeline.loadJSON(url, function(json, url) { 
-	eventSource.clear();
 	eventSource.loadJSON(json, url);
+	updateRange(eventSource.getEarliestDate(), eventSource.getLatestDate());
 	tl.hideLoadingMessage();
     });
+}
+
+function updateRange(low, high) {
+    if (rangeLow == null || low < rangeLow)
+	rangeLow = low;
+    if (rangeHigh == null || high > rangeHigh)
+	rangeHigh = high;
 }
 
 function onLoad() {
@@ -41,16 +89,17 @@ function onLoad() {
     bandInfos[1].syncWith = 0;
     bandInfos[1].highlight = true;
     tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
-    loadData();
+    newHome();
 
     // load new data on scroll -- not yet
+    // gets called on every little bitty scroll
      tl.getBand(0).addOnScrollListener(function(band) {
- 	var minDate = band.getMinDate();
- 	var maxDate = band.getMaxDate();
-//	 console.log('f' + minDate + ', ' + maxDate);
-//	 if (... need to reload events ...) {
-//             tl.loadXML(...);
-// 	}
+ 	 var minDate = band.getMinVisibleDate();
+ 	 var maxDate = band.getMaxVisibleDate();
+	 rateLimit(5000, function() {
+//	     console.log('f' + minDate + ', ' + maxDate);
+	     loadDataIncremental(minDate, maxDate);
+	 });
      });
 
     // patching to do right thing when clicking on embedded link

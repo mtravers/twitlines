@@ -4,7 +4,37 @@ Twitter API:
 Timeline API:
   http://simile-widgets.org/wiki/Timeline
 
+Dynlite theory:
+- server keeps track of max and min id it has sent out
+- client can request more on the high end or low end -- doesn't need to pass any args
+- server serializes requests, if one is already going it just sends back empty
+
+I think that will do it...wont' support scrolling to arb. date, but that's life.
+   YAY, I did this and it worked first time out of the box!  I am hot shit!
+
+
 Todo:
+
+- search needs to work with new incremental mechanisms
+   twitter search takes since_id, not max_id...sigh.
+
+
+- console.log only works when Firebug is open!  So make sure it isn't in deployed version
+
+- auto-scroll, ambience.
+  RESOLVED: just do auto-scroll forward, forget going into past, solves all the time crap.
+  or experiment with since parameter.
+  
+
+- IDEA: follow links, if they are images put them in the timeline..
+
+- holy shit seems like this could be useful:
+  http://apiwiki.twitter.com/Streaming-API-Documentation#statuses/firehose
+   curl -u mtraven http://stream.twitter.com/1/statuses/sample.json
+
+- want way to go to specific time (reload has to work)
+
+- would be nice to AND search, and have persistent searches, and sort of automatically cons you a timeline based on them.
 
 - ought to expand vertically for big screenss
   (done, but needs to be smarter)
@@ -52,8 +82,6 @@ Todo:
 - twitter queries should have user-agent string  
   http://apiwiki.twitter.com/Rate-limiting
 
-- auto-scroll
-
 - I'm doing this all wrong:
    http://docs.heroku.com/background-jobs
 
@@ -76,6 +104,9 @@ Todo:
 - timezone
 
 - what's with 127.0.0.1 - - [Mon, 28 Dec 2009 18:17:10 GMT] "GET /__history__.html?0 HTTP/1.1" 404 -1
+     OK, has to do with some history mechanism, but I'm not sure what. 
+     /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/ajax/api/scripts/history.js
+
 
 Deployment:
 - Lisp on EC2 (expensive and highly unncessary)
@@ -156,4 +187,3 @@ DONE depo
 - unames (DONE), @foo(DONE), #foo could all be links as well. (DONE)
   #foo should do a search in the timeline (DONE)
 
-FOO!
