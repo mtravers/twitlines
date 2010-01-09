@@ -1,5 +1,6 @@
 var tl;
 var eventSource;
+// these are the dates of lowest and highest displayed items
 var rangeLow = null;
 var rangeHigh = null;
 var lastQueryTime = null;
@@ -13,33 +14,30 @@ function rateLimit(limit, func) {
 
 function loadDataIncremental(low, high) {
     if (low < rangeLow) {
-	loadData(null, true, low, rangeLow);
+	loadData(null, true, true);
     }
     if (high > rangeHigh) {
-	loadData(null, true, rangeHigh, high);
+	loadData(null, true, false);
     }
 }
 
-function loadData(search, incremental, low, high) {
-    console.log('load data: ' + low + high);
+// incremental is boolean
+// earlier: true to load more earlier, else later
+function loadData(search, incremental, earlier) {
     var url = "/twitlines/default?";
     if (search != null) {
 	url = "/twitlines/search?term=" + escape(search);
     } 
-    if (low != null) {
-	url += "&low=" + low;
-	url += "&high=" + high;
-    }
     if (incremental == null) {
 	eventSource.clear();
 	rangeLow = null
 	rangeHigh = null;
     } else {
-	updateRange(low, high);
+	url += "&incremental="
+	url += earlier ? "earlier" : "later"
     }
     tl.showLoadingMessage(); 
     Timeline.loadJSON(url, function(json, url) { 
-	
 	eventSource.loadJSON(json, url);
 	updateRange(eventSource.getEarliestDate(), eventSource.getLatestDate());
 	tl.hideLoadingMessage();
@@ -85,8 +83,8 @@ function onLoad() {
     // load new data on scroll -- not yet
     // gets called on every little bitty scroll
      tl.getBand(0).addOnScrollListener(function(band) {
- 	 var minDate = band.getMinDate();
- 	 var maxDate = band.getMaxDate();
+ 	 var minDate = band.getMinVisibleDate();
+ 	 var maxDate = band.getMaxVisibleDate();
 	 rateLimit(5000, function() {
 //	     console.log('f' + minDate + ', ' + maxDate);
 	     loadDataIncremental(minDate, maxDate);

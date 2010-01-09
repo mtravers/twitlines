@@ -6,7 +6,7 @@ class TwitlinesController < ApplicationController
 
   def default
     if session[:user]
-      render :json => twitter_home(params[:low], params[:high])
+      render :json => twitter_home(params[:incremental])
     else
       render :json => twitter_public      
     end
@@ -37,29 +37,21 @@ class TwitlinesController < ApplicationController
   end
 
   def reset_range
-    session[:low_date] = session[:high_date] = nil
     session[:low_id] = session[:high_id] = nil
   end
 
-  def twitter_home(low, high)
+  def twitter_home(incremental)
     get_access
     params = { "count" => 100 }
-    if low == nil
-      reset_range
+    if incremental == "earlier"
+      params[:max_id] = session[:low_id]
+    elsif incremental == "later"
+      params[:since_id] = session[:high_id]
     else
-      puts "TwitMe: " + low + high
-      low = Time.parse(low)
-      high = Time.parse(high)
-      if low < session[:low_date]
-        params[:max_id] = session[:low_id]
-      elsif high > session[:high_date]
-        params[:since_id] = session[:high_id]
-      else
-        return { :events => []}
-      end
+      reset_range
     end
     url = "http://twitter.com/statuses/home_timeline.json?#{params.to_query}" 
-#    puts = "TwitUrl: " + url
+    puts = "TwitUrl: " + url
     response = @access_token.get(url, {"User-Agent" => "twitlines"})
     json = JSON.parse(response.body) # +++ should do an error check
     return { :events => json.map { |evt| twitter_timeline_event(evt)}}

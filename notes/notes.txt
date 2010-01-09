@@ -4,6 +4,15 @@ Twitter API:
 Timeline API:
   http://simile-widgets.org/wiki/Timeline
 
+Dynlite theory:
+- server keeps track of max and min id it has sent out
+- client can request more on the high end or low end -- doesn't need to pass any args
+- server serializes requests, if one is already going it just sends back empty
+
+I think that will do it...wont' support scrolling to arb. date, but that's life.
+   YAY, I did this and it worked first time out of the box!  I am hot shit!
+
+
 Todo:
 
 - console.log only works when Firebug is open!  So make sure it isn't in deployed version
@@ -11,6 +20,9 @@ Todo:
 - auto-scroll, ambience.
   RESOLVED: just do auto-scroll forward, forget going into past, solves all the time crap.
   or experiment with since parameter.
+  
+
+
 
 
 - holy shit seems like this could be useful:
