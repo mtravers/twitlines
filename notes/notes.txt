@@ -15,15 +15,9 @@ I think that will do it...wont' support scrolling to arb. date, but that's life.
 
 Todo:
 
-- hashtags work!  But need to update search box.
-
 - hm, and I guess clicking on names should take you to the timeline view by default.  And there should be a link somewhere for normal twitter view
 
 - default screen should not be public timeline, which is useless...I could show a search
-
-- local search 
-  Here's how you do it...would need a gmap or something for specifying it.
-  url = "http://search.twitter.com/search.json?&rpp=100&geocode=37.638015%2C-122.494812%2C10km"
 
 - indicator of mode and link to corresponding standard twitter page.
 
@@ -33,11 +27,16 @@ Todo:
   tracks seem to be the rows within a band...
    reversing event sources doesn't help, not too surprising.
 
-- break/url matching still losing occationally:
+
+---------------------------------above here for release---------------------------------------
+
+- break/url matching still losing occationally:  Problem is # in url, which the hairy URL matched can't deal with
     http://twitter.com/edyson/status/7576944417
     edyson: the Edge Question Center, including mine on information metabolic syndrome: http://www.edge.org/q2010/q10_2.html#dysone
 
----------------------------------above here for release---------------------------------------
+- local search 
+  Here's how you do it...would need a gmap or something for specifying it.
+  url = "http://search.twitter.com/search.json?&rpp=100&geocode=37.638015%2C-122.494812%2C10km"
 
 - lower band should have different look.  Not sure how to do that.
    or just elimate it...
@@ -201,4 +200,6 @@ DONE depo
 - (minor) line break should be smarter, go backwards if necessary. (DONE)
 
 - (minor) Enter in search box (DONE)
+
+- hashtags work!  But need to update search box. (DONE)
 

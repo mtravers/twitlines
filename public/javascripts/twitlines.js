@@ -26,6 +26,7 @@ function newHome() {
 }
 
 function newSearch(term) {
+    document.getElementById('sterm').value = term;
     loadData("/twitlines/search?term=" + escape(term));
 }
 
