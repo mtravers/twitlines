@@ -9,8 +9,23 @@
   <%= javascript_include_tag 'twitlines' %>
   <style TYPE="text/css">
     body { background: #111; color: #aaa; font-family: arial, helvetica, sans-serif;}
-    .timeline-event-label,.timeline-event-tape{font-size: 10px; color: #fff; background: #222; padding: 2px; margin-left:11px; margin-top: 7px}	 
-    .timeline-event-label a { color:#ff0;}
+    .timeline-event-label,.timeline-event-tape {
+    font-size: 10px; 
+    color: #000; 
+    background: #fff; 
+    padding-left: 2px; 
+    padding-top: 1px;
+    padding-bottom: 1px;
+    margin-left:11px; 
+    margin-top: 7px; 
+    border: 1px solid gray;    
+    -moz-border-radius-topleft:3px;
+    -moz-border-radius-bottomleft:3px;
+    -moz-border-radius-topright:3px;
+    -moz-border-radius-bottomright:3px;
+    }	 
+    .timeline-event-label a { color:#00f; text-decoration:none;}
+    .timeline-event-label a:hover { background:#ff0;}
 </style>
 </head>
 
