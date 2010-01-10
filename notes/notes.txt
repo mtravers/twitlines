@@ -17,9 +17,9 @@ Todo:
 
 - hm, and I guess clicking on names should take you to the timeline view by default.  And there should be a link somewhere for normal twitter view
 
-- default screen should not be public timeline, which is useless...I could show a search
-
 - indicator of mode and link to corresponding standard twitter page.
+
+- default screen should not be public timeline, which is useless...I could show a search
 
 - stack in other direction
    Hard to see where this works...I think here:
@@ -27,8 +27,15 @@ Todo:
   tracks seem to be the rows within a band...
    reversing event sources doesn't help, not too surprising.
 
+- some bugs seem to have crept into incremental update
+  - easy to get multiple entries.  Serialize at server or client?
+    DONE at client, still not perfect 
 
 ---------------------------------above here for release---------------------------------------
+
+- would be neat if timeline scale was adaptive.
+
+- some option to limit searches to english
 
 - break/url matching still losing occationally:  Problem is # in url, which the hairy URL matched can't deal with
     http://twitter.com/edyson/status/7576944417

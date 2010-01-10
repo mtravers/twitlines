@@ -4,12 +4,25 @@ var rangeLow = null;		// these are the dates of lowest and highest displayed ite
 var rangeHigh = null;
 var lastQueryTime = null;
 var queryUrl = null;
+var queryInProgress = false;
 
 function rateLimit(limit, func) {
-    if (lastQueryTime == null || new Date().getTime() > lastQueryTime.getTime() + limit) {
+    if (!queryInProgress && (lastQueryTime == null || new Date().getTime() > lastQueryTime.getTime() + limit)) {
+	queryInProgress = true;
 	func.call();
+	queryInProgress = false;
 	lastQueryTime = new Date();
     }
+}
+
+function updateVisible() {
+    rateLimit(5000, function() {
+	var band = tl._bands[1];
+	var minDate = band.getMinVisibleDate();
+	var maxDate = band.getMaxVisibleDate();
+	//	     console.log('f' + minDate + ', ' + maxDate);
+	loadDataIncremental(minDate, maxDate);
+    });
 }
 
 function loadDataIncremental(low, high) {
@@ -28,6 +41,11 @@ function newHome() {
 function newSearch(term) {
     document.getElementById('sterm').value = term;
     loadData("/twitlines/search?term=" + escape(term));
+}
+
+function now() {
+    tl.getBand(0).scrollToCenter(new Date());
+    updateVisible();
 }
 
 function addParam(url, param, value) {
@@ -93,12 +111,7 @@ function onLoad() {
     newHome();
 
     tl.getBand(0).addOnScrollListener(function(band) {
- 	var minDate = band.getMinVisibleDate();
- 	var maxDate = band.getMaxVisibleDate();
-	rateLimit(5000, function() {
-//	     console.log('f' + minDate + ', ' + maxDate);
-	    loadDataIncremental(minDate, maxDate);
-	});
+	updateVisible();
     });
 
     // patching to do right thing when clicking on embedded link

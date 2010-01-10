@@ -38,7 +38,7 @@
       <input NAME="search" ID="sterm" onkeydown="if (event.keyCode == 13) { newSearch(document.getElementById('sterm').value) };">
       <input TYPE="SUBMIT" VALUE="Search" ONCLICK="newSearch(document.getElementById('sterm').value);">
       <input TYPE="SUBMIT" VALUE="Reload" ONCLICK="document.getElementById('sterm').value = ''; newHome();">
-      <input TYPE="SUBMIT" VALUE="Now" ONCLICK="tl.getBand(0).scrollToCenter(new Date());">
+      <input TYPE="SUBMIT" VALUE="Now" ONCLICK="now();">
     </div>
   </div>
   <div ID="my-timeline" STYLE="height: 80%; border: 1px solid #aaa">
