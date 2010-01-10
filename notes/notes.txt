@@ -18,6 +18,7 @@ Todo:
 - hm, and I guess clicking on names should take you to the timeline view by default.  And there should be a link somewhere for normal twitter view
 
 - indicator of mode and link to corresponding standard twitter page.
+   Partly done.  
 
 - default screen should not be public timeline, which is useless...I could show a search
 

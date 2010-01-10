@@ -8,7 +8,11 @@
    <script SRC="http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=true" TYPE="text/javascript"></script>     <% end %>
   <%= javascript_include_tag 'twitlines' %>
   <style TYPE="text/css">
-    body { background: #111; color: #aaa; font-family: arial, helvetica, sans-serif;}
+    body { background: #111; color: #aaa; font-family: arial, helvetica, sans-serif;
+    }
+    a { color:#00f; text-decoration:none; }
+    a:visited { color:#ff0; }
+    a:hover { background:#fff; }
     .timeline-event-label,.timeline-event-tape {
     font-size: 10px; 
     color: #000; 
@@ -26,6 +30,7 @@
     }	 
     .timeline-event-label a { color:#00f; text-decoration:none;}
     .timeline-event-label a:hover { background:#ff0;}
+    .timeline-event-label a:visited { color:#f0f; }
 </style>
 </head>
 
@@ -39,6 +44,7 @@
       <input TYPE="SUBMIT" VALUE="Search" ONCLICK="newSearch(document.getElementById('sterm').value);">
       <input TYPE="SUBMIT" VALUE="Reload" ONCLICK="document.getElementById('sterm').value = ''; newHome();">
       <input TYPE="SUBMIT" VALUE="Now" ONCLICK="now();">
+      <font size="-1"><a id="standard" href="http://twitter.com" target="_blank">Standard Twitter View</a></font>
     </div>
   </div>
   <div ID="my-timeline" STYLE="height: 80%; border: 1px solid #aaa">

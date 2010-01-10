@@ -38,9 +38,14 @@ function newHome() {
     loadData("/twitlines/default");
 }
 
+function updateTwitterLink(url) {
+    document.getElementById('standard').href = url;
+}
+
 function newSearch(term) {
     document.getElementById('sterm').value = term;
     loadData("/twitlines/search?term=" + escape(term));
+    updateTwitterLink('http://twitter.com/#search?q=' + escape(term));
 }
 
 function now() {
