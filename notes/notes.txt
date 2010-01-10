@@ -15,16 +15,34 @@ I think that will do it...wont' support scrolling to arb. date, but that's life.
 
 Todo:
 
-- search needs to work with new incremental mechanisms
-   twitter search takes since_id, not max_id...sigh.
+- hashtags work!  But need to update search box.
 
+- hm, and I guess clicking on names should take you to the timeline view by default.  And there should be a link somewhere for normal twitter view
 
-- console.log only works when Firebug is open!  So make sure it isn't in deployed version
+- default screen should not be public timeline, which is useless...I could show a search
 
-- auto-scroll, ambience.
-  RESOLVED: just do auto-scroll forward, forget going into past, solves all the time crap.
-  or experiment with since parameter.
-  
+- local search 
+  Here's how you do it...would need a gmap or something for specifying it.
+  url = "http://search.twitter.com/search.json?&rpp=100&geocode=37.638015%2C-122.494812%2C10km"
+
+- indicator of mode and link to corresponding standard twitter page.
+
+- stack in other direction
+   Hard to see where this works...I think here:
+     /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/webapp/api/scripts/original-painter.js
+  tracks seem to be the rows within a band...
+   reversing event sources doesn't help, not too surprising.
+
+- break/url matching still losing occationally:
+    http://twitter.com/edyson/status/7576944417
+    edyson: the Edge Question Center, including mine on information metabolic syndrome: http://www.edge.org/q2010/q10_2.html#dysone
+
+---------------------------------above here for release---------------------------------------
+
+- lower band should have different look.  Not sure how to do that.
+   or just elimate it...
+
+- minor: NOW scrolls Now to center, which wastes half the screen...but actually given that the blips are large, it's not that bad.  Worse on giant screens
 
 - IDEA: follow links, if they are images put them in the timeline..
 
@@ -33,20 +51,13 @@ Todo:
    curl -u mtraven http://stream.twitter.com/1/statuses/sample.json
 
 - want way to go to specific time (reload has to work)
+   impossible with new simpler scrolling scheme, unfortunately.
 
 - would be nice to AND search, and have persistent searches, and sort of automatically cons you a timeline based on them.
 
 - ought to expand vertically for big screenss
   (done, but needs to be smarter)
 
-- dynamic update on scroll
-  sort of working (in branch) but completely breaks search
-  - it ought to be driven by lower band I guess.
-  - Re "nowing" doesn't update, I think theres a bug in the range related to current-time (whcih can change)
-
-- hashtags work!  But need to update search box.
-
-- hm, and I guess clicking on names should take you to the timeline view by default.  And there should be a link somewhere for normal twitter view
 
 - (minor) embedded LFs in tweets break formatting?
 
@@ -61,16 +72,6 @@ Todo:
 
 - would be nice to visually indicate the last-clicked block, so when you go back to that window you can find it.
 
-- this is getting linkified wrong:
-  http://www.flickr.com/photos/38345565@N08/4251812514/ wonky rails
-
-- This one gets <br> attached to url, so doesn't work
- http://twitter.com/orgnet/status/7387708381
-
-- (minor) line break should be smarter, go backwards if necessary.
-
-- (minor) Enter in search box
-
 - would like to change layout so later things appear under rather than over.
 
 - layout -- if there are too many things in one time slice, you lose.  That's kind of sucky.
@@ -79,9 +80,6 @@ Todo:
 
 - maybe images should not come from twivatr
 
-- twitter queries should have user-agent string  
-  http://apiwiki.twitter.com/Rate-limiting
-
 - I'm doing this all wrong:
    http://docs.heroku.com/background-jobs
 
@@ -89,10 +87,6 @@ Todo:
    Login is unnecessary
    Logout: http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-account%C2%A0end_session
    need to indicate mode (public, home, search, etc)
-
-- local search 
-  Here's how you do it...would need a gmap or something for specifying it.
-  url = "http://search.twitter.com/search.json?&rpp=100&geocode=37.638015%2C-122.494812%2C10km"
 
 - styling (DONE, well, in progress)
 - search (DONE to second cut)
@@ -186,4 +180,25 @@ DONE depo
 
 - unames (DONE), @foo(DONE), #foo could all be links as well. (DONE)
   #foo should do a search in the timeline (DONE)
+
+- search needs to work with new incremental mechanisms (DONE)
+   twitter search takes since_id, not max_id...sigh.
+
+- console.log only works when Firebug is open!  So make sure it isn't in deployed version (DONE)
+
+- auto-scroll, ambience.
+  RESOLVED: just do auto-scroll forward, forget going into past, solves all the time crap.
+  or experiment with since parameter.
+  
+- dynamic update on scroll
+  sort of working (in branch) but completely breaks search
+  - it ought to be driven by lower band I guess.
+  - Re "nowing" doesn't update, I think theres a bug in the range related to current-time (whcih can change)
+
+- twitter queries should have user-agent string  
+  http://apiwiki.twitter.com/Rate-limiting
+
+- (minor) line break should be smarter, go backwards if necessary. (DONE)
+
+- (minor) Enter in search box (DONE)
 

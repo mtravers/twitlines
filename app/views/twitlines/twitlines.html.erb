@@ -20,7 +20,7 @@
     <a href="/connect"><%= image_tag("sign_in_with_twitter.gif", :border => 0) %></a>
     <% end %>
     <div style="padding: 5px;display:inline;">
-      <input NAME="search" ID="sterm">
+      <input NAME="search" ID="sterm" onkeydown="if (event.keyCode == 13) { newSearch(document.getElementById('sterm').value) };">
       <input TYPE="SUBMIT" VALUE="Search" ONCLICK="newSearch(document.getElementById('sterm').value);">
       <input TYPE="SUBMIT" VALUE="Reload" ONCLICK="document.getElementById('sterm').value = ''; newHome();">
       <input TYPE="SUBMIT" VALUE="Now" ONCLICK="tl.getBand(0).scrollToCenter(new Date());">

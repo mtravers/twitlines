@@ -91,16 +91,14 @@ function onLoad() {
     tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
     newHome();
 
-    // load new data on scroll -- not yet
-    // gets called on every little bitty scroll
-     tl.getBand(0).addOnScrollListener(function(band) {
- 	 var minDate = band.getMinVisibleDate();
- 	 var maxDate = band.getMaxVisibleDate();
-	 rateLimit(5000, function() {
+    tl.getBand(0).addOnScrollListener(function(band) {
+ 	var minDate = band.getMinVisibleDate();
+ 	var maxDate = band.getMaxVisibleDate();
+	rateLimit(5000, function() {
 //	     console.log('f' + minDate + ', ' + maxDate);
-	     loadDataIncremental(minDate, maxDate);
-	 });
-     });
+	    loadDataIncremental(minDate, maxDate);
+	});
+    });
 
     // patching to do right thing when clicking on embedded link
     Timeline.OriginalEventPainter.prototype._onClickInstantEvent = function(icon, domEvt, evt) {

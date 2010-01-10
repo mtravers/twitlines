@@ -123,11 +123,23 @@ class TwitlinesController < ApplicationController
   end
 
   def break_string(s)
-    pos = s.index(' ', s.length/2)
-    if pos == nil
-      return s
+    mid = s.length/2
+    pos1 = s.index(' ', mid)
+    pos2 = s.rindex(' ', mid)
+    brk = nil
+    if pos1 == nil
+      brk = pos2
+    elsif pos2 == nil
+      brk = pos1
+    elsif (pos1 - mid) < (mid - pos2)
+      brk = pos1
     else
-      return s[0,pos] + '<br/>' + s[pos+1, 200]
+      brk = pos2
+    end
+    if brk
+      return s[0,brk] + '<br/>' + s[brk+1, 200]
+    else
+      return s
     end
   end
 
