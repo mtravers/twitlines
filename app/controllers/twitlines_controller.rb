@@ -6,9 +6,19 @@ class TwitlinesController < ApplicationController
 
   def default
     if session[:user]
+# not working
+#      log_user
       render :json => twitter_home(params[:incremental])
     else
       render :json => twitter_public      
+    end
+  end
+
+  def log_user
+    if !session[:logged_user]
+      uname = twitter_whoami
+      puts "Log user #{uname} at #{Time.now}"
+      session[:logged_user] = uname      
     end
   end
 
@@ -31,15 +41,13 @@ class TwitlinesController < ApplicationController
       reset_range
     end
     url = "http://twitter.com/search.json?#{params.to_query}" 
-    resp = twitter_request(url)
-    json = JSON.parse(resp)
+    json = twitter_request(url)
     return { :events => json['results'].map { |evt| twitter_search_event(evt)}}
   end
 
   def twitter_public
     url = "http://twitter.com/statuses/public_timeline.json"
-    resp = twitter_request(url)
-    json = JSON.parse(resp)
+    json = twitter_request(url)
     return { :events => json.map { |evt| twitter_timeline_event(evt)}}
   end
 
@@ -48,7 +56,6 @@ class TwitlinesController < ApplicationController
   end
 
   def twitter_home(incremental)
-    get_access
     params = { "count" => 100 }
     if incremental == "earlier"
       params[:max_id] = session[:low_id]
@@ -58,10 +65,13 @@ class TwitlinesController < ApplicationController
       reset_range
     end
     url = "http://twitter.com/statuses/home_timeline.json?#{params.to_query}" 
-    puts = "TwitUrl: " + url
-    response = @access_token.get(url, {"User-Agent" => "twitlines"})
-    json = JSON.parse(response.body) # +++ should do an error check
+    json = twitter_request_authenticated(url)
     return { :events => json.map { |evt| twitter_timeline_event(evt)}}
+  end
+
+  def twitter_whoami
+    json = twitter_request('http://twitter.com/statuses/user_timeline.json?count=1')
+    json[0]['user']['name']
   end
 
   # you have to do some rigamrole to set the user-agent, apparently.
@@ -70,10 +80,18 @@ class TwitlinesController < ApplicationController
     purl = URI.parse(url)
     res = Net::HTTP.start(purl.host, purl.port) { |http| http.get(url, {"User-Agent" => "twitlines"}) }
     if res.code_type == Net::HTTPOK
-      res.body      
+      JSON.parse(res.body)
     else
       throw "Error from Twitter: " + res.message + " url was: " + url
     end
+  end
+
+  # returns JSON
+  # +++ error handling
+  def twitter_request_authenticated(url)
+    get_access
+    response = @access_token.get(url, {"User-Agent" => "twitlines"})
+    JSON.parse(response.body)
   end
 
   def twitter_search_event(evt)
@@ -94,18 +112,24 @@ class TwitlinesController < ApplicationController
 
   def timeline_entry(user, text, time, id, image)
     # I hope accessing session state is not expensive
-    if session[:high_id] == nil || id > session[:high_id]
-      session[:high_id] = id 
-      session[:high_date] = Time.parse(time)
-    end
-    if session[:low_id] == nil || id < session[:low_id]
-      session[:low_id] = id 
-      session[:low_date] = Time.parse(time)
+    if session
+      if session[:high_id] == nil || id > session[:high_id]
+        session[:high_id] = id 
+        session[:high_date] = Time.parse(time)
+      end
+      if session[:low_id] == nil || id < session[:low_id]
+        session[:low_id] = id 
+        session[:low_date] = Time.parse(time)
+      end
     end
     { :title => timeline_entry_text(user,text), 
       :start => time, 
       :link => "http://twitter.com/#{user}/status/#{id}",
-      :icon => "http://twivatar.org/#{user}/mini"}
+#      :icon => "http://twivatar.org/#{user}/mini"
+# try alternate method     
+      :icon => image.gsub('normal', 'mini')
+
+    }
   end
   
   def timeline_entry_text(user, text)
