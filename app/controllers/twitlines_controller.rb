@@ -72,7 +72,7 @@ class TwitlinesController < ApplicationController
     if res.code_type == Net::HTTPOK
       res.body      
     else
-      throw "Error from Twitter: " + res.message
+      throw "Error from Twitter: " + res.message + " url was: " + url
     end
   end
 
