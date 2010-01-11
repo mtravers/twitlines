@@ -25,12 +25,16 @@ Todo:
 - stack in other direction
    Hard to see where this works...I think here:
      /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/webapp/api/scripts/original-painter.js
+    -- see variable trackIncrement -- but prob. negative won't work
   tracks seem to be the rows within a band...
    reversing event sources doesn't help, not too surprising.
 
 - some bugs seem to have crept into incremental update
   - easy to get multiple entries.  Serialize at server or client?
     DONE at client, still not perfect 
+     Seen some really horrible cases where things get loaded repeatedl.
+       OK, trigger on upper band, not lower.  Still some dups, may be off-by-ones in the query
+
 
 ---------------------------------above here for release---------------------------------------
 

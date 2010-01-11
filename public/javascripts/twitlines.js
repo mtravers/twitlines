@@ -17,7 +17,7 @@ function rateLimit(limit, func) {
 
 function updateVisible() {
     rateLimit(5000, function() {
-	var band = tl._bands[1];
+	var band = tl._bands[0]; // more correct to look at lower band, but that produces too many updates
 	var minDate = band.getMinVisibleDate();
 	var maxDate = band.getMaxVisibleDate();
 	//	     console.log('f' + minDate + ', ' + maxDate);
