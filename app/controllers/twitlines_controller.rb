@@ -56,11 +56,12 @@ class TwitlinesController < ApplicationController
   end
 
   def twitter_home(incremental)
-    params = { "count" => 100 }
+    params = { :count => 100 }
     if incremental == "earlier"
       params[:max_id] = session[:low_id]
     elsif incremental == "later"
       params[:since_id] = session[:high_id]
+      params[:count] = 200
     else
       reset_range
     end

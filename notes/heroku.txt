@@ -1,11 +1,15 @@
 Wow, heroku is great. I'm in love!
 
 Push: (can prob abbreviat this)
-hg push git+ssh://git@heroku.com:twitlines.git
+> hg push git+ssh://git@heroku.com:twitlines.git
+
+When it gets out of sync (happens on branching)
+> hg bookmark -f -r default master # make a bookmark of master for default, so a ref gets created
+> hg push -f git+ssh://git@heroku.com:twitlines.git
 
 Logs:
-heroku logs --app twitlines
+> heroku logs --app twitlines
 
 
 Adjusting the callback:
-heroku  config:add --app twitlines CALLBACK_URL=http://twitlines.heroku.com/oauth_callback
+> heroku  config:add --app twitlines CALLBACK_URL=http://twitlines.heroku.com/oauth_callback

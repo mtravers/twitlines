@@ -13,7 +13,20 @@ I think that will do it...wont' support scrolling to arb. date, but that's life.
    YAY, I did this and it worked first time out of the box!  I am hot shit!
 
 
+- OH FUCK non-debug js are being loaded! I think.
+
 Todo:
+
+-  bare hostnames get tagged as URLS (regexp matched) but they fail when clicked because they go to http://twitlines.com/www.foobar.com
+
+- this one gets screwy too, OK on twitter:
+  http://twitter.com/cnnbrk/status/7687185693
+ Google retaliates for attacks traced back to China, saying it will no longer filter search results there. Morehttp://www.cnn.com/
+
+- now often doesn't fill in new stuff
+   maybe need to change incremental theory yet again..."later" should always try to get up to the minute if possible, and iterate if not.
+
+- visited color is too ugly, make it subtler
 
 - hm, and I guess clicking on names should take you to the timeline view by default.  And there should be a link somewhere for normal twitter view
 
@@ -56,6 +69,9 @@ Todo:
 - minor: NOW scrolls Now to center, which wastes half the screen...but actually given that the blips are large, it's not that bad.  Worse on giant screens
 
 - IDEA: follow links, if they are images put them in the timeline..
+
+- Random thought: Each twitter followee should be ranked, and the timeline show the highest-most ranked that can fit.
+   This is actually EASY to do...
 
 - holy shit seems like this could be useful:
   http://apiwiki.twitter.com/Streaming-API-Documentation#statuses/firehose
