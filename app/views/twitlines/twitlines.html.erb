@@ -1,4 +1,6 @@
-<head><title>Twitlines</title>
+<head>
+  <title>Twitlines</title>
+  <%= javascript_include_tag 'prototype' %>
   <% if ENV['DEBUG'] %>
    <script>
      var Timeline_ajax_url = 'http://api.simile-widgets.org/ajax/2.2.1/simile-ajax-api.js?bundle=false'

@@ -25,6 +25,8 @@ function updateVisible() {
     });
 }
 
+new PeriodicalExecuter(now, 30);
+
 function loadDataIncremental(low, high) {
     if (low < rangeLow) {
 	loadData(null, true);
