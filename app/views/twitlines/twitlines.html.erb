@@ -33,6 +33,7 @@
     .timeline-event-label a { color:#00f; text-decoration:none;}
     .timeline-event-label a:hover { background:#ff0;}
     .timeline-event-label a:visited { color:#a3a; }
+    .pushed { background:#F00; }
 </style>
 </head>
 
@@ -45,7 +46,7 @@
       <input NAME="search" ID="sterm" onkeydown="if (event.keyCode == 13) { newSearch(document.getElementById('sterm').value) };">
       <input TYPE="SUBMIT" VALUE="Search" ONCLICK="newSearch(document.getElementById('sterm').value);">
       <input TYPE="SUBMIT" VALUE="Reload" ONCLICK="document.getElementById('sterm').value = ''; newHome();">
-      <input TYPE="SUBMIT" VALUE="Now" ONCLICK="now();">
+      <input TYPE="SUBMIT" id='now' VALUE="Now" ONCLICK="startAutoscroll();">
       <font size="-1"><a id="standard" href="http://twitter.com" target="_blank">Standard Twitter View</a></font>
     </div>
   </div>

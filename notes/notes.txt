@@ -34,6 +34,9 @@ Scrolling and inc updates
    - needs to be controlled...idea that now should be locking?   
       - if you scroll by hand it has to leave that mode...
    - period of 15 sec gets service timeouts
+    STARTED putting in a locking button and logic to deal with it, not working yet
+
+
 
 - now often doesn't fill in new stuff
    maybe need to change incremental theory yet again..."later" should always try to get up to the minute if possible, and iterate if not.
