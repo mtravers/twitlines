@@ -34,7 +34,6 @@ function startAutoscroll () {
     now();
 }
 
-
 function stopAutoscroll () {
     // set button state
     autoScroll = false;
@@ -49,9 +48,10 @@ new PeriodicalExecuter(function () {
 
 function now() {
     autoScrolling = true;	// +++ unwind protect
-    tl.getBand(0).scrollToCenter(new Date());
-    autoScrolling = false;
-    updateVisible();
+    tl.getBand(0).scrollToCenter(new Date(), function() {
+	autoScrolling = false;
+	updateVisible();
+    });
 }
 
 function loadDataIncremental(low, high) {
@@ -76,7 +76,6 @@ function newSearch(term) {
     loadData("/twitlines/search?term=" + escape(term));
     updateTwitterLink('http://twitter.com/#search?q=' + escape(term));
 }
-
 
 function addParam(url, param, value) {
     var first = url.indexOf('?') < 0;
