@@ -1,6 +1,6 @@
 <head>
   <title>Twitlines</title>
-  <%= javascript_include_tag 'prototype' %>
+  <!-- The order of these scripts is fairly critical. Prototype can't come before simile, and must precede twitliens -->
   <% if ENV['DEBUG'] %>
    <script>
      var Timeline_ajax_url = 'http://api.simile-widgets.org/ajax/2.2.1/simile-ajax-api.js?bundle=false'
@@ -8,7 +8,9 @@
    <script SRC="http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=false" TYPE="text/javascript"></script>
    <% else %>
    <script SRC="http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=true" TYPE="text/javascript"></script>     <% end %>
+  <%= javascript_include_tag 'prototype' %>
   <%= javascript_include_tag 'twitlines' %>
+
   <style TYPE="text/css">
     body { background: #111; color: #aaa; font-family: arial, helvetica, sans-serif;
     }
