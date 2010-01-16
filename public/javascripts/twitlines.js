@@ -120,6 +120,8 @@ function onLoad() {
     eventSource = new Timeline.DefaultEventSource();
     var topTheme = Timeline.ClassicTheme.create();
     topTheme.event.track.height = 30;
+    topTheme.event.instant.iconWidth = 24;
+    topTheme.event.instant.iconHeight = 24;
 
     var bandInfos = [
 	Timeline.createBandInfo({
@@ -289,4 +291,120 @@ function onResize() {
             tl.layout();
         }, 500);
     }
+}
+
+// patch to unreverse event allocation
+Timeline.OriginalEventPainter.prototype.paint = function() {
+    // Paints the events for a given section of the band--what is
+    // visible on screen and some extra.
+    var eventSource = this._band.getEventSource();
+    if (eventSource == null) {
+        return;
+    }
+    
+    this._eventIdToElmt = {};
+    this._fireEventPaintListeners('paintStarting', null, null);
+    this._prepareForPainting();
+    
+    var eventTheme = this._params.theme.event;
+    var trackHeight = Math.max(eventTheme.track.height, eventTheme.tape.height + 
+                        this._frc.getLineHeight());
+    var metrics = {
+           trackOffset: eventTheme.track.offset,
+           trackHeight: trackHeight,
+              trackGap: eventTheme.track.gap,
+        trackIncrement: trackHeight + eventTheme.track.gap,
+                  icon: eventTheme.instant.icon,
+             iconWidth: eventTheme.instant.iconWidth,
+            iconHeight: eventTheme.instant.iconHeight,
+            labelWidth: eventTheme.label.width,
+          maxLabelChar: eventTheme.label.maxLabelChar,
+   impreciseIconMargin: eventTheme.instant.impreciseIconMargin
+    }
+    
+    var minDate = this._band.getMinDate();
+    var maxDate = this._band.getMaxDate();
+    
+    var filterMatcher = (this._filterMatcher != null) ? 
+        this._filterMatcher :
+        function(evt) { return true; };
+    var highlightMatcher = (this._highlightMatcher != null) ? 
+        this._highlightMatcher :
+        function(evt) { return -1; };
+    
+    var iterator = eventSource.getEventIterator(minDate, maxDate);
+    while (iterator.hasNext()) {
+        var evt = iterator.next();
+        if (filterMatcher(evt)) {
+            this.paintEvent(evt, metrics, this._params.theme, highlightMatcher(evt));
+        }
+    }
+    
+    this._highlightLayer.style.display = "block";
+    this._lineLayer.style.display = "block";
+    this._eventLayer.style.display = "block";
+    // update the band object for max number of tracks in this section of the ether
+    this._band.updateEventTrackInfo(this._tracks.length, metrics.trackIncrement); 
+    this._fireEventPaintListeners('paintEnded', null, null);
+};
+
+
+Timeline.OriginalEventPainter.prototype._findFreeTrackR = function(event, leftEdge) {
+    var trackAttribute = event.getTrackNum();
+    if (trackAttribute != null) {
+        return trackAttribute; // early return since event includes track number
+    }
+    
+    // normal case: find an open track
+    for (var i = 0; i < this._tracks.length; i++) {
+        var t = this._tracks[i];
+        if (t < leftEdge) {
+            break;
+        }
+    }
+    return i;
+};
+
+Timeline.OriginalEventPainter.prototype.paintPreciseInstantEvent = function(evt, metrics, theme, highlightIndex) {
+    var doc = this._timeline.getDocument();
+    var text = evt.getText();
+    
+    var startDate = evt.getStart();
+    var startPixel = Math.round(this._band.dateToPixelOffset(startDate));
+    var iconRightEdge = Math.round(startPixel + metrics.iconWidth / 2);
+    var iconLeftEdge = Math.round(startPixel - metrics.iconWidth / 2);
+
+    var labelDivClassName = this._getLabelDivClassName(evt);
+    var labelSize = this._frc.computeSize(text, labelDivClassName);
+    var labelLeft = iconRightEdge + theme.event.label.offsetFromLine;
+    var labelRight = labelLeft + labelSize.width;
+    
+    var leftEdge = iconLeftEdge;
+    var rightEdge = labelRight;
+
+    var track = this._findFreeTrackR(evt, leftEdge);
+    
+    var labelTop = Math.round(
+        metrics.trackOffset + track * metrics.trackIncrement + 
+        metrics.trackHeight / 2 - labelSize.height / 2);
+        
+    var iconElmtData = this._paintEventIcon(evt, track, iconLeftEdge, metrics, theme, 0);
+    var labelElmtData = this._paintEventLabel(evt, text, labelLeft, labelTop, labelSize.width,
+        labelSize.height, theme, labelDivClassName, highlightIndex);
+    var els = [iconElmtData.elmt, labelElmtData.elmt];
+
+    var self = this;
+    var clickHandler = function(elmt, domEvt, target) {
+        return self._onClickInstantEvent(iconElmtData.elmt, domEvt, evt);
+    };
+    SimileAjax.DOM.registerEvent(iconElmtData.elmt, "mousedown", clickHandler);
+    SimileAjax.DOM.registerEvent(labelElmtData.elmt, "mousedown", clickHandler);
+    
+    var hDiv = this._createHighlightDiv(highlightIndex, iconElmtData, theme, evt);
+    if (hDiv != null) {els.push(hDiv);}
+    this._fireEventPaintListeners('paintedEvent', evt, els);
+
+    
+    this._eventIdToElmt[evt.getID()] = iconElmtData.elmt;
+    this._tracks[track] = rightEdge;
 }

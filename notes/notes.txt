@@ -12,21 +12,16 @@ Dynlite theory:
 I think that will do it...wont' support scrolling to arb. date, but that's life.
 
 
-- OH FUCK non-debug js are being loaded! I think.
-
 Todo:
 
 DUH: have permalinks for various search options, so the thing can be linked to! 
   - WORKS except old URL gets left around, kind ugly...
+  - also, if you give iterm param and are logged in, you get item in search but home timeline
   - current routes are very confusing -- put data feeds under /data
 
 Argh, twisty:
  - page onload gets data from /twitlines/default, which looks at user[:session]
  - if you wanted to pass a URL param, that's kind of heinous...hm...
-
-
-
-- have a follow @mtraven link somewheres (DONE)
 
 Regexp and link generation
 
@@ -40,17 +35,12 @@ Regexp and link generation
     http://twitter.com/edyson/status/7576944417
     edyson: the Edge Question Center, including mine on information metabolic syndrome: http://www.edge.org/q2010/q10_2.html#dysone
 
+- (minor) embedded LFs in tweets break formatting?
+
 Scrolling and inc updates
 
-- auto-scroll, ambience.  (DONE, to first order)
-   - needs to be controlled...idea that now should be locking?   
-      - if you scroll by hand it has to leave that mode... (DONE -- need a toggling button)
-   - period of 15 sec gets service timeouts
-    STARTED putting in a locking button and logic to deal with it, not working yet
-     needs to untoggle when clicked in down state, duh
-
-
-- now should not be at center, wastes half the screen in realtime mode.
+** now should not be at center, wastes half the screen in realtime mode.
+    Worse on giant screens.
 
 - now often doesn't fill in new stuff
    maybe need to change incremental theory yet again..."later" should always try to get up to the minute if possible, and iterate if not.
@@ -68,8 +58,9 @@ Modes
    Partly done.  
 
 - default screen should not be public timeline, which is useless...I could show a search
+   DONE, sort of, with iterm parameter
 
-- local search 
+** local search 
   Here's how you do it...would need a gmap or something for specifying it.
   url = "http://search.twitter.com/search.json?&rpp=100&geocode=37.638015%2C-122.494812%2C10km"
 
@@ -77,14 +68,12 @@ Modes
 
 Layout
 
-- minor: NOW scrolls Now to center, which wastes half the screen...but actually given that the blips are large, it's not that bad.  Worse on giant screens
-
 - stack in other direction
    Hard to see where this works...I think here:
      /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/webapp/api/scripts/original-painter.js
     -- see variable trackIncrement -- but prob. negative won't work
   tracks seem to be the rows within a band...
-   reversing event sources doesn't help, not too surprising.
+   reversing event sources doesn't help, not too surprising.  (YAY, THIS WORKS NOW)
 
 - ought to expand vertically for big screenss
   (done, but needs to be smarter)
@@ -104,21 +93,19 @@ Wild-ass ideas
 
 Misc
 
--  need to catch twitter errors and do something other than an alert box...
+**  need to catch twitter errors and do something other than an alert box...
 
 - would be nice to visually indicate the last-clicked block, so when you go back to that window you can find it.  ---  and/or highlight recent additions somehow
 
 - some option to limit searches to english
 
 - lower band should have different look.  Not sure how to do that.
-   or just elimate it...
+   or just eliminate it...
 
 - want way to go to specific time (reload has to work)
    impossible with new simpler scrolling scheme, unfortunately.
 
 - would be nice to AND search, and have persistent searches, and sort of automatically cons you a timeline based on them.
-
-- (minor) embedded LFs in tweets break formatting?
 
 - idea: use this api to get identity of user (and key state to it)
   http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-statuses-user_timeline
@@ -137,7 +124,7 @@ Plumbing
      OK, has to do with some history mechanism, but I'm not sure what. 
      /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/ajax/api/scripts/history.js
 
-- Need to get local version of simile to guart against breakage.
+- Need to get local version of simile to guard against breakage.
 
 ----------
 
@@ -224,3 +211,14 @@ DONE depo
 
 - DEBUG flag doesn't work -- js errors
    Argh, it's an incompatibility with prototype. FUCK  FIXED
+
+
+
+- have a follow @mtraven link somewheres (DONE)
+
+- auto-scroll, ambience.  (DONE, to first order)
+   - needs to be controlled...idea that now should be locking?   
+      - if you scroll by hand it has to leave that mode... (DONE -- need a toggling button)
+   - period of 15 sec gets service timeouts
+    STARTED putting in a locking button and logic to deal with it, not working yet
+     needs to untoggle when clicked in down state, duh
