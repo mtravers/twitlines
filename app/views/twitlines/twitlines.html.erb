@@ -1,4 +1,6 @@
-<head><title>Twitlines</title>
+<head>
+  <title>Twitlines</title>
+  <!-- The order of these scripts is fairly critical. Prototype can't come before simile, and must precede twitliens -->
   <% if ENV['DEBUG'] %>
    <script>
      var Timeline_ajax_url = 'http://api.simile-widgets.org/ajax/2.2.1/simile-ajax-api.js?bundle=false'
@@ -6,7 +8,9 @@
    <script SRC="http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=false" TYPE="text/javascript"></script>
    <% else %>
    <script SRC="http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=true" TYPE="text/javascript"></script>     <% end %>
+  <%= javascript_include_tag 'prototype' %>
   <%= javascript_include_tag 'twitlines' %>
+
   <style TYPE="text/css">
     body { background: #111; color: #aaa; font-family: arial, helvetica, sans-serif;
     }
@@ -31,6 +35,29 @@
     .timeline-event-label a { color:#00f; text-decoration:none;}
     .timeline-event-label a:hover { background:#ff0;}
     .timeline-event-label a:visited { color:#a3a; }
+
+#now2 {
+    background: #ccc;
+    cursor: pointer;
+    border-top: solid 2px #eaeaea;
+    border-left: solid 2px #eaeaea;
+    border-bottom: solid 2px #777;
+    border-right: solid 2px #777;
+    padding: 3px 3px;           
+    -moz-border-radius-topleft:5px;
+    -moz-border-radius-bottomleft:5px;
+    -moz-border-radius-topright:5px;
+    -moz-border-radius-bottomright:5px;
+    }
+
+#now2.down {
+    background: #beb;
+    border-top: solid 2px #777;
+    border-left: solid 2px #777;
+    border-bottom:solid 2px  #eaeaea;
+    border-right: solid 2px #eaeaea;
+    }
+
 </style>
 </head>
 
@@ -43,7 +70,7 @@
       <input NAME="search" ID="sterm" onkeydown="if (event.keyCode == 13) { newSearch(document.getElementById('sterm').value) };">
       <input TYPE="SUBMIT" VALUE="Search" ONCLICK="newSearch(document.getElementById('sterm').value);">
       <input TYPE="SUBMIT" VALUE="Reload" ONCLICK="document.getElementById('sterm').value = ''; newHome();">
-      <input TYPE="SUBMIT" VALUE="Now" ONCLICK="now();">
+      <input TYPE="SUBMIT" id='now2' VALUE="Now" ONCLICK="startAutoscroll();">
       <font size="-1"><a id="standard" href="http://twitter.com" target="_blank">Standard Twitter View</a></font>
     </div>
   </div>

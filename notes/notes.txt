@@ -10,12 +10,17 @@ Dynlite theory:
 - server serializes requests, if one is already going it just sends back empty
 
 I think that will do it...wont' support scrolling to arb. date, but that's life.
-   YAY, I did this and it worked first time out of the box!  I am hot shit!
 
 
 - OH FUCK non-debug js are being loaded! I think.
 
 Todo:
+
+DUH: have permalinks for various search options, so the thing can be linked to!
+
+- have a follow @mtraven link somewheres
+
+Regexp and link generation
 
 -  bare hostnames get tagged as URLS (regexp matched) but they fail when clicked because they go to http://twitlines.com/www.foobar.com
 
@@ -23,17 +28,48 @@ Todo:
   http://twitter.com/cnnbrk/status/7687185693
  Google retaliates for attacks traced back to China, saying it will no longer filter search results there. Morehttp://www.cnn.com/
 
+- break/url matching still losing occationally:  Problem is # in url, which the hairy URL matched can't deal with
+    http://twitter.com/edyson/status/7576944417
+    edyson: the Edge Question Center, including mine on information metabolic syndrome: http://www.edge.org/q2010/q10_2.html#dysone
+
+Scrolling and inc updates
+
+- auto-scroll, ambience.  (DONE, to first order)
+   - needs to be controlled...idea that now should be locking?   
+      - if you scroll by hand it has to leave that mode... (DONE -- need a toggling button)
+   - period of 15 sec gets service timeouts
+    STARTED putting in a locking button and logic to deal with it, not working yet
+     needs to untoggle when clicked in down state, duh
+
+
+- now should not be at center, wastes half the screen in realtime mode.
+
 - now often doesn't fill in new stuff
    maybe need to change incremental theory yet again..."later" should always try to get up to the minute if possible, and iterate if not.
 
-- visited color is too ugly, make it subtler
+- some bugs seem to have crept into incremental update
+  - easy to get multiple entries.  Serialize at server or client?
+    DONE at client, still not perfect 
+     Seen some really horrible cases where things get loaded repeatedl.
+       OK, trigger on upper band, not lower.  Still some dups, may be off-by-ones in the query
+
+Modes
 
 - hm, and I guess clicking on names should take you to the timeline view by default.  And there should be a link somewhere for normal twitter view
-
 - indicator of mode and link to corresponding standard twitter page.
    Partly done.  
 
 - default screen should not be public timeline, which is useless...I could show a search
+
+- local search 
+  Here's how you do it...would need a gmap or something for specifying it.
+  url = "http://search.twitter.com/search.json?&rpp=100&geocode=37.638015%2C-122.494812%2C10km"
+
+- nice to be able to follow lists like http://twitter.com/BreakingNews/haiti-quake
+
+Layout
+
+- minor: NOW scrolls Now to center, which wastes half the screen...but actually given that the blips are large, it's not that bad.  Worse on giant screens
 
 - stack in other direction
    Hard to see where this works...I think here:
@@ -42,73 +78,66 @@ Todo:
   tracks seem to be the rows within a band...
    reversing event sources doesn't help, not too surprising.
 
-- some bugs seem to have crept into incremental update
-  - easy to get multiple entries.  Serialize at server or client?
-    DONE at client, still not perfect 
-     Seen some really horrible cases where things get loaded repeatedl.
-       OK, trigger on upper band, not lower.  Still some dups, may be off-by-ones in the query
+- ought to expand vertically for big screenss
+  (done, but needs to be smarter)
 
+Wild-ass ideas
 
----------------------------------above here for release---------------------------------------
+- wild-ass idea: include feedback, scale blocks depending on how much we like this person/term.  Could make it practical to have busy streams.  
 
 - would be neat if timeline scale was adaptive.
-
-- some option to limit searches to english
-
-- break/url matching still losing occationally:  Problem is # in url, which the hairy URL matched can't deal with
-    http://twitter.com/edyson/status/7576944417
-    edyson: the Edge Question Center, including mine on information metabolic syndrome: http://www.edge.org/q2010/q10_2.html#dysone
-
-- local search 
-  Here's how you do it...would need a gmap or something for specifying it.
-  url = "http://search.twitter.com/search.json?&rpp=100&geocode=37.638015%2C-122.494812%2C10km"
-
-- lower band should have different look.  Not sure how to do that.
-   or just elimate it...
-
-- minor: NOW scrolls Now to center, which wastes half the screen...but actually given that the blips are large, it's not that bad.  Worse on giant screens
+   there are zoom commands so changing scales dynamically is not tha thard
 
 - IDEA: follow links, if they are images put them in the timeline..
 
 - Random thought: Each twitter followee should be ranked, and the timeline show the highest-most ranked that can fit.
    This is actually EASY to do...
 
-- holy shit seems like this could be useful:
-  http://apiwiki.twitter.com/Streaming-API-Documentation#statuses/firehose
-   curl -u mtraven http://stream.twitter.com/1/statuses/sample.json
+
+Misc
+
+-  need to catch twitter errors and do something other than an alert box...
+
+- would be nice to visually indicate the last-clicked block, so when you go back to that window you can find it.  ---  and/or highlight recent additions somehow
+
+- some option to limit searches to english
+
+- lower band should have different look.  Not sure how to do that.
+   or just elimate it...
 
 - want way to go to specific time (reload has to work)
    impossible with new simpler scrolling scheme, unfortunately.
 
 - would be nice to AND search, and have persistent searches, and sort of automatically cons you a timeline based on them.
 
-- ought to expand vertically for big screenss
-  (done, but needs to be smarter)
-
-
 - (minor) embedded LFs in tweets break formatting?
 
-- wild-ass idea: include feedback, scale blocks depending on how much we like this person/term.  Could make it practical to have busy streams.  
+- idea: use this api to get identity of user (and key state to it)
+  http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-statuses-user_timeline
+   (tried this but could not get it working...)
+
+Plumbing
+
+- holy shit seems like this could be useful:
+  http://apiwiki.twitter.com/Streaming-API-Documentation#statuses/firehose
+   curl -u mtraven http://stream.twitter.com/1/statuses/sample.json
+
+- I'm doing this all wrong:
+   http://docs.heroku.com/background-jobs
+
+- what's with 127.0.0.1 - - [Mon, 28 Dec 2009 18:17:10 GMT] "GET /__history__.html?0 HTTP/1.1" 404 -1
+     OK, has to do with some history mechanism, but I'm not sure what. 
+     /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/ajax/api/scripts/history.js
+
+- Need to get local version of simile to guart against breakage.
+
+----------
 
 - idea: do same for Friendfeed!
   http://friendfeed.com/api/documentation#read_feed
   uses Oauth and Json, should be easy.
 
-- idea: use this api to get identity of user (and key state to it)
-  http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-statuses-user_timeline
-
-- would be nice to visually indicate the last-clicked block, so when you go back to that window you can find it.
-
-- would like to change layout so later things appear under rather than over.
-
 - layout -- if there are too many things in one time slice, you lose.  That's kind of sucky.
-
-- redo colors, roundrects. 
-
-- maybe images should not come from twivatr
-
-- I'm doing this all wrong:
-   http://docs.heroku.com/background-jobs
 
 - Flow: Login/search/etc 
    Login is unnecessary
@@ -120,56 +149,11 @@ Todo:
    - problem is that really popular terms ("tsa", right now) stack up too much.   "Lisp" is OK.
    - paging for search is entirely different
 
-
-
 - timezone
-
-- what's with 127.0.0.1 - - [Mon, 28 Dec 2009 18:17:10 GMT] "GET /__history__.html?0 HTTP/1.1" 404 -1
-     OK, has to do with some history mechanism, but I'm not sure what. 
-     /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/ajax/api/scripts/history.js
-
-
-Deployment:
-- Lisp on EC2 (expensive and highly unncessary)
-  http://tech.coop/Hosting%20Services SBCL hosting $10/month!  GOod for future ref
-
-- rewrite in Rails and use that groovy new hosting service. (Heroku)
-  there's hardly any code so this is perfectly fine.
-  - and there's an OAuth plugin, of course
-
-- or PHP even, and it can run on hyperphor
-
-- or do everything in Javascript with no server involvement...
-    Unfortunately this can't work (could with a simple PHP proxy, but lose the no-server advantages)
-
-- Need to get local version of simile to guart against breakage.
-
-
------
-Message to twivatar author (but I think the problem may be at twitter)
-  http://code.google.com/p/twitter-api/issues/detail?id=396
-
-Thanks for building Twivatar and making it available as a public resource!  
-
-However, I'm writing to report a bug, which is that some mini icons are not in fact very miniaturized.  For instance, this URL:
-
-   http://twivatar.org/danbri/mini
-
-Redirects to this one, which is fairly large:
-
-   http://a3.twimg.com/profile_images/502641047/danbri-4x-buttons-foaf_mini.jpg
-
-It looks like the string "mini" in the original image name is confusing things somehow -- all the cases where this is happening look like that.
-
-Anyway, thanks again, let me know if I can help.
-
-Mike Travers
-
-
-------------------------
 
 
 DONE depo
+
 - I wonder if I could get tweets folded into two lines, would match icons and generally  (DONE)
 - needs some kind of link back to regular twitter site (on unames?)
 - easy to get lost, need a way to get back to current time. (DONE)
@@ -212,10 +196,6 @@ DONE depo
    twitter search takes since_id, not max_id...sigh.
 
 - console.log only works when Firebug is open!  So make sure it isn't in deployed version (DONE)
-
-- auto-scroll, ambience.
-  RESOLVED: just do auto-scroll forward, forget going into past, solves all the time crap.
-  or experiment with since parameter.
   
 - dynamic update on scroll
   sort of working (in branch) but completely breaks search
@@ -231,3 +211,8 @@ DONE depo
 
 - hashtags work!  But need to update search box. (DONE)
 
+- visited color is too ugly, make it subtler (FIXED)
+
+
+- DEBUG flag doesn't work -- js errors
+   Argh, it's an incompatibility with prototype. FUCK  FIXED

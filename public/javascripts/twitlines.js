@@ -25,6 +25,40 @@ function updateVisible() {
     });
 }
 
+var autoScroll = false;
+var autoScrolling = false;
+
+function toggle(elt) {
+    $(elt).toggleClassName('down');
+}
+
+
+function startAutoscroll () {
+    autoScroll=true;
+    $('now2').addClassName('down')
+    now();
+}
+
+function stopAutoscroll () {
+    // set button state
+    autoScroll = false;
+    $('now2').removeClassName('down')
+}
+
+new PeriodicalExecuter(function () {
+    if (autoScroll) { 
+	now(); 
+    } 
+}, 30);
+
+function now() {
+    autoScrolling = true;	// +++ unwind protect
+    tl.getBand(0).scrollToCenter(new Date(), function() {
+	autoScrolling = false;
+	updateVisible();
+    });
+}
+
 function loadDataIncremental(low, high) {
     if (low < rangeLow) {
 	loadData(null, true);
@@ -46,11 +80,6 @@ function newSearch(term) {
     document.getElementById('sterm').value = term;
     loadData("/twitlines/search?term=" + escape(term));
     updateTwitterLink('http://twitter.com/#search?q=' + escape(term));
-}
-
-function now() {
-    tl.getBand(0).scrollToCenter(new Date());
-    updateVisible();
 }
 
 function addParam(url, param, value) {
@@ -116,7 +145,10 @@ function onLoad() {
     newHome();
 
     tl.getBand(0).addOnScrollListener(function(band) {
-	updateVisible();
+	if (!autoScrolling) {
+	    updateVisible();
+	    stopAutoscroll();
+	}
     });
 
     // patching to do right thing when clicking on embedded link
