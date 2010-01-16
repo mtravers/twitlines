@@ -2,6 +2,10 @@ class TwitlinesController < ApplicationController
 
   before_filter :make_consumer
 
+  def twitlines
+    session[:iterm] = params[:iterm]
+  end
+
   # JSON providers
 
   def default
@@ -9,6 +13,8 @@ class TwitlinesController < ApplicationController
 # not working
 #      log_user
       render :json => twitter_home(params[:incremental])
+    elsif session[:iterm]
+      render :json => twitter_search(session[:iterm], nil)
     else
       render :json => twitter_public      
     end

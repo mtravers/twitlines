@@ -67,7 +67,7 @@
     <a href="/connect"><%= image_tag("sign_in_with_twitter.gif", :border => 0) %></a>
     <% end %>
     <div style="padding: 5px;display:inline;">
-      <input NAME="search" ID="sterm" onkeydown="if (event.keyCode == 13) { newSearch(document.getElementById('sterm').value) };">
+      <input NAME="search" ID="sterm" value='<%= session[:iterm] -%>' onkeydown="if (event.keyCode == 13) { newSearch(document.getElementById('sterm').value) };">
       <input TYPE="SUBMIT" VALUE="Search" ONCLICK="newSearch(document.getElementById('sterm').value);">
       <input TYPE="SUBMIT" VALUE="Reload" ONCLICK="document.getElementById('sterm').value = ''; newHome();">
       <input TYPE="SUBMIT" id='now2' VALUE="Now" ONCLICK="startAutoscroll();">
@@ -78,7 +78,7 @@
   </div>
   <div style="margin: 10px;">
     <b>Twitlines, a timeline view of Twitter</b><br/>
-    Product of <a href="http://hyperphor.com">Hyperphor</a>.  Feedback to twitlines -at- hyperphor.com.<br/>
+    Product of <a href="http://hyperphor.com">Hyperphor</a>.  Feedback to twitlines -at- Hyperphor.com.  Follow <a href="http://twitter.com/mtraven">@mtraven</a> on Twitter.<br/>
     Timeline widget by <a href="http://www.simile-widgets.org/">MIT Simile Project</a>; data by <a href="http://twitter.com">Twitter</a>; hosted by <a href="http://heroku.com">Heroku</a>.<br/>
   </div>
 <script type="text/javascript">

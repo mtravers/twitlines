@@ -16,9 +16,17 @@ I think that will do it...wont' support scrolling to arb. date, but that's life.
 
 Todo:
 
-DUH: have permalinks for various search options, so the thing can be linked to!
+DUH: have permalinks for various search options, so the thing can be linked to! 
+  - WORKS except old URL gets left around, kind ugly...
+  - current routes are very confusing -- put data feeds under /data
 
-- have a follow @mtraven link somewheres
+Argh, twisty:
+ - page onload gets data from /twitlines/default, which looks at user[:session]
+ - if you wanted to pass a URL param, that's kind of heinous...hm...
+
+
+
+- have a follow @mtraven link somewheres (DONE)
 
 Regexp and link generation
 
