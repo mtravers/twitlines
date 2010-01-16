@@ -35,7 +35,29 @@
     .timeline-event-label a { color:#00f; text-decoration:none;}
     .timeline-event-label a:hover { background:#ff0;}
     .timeline-event-label a:visited { color:#a3a; }
-    .pushed { background:#F00; }
+
+#now2 {
+    background: #ccc;
+    cursor: pointer;
+    border-top: solid 2px #eaeaea;
+    border-left: solid 2px #eaeaea;
+    border-bottom: solid 2px #777;
+    border-right: solid 2px #777;
+    padding: 3px 3px;           
+    -moz-border-radius-topleft:5px;
+    -moz-border-radius-bottomleft:5px;
+    -moz-border-radius-topright:5px;
+    -moz-border-radius-bottomright:5px;
+    }
+
+#now2.down {
+    background: #beb;
+    border-top: solid 2px #777;
+    border-left: solid 2px #777;
+    border-bottom:solid 2px  #eaeaea;
+    border-right: solid 2px #eaeaea;
+    }
+
 </style>
 </head>
 
@@ -48,7 +70,7 @@
       <input NAME="search" ID="sterm" onkeydown="if (event.keyCode == 13) { newSearch(document.getElementById('sterm').value) };">
       <input TYPE="SUBMIT" VALUE="Search" ONCLICK="newSearch(document.getElementById('sterm').value);">
       <input TYPE="SUBMIT" VALUE="Reload" ONCLICK="document.getElementById('sterm').value = ''; newHome();">
-      <input TYPE="SUBMIT" id='now' VALUE="Now" ONCLICK="startAutoscroll();">
+      <input TYPE="SUBMIT" id='now2' VALUE="Now" ONCLICK="startAutoscroll();">
       <font size="-1"><a id="standard" href="http://twitter.com" target="_blank">Standard Twitter View</a></font>
     </div>
   </div>

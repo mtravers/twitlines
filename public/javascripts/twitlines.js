@@ -28,16 +28,21 @@ function updateVisible() {
 var autoScroll = false;
 var autoScrolling = false;
 
+function toggle(elt) {
+    $(elt).toggleClassName('down');
+}
+
+
 function startAutoscroll () {
     autoScroll=true;
-    $('now').addClassName('pushed')
+    $('now2').addClassName('down')
     now();
 }
 
 function stopAutoscroll () {
     // set button state
     autoScroll = false;
-    $('now').removeClassName('pushed')
+    $('now2').removeClassName('down')
 }
 
 new PeriodicalExecuter(function () {
