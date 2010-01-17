@@ -128,21 +128,22 @@ function onLoad() {
 	    eventSource:    eventSource,
 	    theme:          topTheme,
 	    timeZone:       -8,	// should be dynamic
-            width:          "70%", 
+            width:          "100%", 
             intervalUnit:   Timeline.DateTime.MINUTE, 
             intervalPixels: 45
-	}),
-	Timeline.createBandInfo({
-	    eventSource:    eventSource,
-	    theme:          topTheme,
-	    timeZone:       -8,	// should be dynamic
-            width:          "30%", 
-            intervalUnit:   Timeline.DateTime.HOUR, 
-            intervalPixels: 80
 	})
+// 	  ,
+// 	Timeline.createBandInfo({
+// 	    eventSource:    eventSource,
+// 	    theme:          topTheme,
+// 	    timeZone:       -8,	// should be dynamic
+//             width:          "30%", 
+//             intervalUnit:   Timeline.DateTime.HOUR, 
+//             intervalPixels: 80
+// 	})
     ];
-    bandInfos[1].syncWith = 0;
-    bandInfos[1].highlight = true;
+//    bandInfos[1].syncWith = 0;
+//    bandInfos[1].highlight = true;
     tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
     newHome();
 
