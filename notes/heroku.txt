@@ -13,3 +13,6 @@ Logs:
 
 Adjusting the callback:
 > heroku  config:add --app twitlines CALLBACK_URL=http://twitlines.heroku.com/oauth_callback
+
+Migrating production db:
+> heroku rake db:migrate PRODUCTION --app twitlines
