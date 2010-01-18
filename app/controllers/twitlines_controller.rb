@@ -10,8 +10,7 @@ class TwitlinesController < ApplicationController
 
   def default
     if session[:user]
-# not working
-#      log_user
+      log_user
       render :json => twitter_home(params[:incremental])
     elsif session[:iterm]
       render :json => twitter_search(session[:iterm], nil)
@@ -23,7 +22,8 @@ class TwitlinesController < ApplicationController
   def log_user
     if !session[:logged_user]
       uname = twitter_whoami
-      puts "Log user #{uname} at #{Time.now}"
+#      puts "Log user #{uname} at #{Time.now}"
+      LogEntry.log(uname, 'logged in')
       session[:logged_user] = uname      
     end
   end
@@ -77,7 +77,7 @@ class TwitlinesController < ApplicationController
   end
 
   def twitter_whoami
-    json = twitter_request('http://twitter.com/statuses/user_timeline.json?count=1')
+    json = twitter_request_authenticated('http://twitter.com/statuses/user_timeline.json?count=1')
     json[0]['user']['name']
   end
 

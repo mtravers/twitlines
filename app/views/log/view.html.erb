@@ -1,0 +1,10 @@
+<h1>Log</h1>
+<table>
+<% for entry in @entries %>
+<tr>
+<td><%= entry.created_at.to_s -%></td>
+<td><%= entry.user -%></td>
+<td><%= entry.event -%></td>
+</tr>
+<% end %>
+</table>
