@@ -8,6 +8,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'twitlines/search/:term', :controller => 'twitlines', :action => 'search'
 
+  map.connect 'log', :controller => 'log', :action => 'view'
+
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action
