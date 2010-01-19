@@ -9,11 +9,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100118003343) do
+ActiveRecord::Schema.define(:version => 20100119020827) do
+
+  create_table "blogs", :force => true do |t|
+    t.string   "title"
+    t.string   "feed"
+    t.string   "homepage"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "blogs_users", :id => false, :force => true do |t|
+    t.integer "blog_id"
+    t.integer "user_id"
+  end
 
   create_table "log_entries", :force => true do |t|
     t.string   "user"
     t.string   "event"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "tname"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,0 +1,36 @@
+OPML hack
+
+Model
+
+User
+  name
+
+user<*>blog
+
+Blog
+  feed
+  homepage
+  twitter accounts*
+
+
+
+
+
+Filter
+http://twitter.com/home
+http://twitter.com/javascripts"
+http://twitter.com/statuses" 
+
+
+
+
+Get friends (followees) -- needs to be paged, bleah
+http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-statuses%C2%A0friends
+
+
+How to do this as a web app?
+
+- user upload OPML
+- immediately creates blog objects
+- makes COMET connections?
+  http://juggernaut.rubyforge.org/ (er, no, way too much)
