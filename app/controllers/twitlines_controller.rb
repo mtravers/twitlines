@@ -72,7 +72,7 @@ class TwitlinesController < ApplicationController
     else
       reset_range
     end
-    url = "http://twitter.acom/statuses/home_timeline.json?#{params.to_query}"
+    url = "http://twitter.com/statuses/home_timeline.json?#{params.to_query}"
     json = twitter_request_authenticated(url)
     return { :events => json.map { |evt| twitter_timeline_event(evt)}}
   end

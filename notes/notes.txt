@@ -99,6 +99,7 @@ Wild-ass ideas
 Misc
 
 ***  need to catch twitter errors and do something other than an alert box...
+   DONE -- but would be even better if we could transmit an error message back...
 
 - would be nice to visually indicate the last-clicked block, so when you go back to that window you can find it.  ---  and/or highlight recent additions somehow
 
@@ -131,6 +132,8 @@ Plumbing
 
 - Need to get local version of simile to guard against breakage.
   and allow development on the subway..
+
+- some cases where whoami dies on login, but couldn't repeat it.
 
 ----------
 
