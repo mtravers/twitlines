@@ -17,7 +17,6 @@ Todo:
 - Image at OAUth page no longer matches app!
 - why is our favicon the twitter icon? weird.
 
-
 DUH: have permalinks for various search options, so the thing can be linked to! 
   - WORKS except old URL gets left around, kind ugly...
   - also, if you give iterm param and are logged in, you get item in search but home timeline
@@ -43,7 +42,7 @@ Regexp and link generation
 
 Scrolling and inc updates
 
-** now should not be at center, wastes half the screen in realtime mode.
+*** now should not be at center, wastes half the screen in realtime mode.
     Worse on giant screens.
 
 - now often doesn't fill in new stuff
@@ -99,7 +98,7 @@ Wild-ass ideas
 
 Misc
 
-**  need to catch twitter errors and do something other than an alert box...
+***  need to catch twitter errors and do something other than an alert box...
 
 - would be nice to visually indicate the last-clicked block, so when you go back to that window you can find it.  ---  and/or highlight recent additions somehow
 
@@ -131,6 +130,7 @@ Plumbing
      /misc/sourceforge/simile-widgets-read-only/timeline/trunk/src/ajax/api/scripts/history.js
 
 - Need to get local version of simile to guard against breakage.
+  and allow development on the subway..
 
 ----------
 

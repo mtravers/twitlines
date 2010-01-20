@@ -105,7 +105,17 @@ function loadData(url, earlier) {
 	eventSource.loadJSON(json, url);
 	updateRange(eventSource.getEarliestDate(), eventSource.getLatestDate());
 	tl.hideLoadingMessage();
+    }, function(statusText, status, xmlhttp) {
+	loadMsg("Twitter error; will retry: " + statusText);
     });
+}
+
+function loadMsg(msg) {
+    $('warn').innerHTML = msg;
+    Effect.Appear('warn', {duration: 0.5});
+    setTimeout(function() {
+	Effect.Fade('warn', {duration: 0.5});
+    }, 2000);
 }
 
 function updateRange(low, high) {
@@ -409,3 +419,14 @@ Timeline.OriginalEventPainter.prototype.paintPreciseInstantEvent = function(evt,
     this._eventIdToElmt[evt.getID()] = iconElmtData.elmt;
     this._tracks[track] = rightEdge;
 }
+
+// patched to allow more flexible error handling
+Timeline.loadJSON = function(url, f, fError) {
+//     var fError = function(statusText, status, xmlhttp) {
+//         alert("Failed to load json data from " + url + "\n" + statusText);
+//     };
+    var fDone = function(xmlhttp) {
+        f(eval('(' + xmlhttp.responseText + ')'), url);
+    };
+    SimileAjax.XmlHttp.get(url, fError, fDone);
+};
