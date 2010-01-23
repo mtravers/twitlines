@@ -5,6 +5,13 @@ var rangeHigh = null;
 var lastQueryTime = null;
 var queryUrl = null;
 var queryInProgress = false;
+var nowDecorator = new Timeline.SpanHighlightDecorator(
+    {startDate: new Date(),
+     endDate: new Date(new Date().getTime() + 60000),
+     color:  "orange",
+    });
+
+
 
 function rateLimit(limit, func) {
     if (!queryInProgress && (lastQueryTime == null || new Date().getTime() > lastQueryTime.getTime() + limit)) {
@@ -54,9 +61,16 @@ new PeriodicalExecuter(function () {
 function now() {
     autoScrolling = true;	// +++ unwind protect
     tl.getBand(0).scrollToCenter(new Date(), function() {
+	moveNowDecorator();
 	autoScrolling = false;
 	updateVisible();
     });
+}
+
+function moveNowDecorator() {
+    nowDecorator._startDate = new Date();
+    nowDecorator._endDate = new Date(new Date().getTime() + 60000);
+    nowDecorator.paint();
 }
 
 function loadDataIncremental(low, high) {
@@ -140,7 +154,8 @@ function onLoad() {
 	    timeZone:       -8,	// should be dynamic
             width:          "100%", 
             intervalUnit:   Timeline.DateTime.MINUTE, 
-            intervalPixels: 45
+            intervalPixels: 45,
+	    decorators:     [nowDecorator]
 	})
 // 	  ,
 // 	Timeline.createBandInfo({
@@ -154,6 +169,9 @@ function onLoad() {
     ];
 //    bandInfos[1].syncWith = 0;
 //    bandInfos[1].highlight = true;
+
+    bandInfos[0].decorators = [nowDecorator]; // init option not working in Timeline 2.3.0, works in svn source, but too lazy to switch
+
     tl = Timeline.create(document.getElementById("my-timeline"), bandInfos);
     newHome();
 
