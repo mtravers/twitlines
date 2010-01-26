@@ -10,6 +10,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'log', :controller => 'log', :action => 'view'
 
+  map.resource :blogs
+
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action

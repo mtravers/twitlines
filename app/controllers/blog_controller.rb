@@ -33,4 +33,9 @@ class BlogController < ApplicationController
     blogs
   end
 
+  # standin, this takes too long to be called in a web response
+  def check_blogs(blogs)
+    
+  end
+
 end

@@ -4,6 +4,11 @@
 <% for blog in @blogs do %>
 <tr>
 <td><%= blog.title %></td>
+<td>
+<% for twit in blog.twitterers do %>
+@<%= twit.tname %><br/>
+<% end %>
+</td>
 </tr>
 <% end %>
 </table>
