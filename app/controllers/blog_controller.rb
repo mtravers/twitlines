@@ -1,6 +1,7 @@
 require 'xml/libxml'
 
 class BlogController < ApplicationController
+  
   def load
   end
 

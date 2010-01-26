@@ -16,6 +16,8 @@ Todo:
 
 - Image at OAUth page no longer matches app!
 - why is our favicon the twitter icon? weird.
+- Included httparty for blogs -- should make twitter code use it I suppose.
+
 
 DUH: have permalinks for various search options, so the thing can be linked to! 
   - WORKS except old URL gets left around, kind ugly...
