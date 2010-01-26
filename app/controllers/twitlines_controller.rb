@@ -44,12 +44,13 @@ class TwitlinesController < ApplicationController
     elsif incremental == "later"
       params[:since_id] = session[:high_id]
     else
-      LogEntry.log(session[:logged_user], "search #{term}")
-      reset_range
+      #      LogEntry.log(session[:logged_user], "search #{term}")
+#      reset_range
     end
     url = "http://twitter.com/search.json?#{params.to_query}" 
     json = twitter_request(url)
-    return { :events => json['results'].map { |evt| twitter_search_event(evt)}}
+ #   return { :events => json['results'].map { |evt| twitter_search_event(evt)}}
+    return json
   end
 
   def twitter_public

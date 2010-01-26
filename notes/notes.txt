@@ -11,6 +11,9 @@ Dynlite theory:
 
 I think that will do it...wont' support scrolling to arb. date, but that's life.
 
+In progress:
+- ok, we got a decorator to work. Now need to figure out how to scroll adequately.
+
 
 Todo:
 

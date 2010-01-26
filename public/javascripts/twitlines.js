@@ -8,10 +8,8 @@ var queryInProgress = false;
 var nowDecorator = new Timeline.SpanHighlightDecorator(
     {startDate: new Date(),
      endDate: new Date(new Date().getTime() + 60000),
-     color:  "orange",
+     color:  "#beb",
     });
-
-
 
 function rateLimit(limit, func) {
     if (!queryInProgress && (lastQueryTime == null || new Date().getTime() > lastQueryTime.getTime() + limit)) {
@@ -60,11 +58,11 @@ new PeriodicalExecuter(function () {
 
 function now() {
     autoScrolling = true;	// +++ unwind protect
-    tl.getBand(0).scrollToCenter(new Date(), function() {
+//    tl.getBand(0).scrollToCenter(new Date(), function() {
 	moveNowDecorator();
 	autoScrolling = false;
 	updateVisible();
-    });
+//    });
 }
 
 function moveNowDecorator() {
