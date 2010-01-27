@@ -14,9 +14,13 @@ I think that will do it...wont' support scrolling to arb. date, but that's life.
 
 Todo:
 
+- Crap, whoami seems to go in and out of use...
+
 - Image at OAUth page no longer matches app!
 - why is our favicon the twitter icon? weird.
 - Included httparty for blogs -- should make twitter code use it I suppose.
+
+*** big scrolls don't work, ie if you hit Now after a long break. Need better theory, like maybe it should do a full refresh if gap is big.
 
 
 DUH: have permalinks for various search options, so the thing can be linked to! 

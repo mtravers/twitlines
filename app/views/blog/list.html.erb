@@ -6,7 +6,8 @@
 <td><%= blog.title %></td>
 <td>
 <% for twit in blog.twitterers do %>
-@<%= twit.tname %><br/>
+@<%= twit.tname %>, <%= twit.following?(@friends) ? "Following" : "Follow" %>
+<br/>
 <% end %>
 </td>
 </tr>

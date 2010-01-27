@@ -77,29 +77,16 @@ class TwitlinesController < ApplicationController
     return { :events => json.map { |evt| twitter_timeline_event(evt)}}
   end
 
-  def twitter_whoami
+  # flaking out every now and then
+  def twitter_whoami_old
     json = twitter_request_authenticated('http://twitter.com/statuses/user_timeline.json?count=1')
     json[0]['user']['name']
   end
 
-  # you have to do some rigamrole to set the user-agent, apparently.
-  # this is only for unauthenticated requests
-  def twitter_request(url)
-    purl = URI.parse(url)
-    res = Net::HTTP.start(purl.host, purl.port) { |http| http.get(url, {"User-Agent" => "twitlines"}) }
-    if res.code_type == Net::HTTPOK
-      JSON.parse(res.body)
-    else
-      throw "Error from Twitter: " + res.message + " url was: " + url
-    end
-  end
-
-  # returns JSON
-  # +++ error handling
-  def twitter_request_authenticated(url)
-    get_access
-    response = @access_token.get(url, {"User-Agent" => "twitlines"})
-    JSON.parse(response.body)
+  # better
+  def twitter_whoami
+    json = twitter_request_authenticated('http://twitter.com/account/verify_credentials.json')
+    json['screen_name']
   end
 
   def twitter_search_event(evt)

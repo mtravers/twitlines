@@ -10,6 +10,15 @@ class BlogController < ApplicationController
 
   def list
     @blogs = Blog.find(:all)
+    @friends = twitter_friends
+  end
+
+  # doesn't really belong here unless we are doing it for other than the logged in user.
+  # could take argument, paging +++
+  def twitter_friends
+    params = {:user => 'mtraven'} # +++ temp
+    url = "http://twitter.com/statuses/friends.json?#{params.to_query}"
+    json = twitter_request(url)
   end
 
   def read_opml_file(file)
