@@ -2,6 +2,15 @@ require 'xml/libxml'
 
 class BlogController < ApplicationController
   
+  def upload
+  end
+
+  def upload_file
+    xml = XML::Document.io(params[:upload][:opmlfile])
+    @blogs = read_opml(xml)
+    render :html => 'uploaded'
+  end
+
   def load
   end
 
@@ -22,7 +31,10 @@ class BlogController < ApplicationController
   end
 
   def read_opml_file(file)
-    xml = XML::Document.file(file)    
+    read_opml(XML::Document.file(file))
+  end
+
+  def read_opml(xml)
     opmls = xml.find('//outline')
     blogs = []
     opmls.map do |o| 

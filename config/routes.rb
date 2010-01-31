@@ -11,6 +11,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'log', :controller => 'log', :action => 'view'
 
   map.resource :blogs
+  map.connect 'blogs/upload', :controller => 'blog', :action => 'upload'
+  map.connect 'blogs/upload__file', :controller => 'blog', :action => 'upload_file'
+  
 
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
