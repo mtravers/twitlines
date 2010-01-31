@@ -6,7 +6,11 @@
 <td><%= blog.title %></td>
 <td>
 <% for twit in blog.twitterers do %>
-@<%= twit.tname %>, <%= twit.following?(@friends) ? "Following" : "Follow" %>
+@<%= twit.tname %>, <% if twit.following?(@friends) then %>
+"Following" <%= link_to_remote('unfollow', :url => { :action => :unfollow, :id => twit.id }) %>
+<% else %>
+<%= link_to_remote('follow', :url => { :action => :follow, :id => twit.id }) %>
+<% end %>
 <br/>
 <% end %>
 </td>

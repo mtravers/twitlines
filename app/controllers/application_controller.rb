@@ -11,8 +11,8 @@ class ApplicationController < ActionController::Base
 
   def make_consumer
     @user = session[:user]
-    @consumer = OAuth::Consumer.new(ENV['CONSUMER_KEY'] || 'ftYX5V6tCN7GF2yw0PRzw',
-                                    ENV['CONSUMER_SECRET'] || 'svcTyQ8UrlG2awFqeaQHUPG1XHiQjcrmhVn0H8dDbyg',
+    @consumer = OAuth::Consumer.new(ENV['CONSUMER_KEY'],
+                                    ENV['CONSUMER_SECRET'],
                                     { :site=>"http://twitter.com"})
 
   end

@@ -14,7 +14,10 @@ I think that will do it...wont' support scrolling to arb. date, but that's life.
 
 Todo:
 
-- Crap, whoami seems to go in and out of use...
+- OAuth secret is baked into the code (in application_controller).  This is bad because I can't open-source the code.  It need to be an environment variable (maybe it is actually).
+   Even if you remove them (in progress) they will still be in repository history
+
+- Crap, whoami seems to go in and out of working...
 
 - Image at OAUth page no longer matches app!
 - why is our favicon the twitter icon? weird.
