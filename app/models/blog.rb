@@ -28,7 +28,7 @@ class Blog < ActiveRecord::Base
   # not really, will do repeated queries if nothing is found.
   def twitterers
     if users == []
-      find_twitterers
+#      find_twitterers
     end
     users
   end

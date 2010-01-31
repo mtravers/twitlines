@@ -1,3 +1,17 @@
+Todo:
+- eliminate dups when parsing XML (case-foldingly, see regretsy)
+  - harder: deal with dups in list page
+- partials for follwing/etc
+- timestamp parse and do it in background every night
+
+- home page:  "You submitted your OPML on 1/1/1 and had nnn blogs".  Reupload.  
+
+- follow All button!  Oy vey.
+  
+
+
+
+
 OPML hack
 
 Model

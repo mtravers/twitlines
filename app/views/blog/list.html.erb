@@ -1,15 +1,18 @@
-<h1>Blog#list</h1>
-<p>Find me in app/views/blog/list.html.erb</p>
+<h1>Subscribed blogs</h1>
 <table>
+<tr>
+  <th>Blog</th>
+  <th>Twits</th>
+</tr>
 <% for blog in @blogs do %>
 <tr>
 <td><%= blog.title %></td>
 <td>
 <% for twit in blog.twitterers do %>
 @<%= twit.tname %>, <% if twit.following?(@friends) then %>
-"Following" <%= link_to_remote('unfollow', :url => { :action => :unfollow, :id => twit.id }) %>
+<%= render :partial => 'users/following', :locals => {:twit => twit } %>
 <% else %>
-<%= link_to_remote('follow', :url => { :action => :follow, :id => twit.id }) %>
+<%= render :partial => 'users/nfollowing', :locals => {:twit => twit } %>
 <% end %>
 <br/>
 <% end %>
