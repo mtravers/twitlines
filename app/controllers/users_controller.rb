@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   def follow
     user_id = params[:id]
     twit = User.find(user_id)
-    tparams = { :user_id => twit.tname }
+    tparams = { :screen_name => twit.tname }
     url = "http://twitter.com/friendships/create.json?#{tparams.to_query}"
     resp = twitter_request_authenticated(url, :post)
     p resp
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   def unfollow
     user_id = params[:id]
     twit = User.find(user_id)
-    tparams = { :user_id => twit.tname }
+    tparams = { :screen_name => twit.tname }
     url = "http://twitter.com/friendships/destroy.json?#{tparams.to_query}"
     twitter_request_authenticated(url, :post)
     LogEntry.log(session[:logged_user], "unfollowed #{twit.tname}")
