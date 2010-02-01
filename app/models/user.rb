@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   # is current user following this user?
   # arg is friends json 
   def following?(friends)
-    friends.find { |f| f["screen_name"] == tname }
+    friends.find { |f| f["screen_name"].casecmp(tname) == 0 }
   end
 
 end

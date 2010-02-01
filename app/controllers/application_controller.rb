@@ -40,9 +40,13 @@ class ApplicationController < ActionController::Base
 
   # returns JSON
   # +++ error handling
-  def twitter_request_authenticated(url)
+  def twitter_request_authenticated(url, method = :get)
     get_access
-    response = @access_token.get(url, {"User-Agent" => "twitlines"})
+    if method == :post
+      response = @access_token.post(url, '', {"User-Agent" => "twitlines"})
+    else
+      response = @access_token.get(url, {"User-Agent" => "twitlines"})
+    end
     JSON.parse(response.body)
   end
 

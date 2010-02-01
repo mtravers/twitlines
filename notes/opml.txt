@@ -1,9 +1,11 @@
 Todo:
-- need to authenticate.  Seems like we pass authenticity_token by default
+- FUCK, application is read-only. My attempts to set it to read/write aren't taking.
+- need to authenticate requests.  Seems like we pass authenticity_token by default
 - eliminate dups when parsing XML (case-foldingly, see regretsy)
   - harder: deal with dups in list page
 - partials for follwing/etc
 - timestamp parse and do it in background every night
+- parser should ignore http://twitter.com/jacobrothstein/status/6322934815 type URLs 
 
 - home page:  "You submitted your OPML on 1/1/1 and had nnn blogs".  Reupload.  
 

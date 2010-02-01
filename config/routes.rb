@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'blogs/upload__file', :controller => 'blog', :action => 'upload_file'
   
   map.connect 'users/follow', :controller => 'users',:action => 'follow'
-
+  map.connect 'users/unfollow', :controller => 'users',:action => 'unfollow'
 
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'

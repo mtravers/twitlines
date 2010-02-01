@@ -26,9 +26,10 @@ class BlogController < ApplicationController
   # doesn't really belong here unless we are doing it for other than the logged in user.
   # could take argument, paging +++
   def twitter_friends
-    params = {:user => 'mtraven'} # +++ temp
-    url = "http://twitter.com/statuses/friends.json?#{params.to_query}"
-    json = twitter_request(url)
+#    tparams = {:user_id => 'mtraven'} # +++ temp
+    tparams = { }
+    url = "http://twitter.com/statuses/friends.json" # ?#{tparams.to_query}"
+    json = twitter_request_authenticated(url)
   end
 
   def read_opml_file(file)

@@ -14,8 +14,6 @@ I think that will do it...wont' support scrolling to arb. date, but that's life.
 
 Todo:
 
-- OAuth secret is baked into the code (in application_controller).  This is bad because I can't open-source the code.  It need to be an environment variable (maybe it is actually).
-   Even if you remove them (in progress) they will still be in repository history
 
 - Crap, whoami seems to go in and out of working...
 
@@ -240,3 +238,7 @@ DONE depo
    - period of 15 sec gets service timeouts
     STARTED putting in a locking button and logic to deal with it, not working yet
      needs to untoggle when clicked in down state, duh
+
+- OAuth secret is baked into the code (in application_controller).  This is bad because I can't open-source the code.  It need to be an environment variable (maybe it is actually).
+   Even if you remove them (in progress) they will still be in repository history
+     So, I changed them.  Hah.  (DONE)
