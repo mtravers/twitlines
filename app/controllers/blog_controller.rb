@@ -20,6 +20,7 @@ class BlogController < ApplicationController
   def list
     @blogs = Blog.find(:all)
     @friends = twitter_friends
+    @dom = 0
   end
 
   # doesn't really belong here unless we are doing it for other than the logged in user.

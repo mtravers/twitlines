@@ -4,16 +4,18 @@
   <th>Blog</th>
   <th>Twits</th>
 </tr>
-<% for blog in @blogs do %>
+<%  dom_n = 0
+    for blog in @blogs do %>
 <tr>
 <td><%= blog.title %></td>
 <td>
 <% for twit in blog.twitterers do %>
 @<%= twit.tname %>, <% if twit.following?(@friends) then %>
-<%= render :partial => 'users/following', :locals => {:twit => twit } %>
+<%= render :partial => 'users/following', :locals => {:twit => twit, :dom_id => "box#{dom_n}"} %>
 <% else %>
-<%= render :partial => 'users/nfollowing', :locals => {:twit => twit } %>
+<%= render :partial => 'users/nfollowing', :locals => {:twit => twit, :dom_id => "box#{dom_n}"} %>
 <% end %>
+<% dom_n = dom_n + 1 %>
 <br/>
 <% end %>
 </td>

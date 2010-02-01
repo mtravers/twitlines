@@ -1,4 +1,5 @@
 Todo:
+- need to authenticate.  Seems like we pass authenticity_token by default
 - eliminate dups when parsing XML (case-foldingly, see regretsy)
   - harder: deal with dups in list page
 - partials for follwing/etc
