@@ -85,8 +85,13 @@ class TwitlinesController < ApplicationController
 
   # better
   def twitter_whoami
-    json = twitter_request_authenticated('http://twitter.com/account/verify_credentials.json')
-    json['screen_name']
+    begin
+      json = twitter_request_authenticated('http://twitter.com/account/verify_credentials.json')
+      json['screen_name']
+    rescue Exception => e
+      # fails inexplicably; let's not get hung up since this is just for informational purposes
+      e.to_s
+    end
   end
 
   def twitter_search_event(evt)
