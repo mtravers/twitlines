@@ -71,7 +71,7 @@ class ApplicationController < ActionController::Base
       json['screen_name']
     rescue Exception => e
       # fails inexplicably; let's not get hung up since this is just for informational purposes
-      e.to_s
+      puts e.to_s
     end
   end
 
