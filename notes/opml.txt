@@ -1,9 +1,12 @@
 In progress:
-- dm (untested)
+- dm (untested) (needs an account and way to authenticate -- OAuth is probably not appropriate?)
+ - needs to be called from User.
 
 - getting current user and storing stuff
+
   application_controller#current_user is wrong -- ought save tname when authentication is done, fergawdssake
 
+- Started, not working: delayed_jobs. 
 
 
 

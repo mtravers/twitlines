@@ -7,10 +7,10 @@
 <%  dom_n = 0
     for blog in @blogs do %>
 <tr>
-<td><%= blog.title %></td>
+<td><%= link_to(blog.title, blog.homepage) %></td>
 <td>
 <% for twit in blog.twitterers do %>
-@<%= twit.tname %>, <% if twit.following?(@friends) then %>
+@<%= link_to(twit.tname, "http://twitter.com/#{twit.tname}") %>, <% if twit.following?(@friends) then %>
 <%= render :partial => 'users/following', :locals => {:twit => twit, :dom_id => "box#{dom_n}"} %>
 <% else %>
 <%= render :partial => 'users/nfollowing', :locals => {:twit => twit, :dom_id => "box#{dom_n}"} %>

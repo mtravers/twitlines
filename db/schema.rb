@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100208000110) do
+ActiveRecord::Schema.define(:version => 20100208074419) do
 
   create_table "blog_owners", :id => false, :force => true do |t|
     t.integer "blog_id"
@@ -26,6 +26,19 @@ ActiveRecord::Schema.define(:version => 20100208000110) do
     t.string   "feed"
     t.string   "homepage"
     t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.text     "locked_by"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

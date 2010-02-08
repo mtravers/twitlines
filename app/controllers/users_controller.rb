@@ -6,7 +6,6 @@ class UsersController < ApplicationController
     tparams = { :screen_name => twit.tname }
     url = "http://twitter.com/friendships/create.json?#{tparams.to_query}"
     resp = twitter_request_authenticated(url, :post)
-    p resp
     LogEntry.log(session[:logged_user], "followed #{twit.tname}")
     render :partial => 'following', :locals => { :twit => twit, :dom_id => params[:dom_id] }
   end

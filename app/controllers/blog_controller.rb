@@ -10,6 +10,7 @@ class BlogController < ApplicationController
     @blogs = read_opml(xml)
     @user = current_user
     @user.subscriptions = @blogs        # no, argh, this relationship is for blog/owners, not blog/followers.
+    Delayed::Job.enqueue @user          # +++ start a background task to handle this, page needs to change
     render :html => 'uploaded'
   end
 
@@ -26,10 +27,7 @@ class BlogController < ApplicationController
     @dom = 0
   end
 
-  # in progress
-  def delayed_list
-  end
-
+  # not called, made a method on user to do this.
   def twitter_direct_message(to, message)
     tparams = { :user => to.tname, :text => message}
     url = "http://twitter.com/direct_messages/new.json?#{tparams.to_query}"
