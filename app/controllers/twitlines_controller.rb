@@ -77,22 +77,6 @@ class TwitlinesController < ApplicationController
     return { :events => json.map { |evt| twitter_timeline_event(evt)}}
   end
 
-  # flaking out every now and then
-  def twitter_whoami_old
-    json = twitter_request_authenticated('http://twitter.com/statuses/user_timeline.json?count=1')
-    json[0]['user']['name']
-  end
-
-  # better
-  def twitter_whoami
-    begin
-      json = twitter_request_authenticated('http://twitter.com/account/verify_credentials.json')
-      json['screen_name']
-    rescue Exception => e
-      # fails inexplicably; let's not get hung up since this is just for informational purposes
-      e.to_s
-    end
-  end
 
   def twitter_search_event(evt)
     timeline_entry(evt['from_user'],

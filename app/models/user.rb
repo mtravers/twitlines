@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
 
-  has_and_belongs_to_many :blogs
+  has_and_belongs_to_many :subscriptions, :class_name => 'Blog', :join_table => 'blog_subscribers'
+  has_and_belongs_to_many :owned_blogs, :class_name => 'Blog', :join_table => 'blog_owners'
+
   @@friends = nil
 
   def self.find_or_make(name)

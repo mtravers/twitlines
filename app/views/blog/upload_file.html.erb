@@ -1,7 +1,7 @@
 <h1>OPML uploaded</h1>
 <%= @blogs.length %> blogs uploaded.
 <p/>
-Click <%= link_to('here', :url => {:action => 'list'}) -%> to see twitterers (warning: slow).
+Click <%= link_to('here', :url => {:action => :list}) -%> to see twitterers (warning: slow).
 <p/>
-Click <%= link_to('here', :url => {:action => 'delayed_list'}) -%> and we'll do the computation in batch mode and send you a Twitter direct mesage when done.
+Click <%= link_to('here', :url => {:action => :delayed_list}) -%> and we'll do the computation in batch mode and send you a Twitter direct mesage when done.
 

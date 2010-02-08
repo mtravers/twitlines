@@ -1,18 +1,21 @@
+In progress:
+- dm (untested)
+
+- getting current user and storing stuff
+  application_controller#current_user is wrong -- ought save tname when authentication is done, fergawdssake
+
+
+
+
 Todo:
-- FUCK, application is read-only. My attempts to set it to read/write aren't taking.
-- need to authenticate requests.  Seems like we pass authenticity_token by default
 - eliminate dups when parsing XML (case-foldingly, see regretsy)
   - harder: deal with dups in list page
-- partials for follwing/etc
 - timestamp parse and do it in background every night
 - parser should ignore http://twitter.com/jacobrothstein/status/6322934815 type URLs 
 
 - home page:  "You submitted your OPML on 1/1/1 and had nnn blogs".  Reupload.  
 
 - follow All button!  Oy vey.
-  
-
-
 
 
 OPML hack
@@ -51,3 +54,11 @@ How to do this as a web app?
 - immediately creates blog objects
 - makes COMET connections?
   http://juggernaut.rubyforge.org/ (er, no, way too much)
+
+Dones:
+- FUCK, application is read-only. My attempts to set it to read/write aren't taking.
+   (FIXED, needed to revoke access)
+- need to authenticate requests.  Seems like we pass authenticity_token by default
+   (I think this is working magically)
+
+- partials for follwing/etc (DONE)

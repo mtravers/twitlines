@@ -1,3 +1,4 @@
+
 Twitter API:
   http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-statuses-friends_timeline
 
@@ -11,9 +12,13 @@ Dynlite theory:
 
 I think that will do it...wont' support scrolling to arb. date, but that's life.
 
-
 Todo:
 
+- better images: http://twibs.com/oAuthButtons.php
+
+IDEA:  implement a long, short version so you can have a crawl at the bottom of the screen.
+   Prob need to make times approximate or something.
+   Would work best with some form of prioritization
 
 - Crap, whoami seems to go in and out of working...
 

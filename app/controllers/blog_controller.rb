@@ -8,6 +8,8 @@ class BlogController < ApplicationController
   def upload_file
     xml = XML::Document.io(params[:upload][:opmlfile])
     @blogs = read_opml(xml)
+    @user = current_user
+    @user.subscriptions = @blogs        # no, argh, this relationship is for blog/owners, not blog/followers.
     render :html => 'uploaded'
   end
 
@@ -18,9 +20,20 @@ class BlogController < ApplicationController
   end
 
   def list
-    @blogs = Blog.find(:all)
+    @user = current_user
+    @blogs = @user.subscriptions
     @friends = twitter_friends
     @dom = 0
+  end
+
+  # in progress
+  def delayed_list
+  end
+
+  def twitter_direct_message(to, message)
+    tparams = { :user => to.tname, :text => message}
+    url = "http://twitter.com/direct_messages/new.json?#{tparams.to_query}"
+    twitter_request_authenticated(url, '', :post)
   end
 
   # doesn't really belong here unless we are doing it for other than the logged in user.

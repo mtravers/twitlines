@@ -1,7 +1,9 @@
 class Blog < ActiveRecord::Base
 
-  has_and_belongs_to_many :users
+  has_and_belongs_to_many :subscribers, :class_name => 'User', :join_table => 'blog_subscribers'
+  has_and_belongs_to_many :owners, :class_name => 'User', :join_table => 'blog_owners'
 
+  # slow -- needs to be done in a worker.
   def find_twitterers
 #    purl = URI.parse(homepage)
     begin
@@ -17,8 +19,8 @@ class Blog < ActiveRecord::Base
       matches = matches.map { |m| m[0] }
       matches.uniq!
       matches = matches - ["home", "javascripts", "statuses"]
-        matches.each {|u| users << User.find_or_make(u) }
-      p users
+        matches.each {|u| owners << User.find_or_make(u) }
+      p owners
       save!
     rescue StandardError => whoops
       puts 'Error: ' + whoops

@@ -9,7 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100119020827) do
+ActiveRecord::Schema.define(:version => 20100208000110) do
+
+  create_table "blog_owners", :id => false, :force => true do |t|
+    t.integer "blog_id"
+    t.integer "user_id"
+  end
+
+  create_table "blog_subscribers", :id => false, :force => true do |t|
+    t.integer "blog_id"
+    t.integer "user_id"
+  end
 
   create_table "blogs", :force => true do |t|
     t.string   "title"
@@ -18,11 +28,6 @@ ActiveRecord::Schema.define(:version => 20100119020827) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "blogs_users", :id => false, :force => true do |t|
-    t.integer "blog_id"
-    t.integer "user_id"
   end
 
   create_table "log_entries", :force => true do |t|
