@@ -5,9 +5,7 @@ class Blog < ActiveRecord::Base
 
   # slow -- needs to be done in a worker.
   def find_twitterers
-#    purl = URI.parse(homepage)
     begin
-#      res = Net::HTTP.start(purl.host, purl.port) { |http| http.get(homepage, {"User-Agent" => "twitlines"}) }
       res = HTTParty.get(homepage)
       if res.code == 200
         html = res.body

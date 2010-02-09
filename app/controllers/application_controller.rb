@@ -34,10 +34,25 @@ class ApplicationController < ActionController::Base
   # Twitter machinery -- doesn't really belong here...need to make a lib or something (or use Twitter gem like a good little rubyist)
 
   # you have to do some rigamrole to set the user-agent, apparently.
-  # this is only for unauthenticated requests
-  def twitter_request(url)
+  # this is for unauthenticated requests or requests from the application using basic auth.
+
+  def twitter_request(url, method=:get, auth=false)
+    self.twitter_request(url, method, auth)
+  end
+
+  def self.twitter_request(url, method=:get, auth=false)
     purl = URI.parse(url)
-    res = Net::HTTP.start(purl.host, purl.port) { |http| http.get(url, {"User-Agent" => "twitlines"}) }
+    res = Net::HTTP.start(purl.host, purl.port) { |http|
+      req = method == :post ?
+      Net::HTTP::Post.new(url, {"User-Agent" => "twitlines"}) :
+      Net::HTTP::Get.new(url, {"User-Agent" => "twitlines"})
+      if auth 
+        req.basic_auth(ENV['TWITTER_ACCOUNT'], ENV['TWITTER_PASSWORD']) 
+      end
+      http.request(req)
+    }
+    # simpler, but it just wraps Net::HTTP and you can't specify the agent.
+    #    res = HTTParty.get(url)
     if res.code_type == Net::HTTPOK
       JSON.parse(res.body)
     else
@@ -57,6 +72,8 @@ class ApplicationController < ActionController::Base
     JSON.parse(response.body)
   end
 
+  def twitter_request_as_server(url)
+  end
 
   # flaking out every now and then
   def twitter_whoami_old

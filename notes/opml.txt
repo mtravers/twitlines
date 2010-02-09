@@ -1,6 +1,15 @@
 In progress:
+
+- delayed_jobs
+  - to debug
+      j = Job.find(1)
+      j.payload_object.perform
+
 - dm (untested) (needs an account and way to authenticate -- OAuth is probably not appropriate?)
+ - got twit__lines (2 underscores) with normal Twitter pwd
  - needs to be called from User.
+ - argh, have to follow first!
+
 
 - getting current user and storing stuff
 

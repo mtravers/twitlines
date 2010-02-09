@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
   # Do the blog-parsing task.  If we ever have more tasks, this should be moved elsewhere.
   def perform
-    user.subscriptions.each { |blog| blog.find_twitterers }
+    self.subscriptions.each { |blog| blog.find_twitterers }
     # +++ sub name of host.
     # +++ page will have to deal with unauthenticated usr.
     twitter_direct_message("Your blogs have been processed at http://twitline.net/blog/list")
@@ -28,8 +28,8 @@ class User < ActiveRecord::Base
 
   def twitter_direct_message(message)
     tparams = { :user => tname , :text => message}
-    url = "http://twitter.com/direct_messages/new.json?#{tparams.to_query}"
-    ApplicationController.twitter_request_authenticated(url, '', :post)
+    url = "http://api.twitter.com/direct_messages/new.json?#{tparams.to_query}"
+    ApplicationController.twitter_request(url, :post, true)
   end
 
 end
