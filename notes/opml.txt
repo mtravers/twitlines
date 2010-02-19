@@ -10,7 +10,6 @@ In progress:
  - needs to be called from User.
  - argh, have to follow first!
 
-
 - getting current user and storing stuff
 
   application_controller#current_user is wrong -- ought save tname when authentication is done, fergawdssake
