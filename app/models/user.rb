@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 
   def self.find_or_make(name)
     # case insensitive, whoo hoo
-    User.find(:all, :conditions => ["UPPER(tname) = ?", name.upcase]) || create(:tname => name)
+    User.find(:first, :conditions => ["UPPER(tname) = ?", name.upcase]) || create(:tname => name)
   end
 
   # is current user following this user?

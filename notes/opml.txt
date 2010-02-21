@@ -8,7 +8,8 @@ In progress:
 - dm (untested) (needs an account and way to authenticate -- OAuth is probably not appropriate?)
  - got twit__lines (2 underscores) with normal Twitter pwd
  - needs to be called from User.
- - argh, have to follow first!
+ - argh, have to follow first! (I think there is some way to get whitelisted, but its hard)
+    - 
 
 - getting current user and storing stuff
 
@@ -16,6 +17,7 @@ In progress:
 
 - Started, not working: delayed_jobs. 
 
+- On the signup page, it would be useful to see last tweet and frequency...and/or links to main twitter page.  Prob hard to do that.
 
 
 Todo:
@@ -29,33 +31,6 @@ Todo:
 - follow All button!  Oy vey.
 
 
-OPML hack
-
-Model
-
-User
-  name
-
-user<*>blog
-
-Blog
-  feed
-  homepage
-  twitter accounts*
-
-
-
-
-
-Filter
-http://twitter.com/home
-http://twitter.com/javascripts"
-http://twitter.com/statuses" 
-
-
-
-
-Get friends (followees) -- needs to be paged, bleah
 http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-statuses%C2%A0friends
 
 
@@ -73,3 +48,4 @@ Dones:
    (I think this is working magically)
 
 - partials for follwing/etc (DONE)
+Get friends (followees) -- needs to be paged, bleah  (DONE)
