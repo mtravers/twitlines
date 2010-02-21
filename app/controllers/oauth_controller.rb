@@ -3,7 +3,7 @@ class OauthController < ApplicationController
   before_filter :make_consumer
 
   def connect
-    request_token = @consumer.get_request_token(:oauth_callback => ENV['CALLBACK_URL'] || 'http://localhost:3001/oauth_callback')
+    request_token = @consumer.get_request_token(:oauth_callback => ENV['CALLBACK_URL'] || 'http://localhost:3000/oauth_callback')
     session[:request_token] = request_token.token
     session[:request_token_secret] = request_token.secret
     redirect_to request_token.authorize_url.gsub('authorize', 'authenticate') 

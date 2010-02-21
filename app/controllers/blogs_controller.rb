@@ -1,6 +1,6 @@
 require 'xml/libxml'
 
-class BlogController < ApplicationController
+class BlogsController < ApplicationController
   
   def upload
   end
@@ -20,10 +20,11 @@ class BlogController < ApplicationController
   def view
   end
 
-  def list
+  def show
     @user = current_user
     @blogs = @user.subscriptions
     @friends = twitter_friends
+    p ['friends.length', @friends.length]
     @dom = 0
   end
 
@@ -36,11 +37,16 @@ class BlogController < ApplicationController
 
   # doesn't really belong here unless we are doing it for other than the logged in user.
   # could take argument, paging +++
-  def twitter_friends
-#    tparams = {:user_id => 'mtraven'} # +++ temp
-    tparams = { }
-    url = "http://twitter.com/statuses/friends.json" # ?#{tparams.to_query}"
+  def twitter_friends(cursor=-1)
+    tparams = { :cursor => cursor }
+    url = "http://twitter.com/statuses/friends.json?#{tparams.to_query}"
     json = twitter_request_authenticated(url)
+    nextc = json['next_cursor']
+    users = json['users']
+    if nextc != 0
+      users = users + twitter_friends(nextc)
+    end
+    users
   end
 
   def read_opml_file(file)

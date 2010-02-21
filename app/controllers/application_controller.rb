@@ -37,10 +37,10 @@ class ApplicationController < ActionController::Base
   # this is for unauthenticated requests or requests from the application using basic auth.
 
   def twitter_request(url, method=:get, auth=false)
-    self.twitter_request(url, method, auth)
+    ApplicationController.do_twitter_request(url, method, auth)
   end
 
-  def self.twitter_request(url, method=:get, auth=false)
+  def self.do_twitter_request(url, method=:get, auth=false)
     purl = URI.parse(url)
     res = Net::HTTP.start(purl.host, purl.port) { |http|
       req = method == :post ?
