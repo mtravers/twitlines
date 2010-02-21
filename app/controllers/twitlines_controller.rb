@@ -49,8 +49,7 @@ class TwitlinesController < ApplicationController
     end
     url = "http://twitter.com/search.json?#{params.to_query}" 
     json = twitter_request(url)
- #   return { :events => json['results'].map { |evt| twitter_search_event(evt)}}
-    return json
+    return { :events => json['results'].map { |evt| twitter_search_event(evt)}}
   end
 
   def twitter_public

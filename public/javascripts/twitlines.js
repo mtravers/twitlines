@@ -140,9 +140,9 @@ function updateRange(low, high) {
 	rangeHigh = high;
     // scroll to keep right edge visible (+++ doesn't take event width into account yet)
     var band = tl.getBand(0); // more correct to look at lower band, but that produces too many updates.
-    if (autoScroll) {
+    if (autoScroll && rangeHigh != null) {
 	autoScrolling = true;
-	band.scrollToRight(high, 200); // ought to use actual width of last event, but this works OK.
+	band.scrollToRight(rangeHigh, 200); // ought to use actual width of last event, but this works OK.
 	autoScrolling = false;
     }
 }
