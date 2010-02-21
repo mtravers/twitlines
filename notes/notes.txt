@@ -11,6 +11,9 @@ Dynlite theory:
 
 I think that will do it...wont' support scrolling to arb. date, but that's life.
 
+In progress:
+- ok, we got a decorator to work. Now need to figure out how to scroll adequately.
+
 
 Todo:
 
@@ -48,7 +51,11 @@ Scrolling and inc updates
 
 *** now should not be at center, wastes half the screen in realtime mode.
     Worse on giant screens.
-    Needs some graphic indication
+    Needs some graphic indication (DONE)
+     - graphic indication should always update, although not necessarily scroll.
+
+
+
 
 - now often doesn't fill in new stuff
    maybe need to change incremental theory yet again..."later" should always try to get up to the minute if possible, and iterate if not.

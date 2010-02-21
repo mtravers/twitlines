@@ -8,10 +8,8 @@ var queryInProgress = false;
 var nowDecorator = new Timeline.SpanHighlightDecorator(
     {startDate: new Date(),
      endDate: new Date(new Date().getTime() + 60000),
-     color:  "orange",
+     color:  "#beb",
     });
-
-
 
 function rateLimit(limit, func) {
     if (!queryInProgress && (lastQueryTime == null || new Date().getTime() > lastQueryTime.getTime() + limit)) {
@@ -28,7 +26,7 @@ function updateVisible() {
 	var minDate = band.getMinVisibleDate();
 	var maxDate = band.getMaxVisibleDate();
 	//	     console.log('f' + minDate + ', ' + maxDate);
-	loadDataIncremental(minDate, maxDate);
+	loadDataIncremental(minDate, maxDate); // was maxDate, but we always want to update on the high end, at least when autoscrolling is on
     });
 }
 
@@ -40,31 +38,34 @@ function toggle(elt) {
 }
 
 
-function startAutoscroll () {
-    autoScroll=true;
-    $('now2').addClassName('down')
-    now();
+function toggleAutoscroll() {
+    if (autoScroll) {
+	stopAutoscroll();
+    } else {
+	startAutoscroll();
+    }
 }
 
-function stopAutoscroll () {
-    // set button state
+function startAutoscroll() {
+    autoScroll=true;
+    $('now2').addClassName('down')
+    loadNew();
+}
+
+function stopAutoscroll() {
     autoScroll = false;
     $('now2').removeClassName('down')
 }
 
 new PeriodicalExecuter(function () {
+    moveNowDecorator();
     if (autoScroll) { 
-	now(); 
+	loadNew();
     } 
 }, 30);
 
-function now() {
-    autoScrolling = true;	// +++ unwind protect
-    tl.getBand(0).scrollToCenter(new Date(), function() {
-	moveNowDecorator();
-	autoScrolling = false;
-	updateVisible();
-    });
+function loadNew() {
+    loadData(null, false);	
 }
 
 function moveNowDecorator() {
@@ -77,7 +78,7 @@ function loadDataIncremental(low, high) {
     if (low < rangeLow) {
 	loadData(null, true);
     }
-    if (high > rangeHigh) {
+    if (high == null || high > rangeHigh) {
 	loadData(null, false);
     }
 }
@@ -137,6 +138,13 @@ function updateRange(low, high) {
 	rangeLow = low;
     if (rangeHigh == null || high > rangeHigh)
 	rangeHigh = high;
+    // scroll to keep right edge visible (+++ doesn't take event width into account yet)
+    var band = tl.getBand(0); // more correct to look at lower band, but that produces too many updates.
+    if (autoScroll) {
+	autoScrolling = true;
+	band.scrollToRight(high, 200); // ought to use actual width of last event, but this works OK.
+	autoScrolling = false;
+    }
 }
 
 function onLoad() {
@@ -176,9 +184,9 @@ function onLoad() {
     newHome();
 
     tl.getBand(0).addOnScrollListener(function(band) {
-	if (!autoScrolling) {
+	if (!autoScroll) {	// was autoScrolling, but it's broken
 	    updateVisible();
-	    stopAutoscroll();
+//	    stopAutoscroll();
 	}
     });
 
@@ -447,4 +455,21 @@ Timeline.loadJSON = function(url, f, fError) {
         f(eval('(' + xmlhttp.responseText + ')'), url);
     };
     SimileAjax.XmlHttp.get(url, fError, fDone);
+};
+
+Timeline._Band.prototype.scrollToRight = function(date, pad, f) {
+    var pixelOffset = this._ether.dateToPixelOffset(date) + pad;
+     if (pixelOffset > this._viewLength) {
+         this.setRightVisibleDate(pixelOffset);
+    // no idea what this was for in prototype (scrollToCenter)
+    //else if (pixelOffset > 3 * this._viewLength / 2) {
+    //         this.setRightVisibleDate(this.pixelOffsetToDate(pixelOffset - this._viewLength));
+//     }
+	 this._autoScroll(Math.round(this._viewLength - pixelOffset), f);
+     }
+};
+Timeline._Band.prototype.setRightVisibleDate = function(offset) {
+    if (!this._changing) {
+        this._moveEther(Math.round(this._viewLength - offset));
+    }
 };
