@@ -12,6 +12,10 @@ Dynlite theory:
 
 I think that will do it...wont' support scrolling to arb. date, but that's life.
 
+In progress:
+- ok, we got a decorator to work. Now need to figure out how to scroll adequately.
+
+
 Todo:
 
 - better images: http://twibs.com/oAuthButtons.php
@@ -22,11 +26,14 @@ IDEA:  implement a long, short version so you can have a crawl at the bottom of 
 
 - Crap, whoami seems to go in and out of working...
 
+* if you do a search for a sparse term, you get a blank screen. Yuck.  Should autoscroll to latest tweet at least.  Or better, compress.
+
 - Image at OAUth page no longer matches app!
 - why is our favicon the twitter icon? weird.
 - Included httparty for blogs -- should make twitter code use it I suppose.
 
 *** big scrolls don't work, ie if you hit Now after a long break. Need better theory, like maybe it should do a full refresh if gap is big.
+- way to mark tweets (favorite, etc) would be nice...too much stuff going by, too distrating to open a window for each.
 
 
 DUH: have permalinks for various search options, so the thing can be linked to! 
@@ -56,6 +63,11 @@ Scrolling and inc updates
 
 *** now should not be at center, wastes half the screen in realtime mode.
     Worse on giant screens.
+    Needs some graphic indication (DONE)
+     - graphic indication should always update, although not necessarily scroll.
+
+
+
 
 - now often doesn't fill in new stuff
    maybe need to change incremental theory yet again..."later" should always try to get up to the minute if possible, and iterate if not.
@@ -110,7 +122,7 @@ Wild-ass ideas
 
 Misc
 
-***  need to catch twitter errors and do something other than an alert box...
+*  need to catch twitter errors and do something other than an alert box...
    DONE -- but would be even better if we could transmit an error message back...
 
 - would be nice to visually indicate the last-clicked block, so when you go back to that window you can find it.  ---  and/or highlight recent additions somehow
