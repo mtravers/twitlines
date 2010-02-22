@@ -13,15 +13,16 @@ class Blog < ActiveRecord::Base
         # doesn't handle redirects
         throw "Error retrieving page " + res.message + " url was: " + homepage
       end
-      owners = []
       matches = html.scan(/http:\/\/twitter.com\/([A-Za-z0-9\-_]+)/) 
       matches = matches.map { |m| m[0] }
       matches.uniq!
-      matches = matches - ["home", "javascripts", "statuses"]
-        matches.each {|u| owners << User.find_or_make(u) }
+      matches = matches - ["home", "javascripts", "statuses", "favorites"]
+      matches = matches.map { |u| User.find_or_make(u)}
+      matches.uniq!
+      owners = matches
       p [title, owners]
       save!
-    rescue StandardError => whoops
+    rescue Exception => whoops
       puts 'Error: ' + whoops
     end
   end
@@ -37,4 +38,4 @@ class Blog < ActiveRecord::Base
 end
 
 # testers
-# Blog.find(:all).map {|b| puts b.title; p b.find_twitterers }
+# Blog.find(:all).map {|b| b.find_twitterers }

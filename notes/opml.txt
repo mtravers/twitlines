@@ -9,7 +9,6 @@ In progress:
  - got twit__lines (2 underscores) with normal Twitter pwd
  - needs to be called from User.
  - argh, have to follow first! (I think there is some way to get whitelisted, but its hard)
-    - 
 
 - getting current user and storing stuff
 
@@ -19,6 +18,10 @@ In progress:
 
 - On the signup page, it would be useful to see last tweet and frequency...and/or links to main twitter page.  Prob hard to do that.
 
+IDEA: you should be able to MAKE a twitter feed for a blog if it doesn't have one.  
+ - some ethical issues?
+ - isn't there an RSS to Twitter facilty already? Don't I use it?
+    http://twitterfeed.com/
 
 Todo:
 - eliminate dups when parsing XML (case-foldingly, see regretsy)

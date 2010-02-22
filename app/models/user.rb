@@ -28,7 +28,8 @@ class User < ActiveRecord::Base
 
   def twitter_direct_message(message)
     tparams = { :user => tname , :text => message}
-    url = "http://api.twitter.com/direct_messages/new.json?#{tparams.to_query}"
+    url = "http://twitter.com/direct_messages/new.json?#{tparams.to_query}"
+    # should eventually be changed to _authenticated
     ApplicationController.do_twitter_request(url, :post, true)
   end
 
