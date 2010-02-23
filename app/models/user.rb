@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
     tparams = { :user => tname , :text => message}
     url = "http://twitter.com/direct_messages/new.json?#{tparams.to_query}"
     # should eventually be changed to _authenticated
+    # this is supposed to be a stopgap (and its not working)
     ApplicationController.do_twitter_request(url, :post, true)
   end
 

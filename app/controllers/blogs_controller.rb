@@ -24,8 +24,13 @@ class BlogsController < ApplicationController
     @user = current_user
     @blogs = @user.subscriptions
     @friends = twitter_friends
-    p ['friends.length', @friends.length]
     @dom = 0
+  end
+
+  def delayed_show
+#    twitter_add_friend(ENV['TWITTER_USER'])
+    twitter_add_friend('twit__lines')
+    Delayed::Job.enqueue(current_user)
   end
 
   # not called, made a method on user to do this.
@@ -33,6 +38,11 @@ class BlogsController < ApplicationController
     tparams = { :user => to.tname, :text => message}
     url = "http://twitter.com/direct_messages/new.json?#{tparams.to_query}"
     twitter_request_authenticated(url, '', :post)
+  end
+
+  def twitter_add_friend(f)
+    url = "http://api.twitter.com/1/friendships/create/#{f}.json"
+    json = twitter_request_authenticated(url, :post)
   end
 
   # doesn't really belong here unless we are doing it for other than the logged in user.

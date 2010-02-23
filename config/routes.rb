@@ -11,8 +11,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'log', :controller => 'log', :action => 'view'
 
   map.resource :blogs
-  map.connect 'blogs/upload', :controller => 'blog', :action => 'upload'
-  map.connect 'blogs/upload__file', :controller => 'blog', :action => 'upload_file'
+  map.connect 'blogs/upload', :controller => 'blogs', :action => 'upload'
+  map.connect 'blogs/upload__file', :controller => 'blogs', :action => 'upload_file'
   
   map.connect 'users/follow', :controller => 'users',:action => 'follow'
   map.connect 'users/unfollow', :controller => 'users',:action => 'unfollow'

@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
       Net::HTTP::Post.new(url, {"User-Agent" => "twitlines"}) :
       Net::HTTP::Get.new(url, {"User-Agent" => "twitlines"})
       if auth 
-        req.basic_auth(ENV['TWITTER_ACCOUNT'], ENV['TWITTER_PASSWORD']) 
+        req.basic_auth(ENV['TWITTER_USER'], ENV['TWITTER_PASSWORD']) 
       end
       http.request(req)
     }
@@ -67,6 +67,7 @@ class ApplicationController < ActionController::Base
     else
       response = @access_token.get(url, {"User-Agent" => "twitlines"})
     end
+    puts response.body
     JSON.parse(response.body)
   end
   

@@ -5,6 +5,9 @@ In progress:
       j = Job.find(1)
       j.payload_object.perform
 
+     Delayed::Job.enqueue(u)
+
+
 - dm (untested) (needs an account and way to authenticate -- OAuth is probably not appropriate?)
  - got twit__lines (2 underscores) with normal Twitter pwd
  - needs to be called from User.
