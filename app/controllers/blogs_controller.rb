@@ -10,7 +10,8 @@ class BlogsController < ApplicationController
     @blogs = read_opml(xml)
     @user = current_user
     @user.subscriptions = @blogs        # no, argh, this relationship is for blog/owners, not blog/followers.
-    Delayed::Job.enqueue @user          # +++ start a background task to handle this, page needs to change
+# moved?
+#    Delayed::Job.enqueue @user          # +++ start a background task to handle this, page needs to change
     render :html => 'uploaded'
   end
 
@@ -23,6 +24,9 @@ class BlogsController < ApplicationController
   def show
     @user = current_user
     @blogs = @user.subscriptions
+    if @blogs.length == 0
+      redirect_to '/blogs/upload'
+    end
     @friends = twitter_friends
     @dom = 0
   end

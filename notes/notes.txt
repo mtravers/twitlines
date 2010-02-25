@@ -18,6 +18,9 @@ In progress:
 
 Todo:
 
+- feature: needs a signout link.  Signing out of Twitter won't cut it.
+   (deleting cookies owkrs)
+
 - better images: http://twibs.com/oAuthButtons.php
 
 IDEA:  implement a long, short version so you can have a crawl at the bottom of the screen.
@@ -46,6 +49,9 @@ Argh, twisty:
  - if you wanted to pass a URL param, that's kind of heinous...hm...
 
 Regexp and link generation
+
+- maybe replace my stuff with this library?
+  http://github.com/hoverbird/twitter-text-rb
 
 -  bare hostnames get tagged as URLS (regexp matched) but they fail when clicked because they go to http://twitlines.com/www.foobar.com
 

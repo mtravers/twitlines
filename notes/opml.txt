@@ -7,6 +7,12 @@ In progress:
 
      Delayed::Job.enqueue(u)
 
+- BUG with last one of my blogs (Scalzi)
+- did redirect if no blogs known (NOT YET TESTED)
+
+- needs explanatory text somewhere.
+- link from twitlines?
+- /blogs should be home.  Should redirect if not authorized.
 
 - dm (untested) (needs an account and way to authenticate -- OAuth is probably not appropriate?)
  - got twit__lines (2 underscores) with normal Twitter pwd
