@@ -18,7 +18,13 @@ class User < ActiveRecord::Base
 
   # Do the blog-parsing task.  If we ever have more tasks, this should be moved elsewhere.
   def perform
-    self.subscriptions.each { |blog| blog.find_twitterers }
+    self.subscriptions.each do |blog| 
+      begin
+        blog.find_twitterers
+      rescue Exception => whoops
+        puts "Error on blog #{blog.title}: " + whoops
+      end
+    end
     # +++ sub name of host.
     # +++ page will have to deal with unauthenticated usr.
     twitter_direct_message("Your blogs have been processed at http://twitlines.net/blogs")

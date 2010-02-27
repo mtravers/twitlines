@@ -1,4 +1,3 @@
-
 Twitter API:
   http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-statuses-friends_timeline
 
@@ -15,8 +14,13 @@ I think that will do it...wont' support scrolling to arb. date, but that's life.
 In progress:
 - ok, we got a decorator to work. Now need to figure out how to scroll adequately.
 
-
 Todo:
+
+- heroku worker hack
+
+- scrolling is utterly broken, god damn it.
+  - random scrolls way off the right end
+  - scrolling to past doesn't seem to update any more.
 
 - feature: needs a signout link.  Signing out of Twitter won't cut it.
    (deleting cookies owkrs)

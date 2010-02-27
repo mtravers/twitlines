@@ -1,5 +1,8 @@
 <h1>Subscribed blogs</h1>
 <%= link_to('Upload blog list', :action => :upload) %>
+<% if @blogs.length == 0 %>
+You don't have subscribed blogs. Use the above link to upload some.
+<% end %>
 <table>
 <tr>
   <th>Blog</th>
