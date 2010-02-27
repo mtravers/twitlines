@@ -19,8 +19,9 @@ class Blog < ActiveRecord::Base
       matches = matches - ["home", "javascripts", "statuses", "favorites"]
       matches = matches.map { |u| User.find_or_make(u)}
       matches.uniq!
-      @owners = matches
-      p [title, @owners.map{|u| u.tname }]
+      # the self. seems necessary due to some Rails brokenness that I don't understand.  POS!
+      self.owners = matches
+      p [title, self.owners.map{|u| u.tname }]
       save!
     rescue Exception => whoops
       puts 'Error: ' + whoops

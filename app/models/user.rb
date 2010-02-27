@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
     self.subscriptions.each { |blog| blog.find_twitterers }
     # +++ sub name of host.
     # +++ page will have to deal with unauthenticated usr.
-    twitter_direct_message("Your blogs have been processed at http://twitline.net/blog/list")
+    twitter_direct_message("Your blogs have been processed at http://twitlines.net/blogs")
   end
 
   # WHOOOPS -- this needs to dm as someone...ie, the system itself.  We need a twitter ID and the means to authenticate to it!
