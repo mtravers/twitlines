@@ -67,7 +67,7 @@ class TwitlinesController < ApplicationController
     if incremental == "earlier"
       params[:max_id] = session[:low_id]
     elsif incremental == "later"
-      params[:since_id] = session[:high_id]
+      params[:since_id] = session[:high_id] unless session[:high_id] == nil
       params[:count] = 200
     else
       reset_range

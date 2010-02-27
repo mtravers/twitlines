@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     if !session[:logged_user]
       session[:logged_user] = twitter_whoami
     end
-    User.find_by_tname(session[:logged_user]) # probably wrong, also in efficient
+    User.find_or_make(session[:logged_user]) # probably wrong, also in efficient
   end
   
   # Scrub sensitive parameters from your log
@@ -36,11 +36,11 @@ class ApplicationController < ActionController::Base
   # you have to do some rigamrole to set the user-agent, apparently.
   # this is for unauthenticated requests or requests from the application using basic auth.
   
-  def twitter_request(url, method=:get, auth=false)
-    ApplicationController.do_twitter_request(url, method, auth)
+  def twitter_request(url, method=:get, auth=false, parse=true)
+    ApplicationController.do_twitter_request(url, method, auth, parse)
   end
   
-  def self.do_twitter_request(url, method=:get, auth=false)
+  def self.do_twitter_request(url, method=:get, auth=false, parse=true)
     purl = URI.parse(url)
     res = Net::HTTP.start(purl.host, purl.port) { |http|
       req = method == :post ?
@@ -54,7 +54,11 @@ class ApplicationController < ActionController::Base
     # simpler, but it just wraps Net::HTTP and you can't specify the agent.
     #    res = HTTParty.get(url)
     if res.code_type == Net::HTTPOK
-      JSON.parse(res.body)
+      if parse
+        twitter_handle_errors(JSON.parse(res.body))
+      else
+        res.body
+      end
     else
       throw "Error from Twitter: " + res.message + " url was: " + url
     end
@@ -67,10 +71,16 @@ class ApplicationController < ActionController::Base
     else
       response = @access_token.get(url, {"User-Agent" => "twitlines"})
     end
-    puts response.body
-    JSON.parse(response.body)
+    ApplicationController.twitter_handle_errors(JSON.parse(response.body))
   end
   
+  def self.twitter_handle_errors(json)
+    if json.is_a?(Hash) && json['error']
+      throw 'Error from Twitter: ' + json['error'] + '; request: ' + json['request']
+    end
+    json
+  end
+
   def twitter_request_as_server(url)
   end
   
@@ -87,7 +97,6 @@ class ApplicationController < ActionController::Base
       json['screen_name']
     rescue Exception => e
       # fails inexplicably; let's not get hung up since this is just for informational purposes
-      puts e.to_s
     end
   end
   

@@ -45,8 +45,14 @@ class BlogsController < ApplicationController
   end
 
   def twitter_add_friend(f)
-    url = "http://api.twitter.com/1/friendships/create/#{f}.json"
-    json = twitter_request_authenticated(url, :post)
+    # need to test if we are already a friend, otherwise error gets generated
+    test_params = { :user_a => f, :user_b => current_user.tname}
+    test_url = "http://api.twitter.com/1/friendships/exists.json?#{test_params.to_query}"
+    test_json = twitter_request(test_url, :get, false, false)
+    if !test_json
+      url = "http://api.twitter.com/1/friendships/create/#{f}.json"
+      json = twitter_request_authenticated(url, :post)
+    end
   end
 
   # doesn't really belong here unless we are doing it for other than the logged in user.
