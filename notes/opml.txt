@@ -7,6 +7,12 @@ In progress:
 
      Delayed::Job.enqueue(u)
 
+   OK, started code to fuck with heroku in lib/cheap_ass.rb
+    - but how to turn off?  There's no way! God damn it.  An hourly cron job would do it, costs $3/month
+    - how about enqueing another job that checks for shutting off? (NO, how about FAILING)
+
+
+
 - BUG with last one of my blogs (Scalzi)
 - did redirect if no blogs known (NOT YET TESTED)
 
