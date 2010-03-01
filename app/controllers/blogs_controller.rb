@@ -9,9 +9,7 @@ class BlogsController < ApplicationController
     xml = XML::Document.io(params[:upload][:opmlfile])
     @blogs = read_opml(xml)
     @user = current_user
-    @user.subscriptions = @blogs        # no, argh, this relationship is for blog/owners, not blog/followers.
-# moved?
-#    Delayed::Job.enqueue @user          # +++ start a background task to handle this, page needs to change
+    @user.subscriptions = @blogs
     render :html => 'uploaded'
   end
 
@@ -32,9 +30,8 @@ class BlogsController < ApplicationController
   end
 
   def delayed_show
-#    twitter_add_friend(ENV['TWITTER_USER'])
-    twitter_add_friend('twit__lines')
-    Delayed::Job.enqueue(current_user)
+    twitter_add_friend(ENV['TWITTER_USER'])
+    Cheepnis.enqueue(current_user)
   end
 
   # not called, made a method on user to do this.

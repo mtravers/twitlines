@@ -5,11 +5,17 @@ module Cheepnis
   def self.enqueue(object)
     # enqueue the object in the normal way
     Delayed::Job.enqueue(object)
-    # start a worker if necessary
-    start
-    # and enqueue something that calls maybe_stop, at low priortity
-    terminator = Terminator.new
-    Delayed::Job.enqueue(terminator, -10)    
+    if on_heroku
+      # start a worker if necessary
+      start
+      # and enqueue something that calls maybe_stop, at low priortity
+      terminator = Terminator.new
+      Delayed::Job.enqueue(terminator, -10)    
+    end
+  end
+
+  def self.on_heroku
+    ENV["HEROKU_UPID"] != nil
   end
 
   def self.get_client
@@ -18,16 +24,18 @@ module Cheepnis
 
   def self.start
     heroku = get_client
-    info = heroku.info(ENV['HEROKU_APP'])
+    info = heroku.info(ENV['APP_NAME'])
     workers = info[:workers].to_i
     if workers == 0
-      heroku.set_workers(ENV['HEROKU_APP'], 1)
+      heroku.set_workers(ENV['APP_NAME'], 1)
+      Rails.logger.info('worker started')
     end
   end
 
   def self.stop
     heroku = get_client
-    heroku.set_workers(ENV['HEROKU_APP'], 0)
+    heroku.set_workers(ENV['APP_NAME'], 0)
+    Rails.logger.info('worker stopped')
   end
 
   # this needs some experimentation
