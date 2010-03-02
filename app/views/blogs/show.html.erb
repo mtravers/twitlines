@@ -1,0 +1,28 @@
+<h1>Subscribed blogs</h1>
+<%= link_to('Upload blog list', :action => :upload) %>
+<% if @blogs.length == 0 %>
+You don't have subscribed blogs. Use the above link to upload some.
+<% end %>
+<table>
+<tr>
+  <th>Blog</th>
+  <th>Twitterers</th>
+</tr>
+<%  dom_n = 0
+    for blog in @blogs do %>
+<tr>
+<td><%= link_to(blog.title, blog.homepage) %></td>
+<td>
+<% for twit in blog.twitterers do %>
+@<%= link_to(twit.tname, "http://twitter.com/#{twit.tname}") %>, <% if twit.following?(@friends) then %>
+<%= render :partial => 'users/following', :locals => {:twit => twit, :dom_id => "box#{dom_n}"} %>
+<% else %>
+<%= render :partial => 'users/nfollowing', :locals => {:twit => twit, :dom_id => "box#{dom_n}"} %>
+<% end %>
+<% dom_n = dom_n + 1 %>
+<br/>
+<% end %>
+</td>
+</tr>
+<% end %>
+</table>

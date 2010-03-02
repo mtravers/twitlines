@@ -1,0 +1,69 @@
+In progress:
+
+- delayed_jobs
+  - to debug
+      j = Job.find(1)
+      j.payload_object.perform
+
+     Delayed::Job.enqueue(u)
+
+   OK, started code to fuck with heroku in lib/cheap_ass.rb
+    - but how to turn off?  There's no way! God damn it.  An hourly cron job would do it, costs $3/month
+    - how about enqueing another job that checks for shutting off? (NO, how about FAILING)
+
+
+
+- BUG with last one of my blogs (Scalzi)
+- did redirect if no blogs known (NOT YET TESTED)
+
+- needs explanatory text somewhere.
+- link from twitlines?
+- /blogs should be home.  Should redirect if not authorized.
+
+- dm (untested) (needs an account and way to authenticate -- OAuth is probably not appropriate?)
+ - got twit__lines (2 underscores) with normal Twitter pwd
+ - needs to be called from User.
+ - argh, have to follow first! (I think there is some way to get whitelisted, but its hard)
+
+- getting current user and storing stuff
+
+  application_controller#current_user is wrong -- ought save tname when authentication is done, fergawdssake
+
+- Started, not working: delayed_jobs. 
+
+- On the signup page, it would be useful to see last tweet and frequency...and/or links to main twitter page.  Prob hard to do that.
+
+IDEA: you should be able to MAKE a twitter feed for a blog if it doesn't have one.  
+ - some ethical issues?
+ - isn't there an RSS to Twitter facilty already? Don't I use it?
+    http://twitterfeed.com/
+
+Todo:
+- eliminate dups when parsing XML (case-foldingly, see regretsy)
+  - harder: deal with dups in list page
+- timestamp parse and do it in background every night
+- parser should ignore http://twitter.com/jacobrothstein/status/6322934815 type URLs 
+
+- home page:  "You submitted your OPML on 1/1/1 and had nnn blogs".  Reupload.  
+
+- follow All button!  Oy vey.
+
+
+http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-statuses%C2%A0friends
+
+
+How to do this as a web app?
+
+- user upload OPML
+- immediately creates blog objects
+- makes COMET connections?
+  http://juggernaut.rubyforge.org/ (er, no, way too much)
+
+Dones:
+- FUCK, application is read-only. My attempts to set it to read/write aren't taking.
+   (FIXED, needed to revoke access)
+- need to authenticate requests.  Seems like we pass authenticity_token by default
+   (I think this is working magically)
+
+- partials for follwing/etc (DONE)
+Get friends (followees) -- needs to be paged, bleah  (DONE)

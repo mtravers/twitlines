@@ -1,0 +1,3 @@
+<div class="nfollowing" id='<%= dom_id -%>'>
+Not following <%= link_to_remote('follow', :url => { :controller => :users, :action => :follow, :id => twit.id, :dom_id => dom_id }, :method => :post, :update => dom_id ) %>
+</div>

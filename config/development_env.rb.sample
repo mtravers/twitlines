@@ -1,0 +1,8 @@
+# This is a template for development_env.rb.  The values are supplied by registering a Twitter app.
+
+# On Heroku, these are set in environment variables like this.
+# > heroku config:add --app twitlines CONSUMER_KEY
+# This file is loaded into dev environment to accomplish the same thing.
+
+ENV['CONSUMER_SECRET']='...'
+ENV['CONSUMER_KEY']='...'

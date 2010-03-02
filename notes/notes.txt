@@ -14,15 +14,34 @@ I think that will do it...wont' support scrolling to arb. date, but that's life.
 In progress:
 - ok, we got a decorator to work. Now need to figure out how to scroll adequately.
 
-
 Todo:
+
+- heroku worker hack
+
+- scrolling is utterly broken, god damn it.
+  - random scrolls way off the right end
+  - scrolling to past doesn't seem to update any more.
+
+- feature: needs a signout link.  Signing out of Twitter won't cut it.
+   (deleting cookies owkrs)
+
+- better images: http://twibs.com/oAuthButtons.php
+
+IDEA:  implement a long, short version so you can have a crawl at the bottom of the screen.
+   Prob need to make times approximate or something.
+   Would work best with some form of prioritization
+
+- Crap, whoami seems to go in and out of working...
 
 * if you do a search for a sparse term, you get a blank screen. Yuck.  Should autoscroll to latest tweet at least.  Or better, compress.
 
 - Image at OAUth page no longer matches app!
 - why is our favicon the twitter icon? weird.
+- Included httparty for blogs -- should make twitter code use it I suppose.
 
+*** big scrolls don't work, ie if you hit Now after a long break. Need better theory, like maybe it should do a full refresh if gap is big.
 - way to mark tweets (favorite, etc) would be nice...too much stuff going by, too distrating to open a window for each.
+
 
 DUH: have permalinks for various search options, so the thing can be linked to! 
   - WORKS except old URL gets left around, kind ugly...
@@ -34,6 +53,9 @@ Argh, twisty:
  - if you wanted to pass a URL param, that's kind of heinous...hm...
 
 Regexp and link generation
+
+- maybe replace my stuff with this library?
+  http://github.com/hoverbird/twitter-text-rb
 
 -  bare hostnames get tagged as URLS (regexp matched) but they fail when clicked because they go to http://twitlines.com/www.foobar.com
 
@@ -243,3 +265,7 @@ DONE depo
    - period of 15 sec gets service timeouts
     STARTED putting in a locking button and logic to deal with it, not working yet
      needs to untoggle when clicked in down state, duh
+
+- OAuth secret is baked into the code (in application_controller).  This is bad because I can't open-source the code.  It need to be an environment variable (maybe it is actually).
+   Even if you remove them (in progress) they will still be in repository history
+     So, I changed them.  Hah.  (DONE)
