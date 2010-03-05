@@ -23,13 +23,14 @@ class BlogsController < ApplicationController
     @user = current_user
     if @user == nil
       redirect_to "/connect"    # won't come back to blogs page I think
+    else
+      @blogs = @user.subscriptions
+      if @blogs.length == 0
+        redirect_to '/blogs/upload'
+      end
+      @friends = twitter_friends
+      @dom = 0
     end
-    @blogs = @user.subscriptions
-    if @blogs.length == 0
-      redirect_to '/blogs/upload'
-    end
-    @friends = twitter_friends
-    @dom = 0
   end
 
   def delayed_show
