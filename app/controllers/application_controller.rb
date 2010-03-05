@@ -98,7 +98,8 @@ class ApplicationController < ActionController::Base
       json = twitter_request_authenticated('http://twitter.com/account/verify_credentials.json')
       json['screen_name']
     rescue Exception => e
-      # fails inexplicably; let's not get hung up since this is just for informational purposes
+      p 'Error in whoami: ' + e.to_s
+      return nil
     end
   end
   
