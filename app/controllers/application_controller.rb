@@ -10,7 +10,9 @@ class ApplicationController < ActionController::Base
     if !session[:logged_user]
       session[:logged_user] = twitter_whoami
     end
-    User.find_or_make(session[:logged_user]) # probably wrong, also in efficient
+    if twitter_whoami != nil
+      User.find_or_make(session[:logged_user]) # probably wrong, also in efficient
+    end
   end
   
   # Scrub sensitive parameters from your log

@@ -21,6 +21,9 @@ class BlogsController < ApplicationController
 
   def show
     @user = current_user
+    if @user == nil
+      redirect_to "/connect"    # won't come back to blogs page I think
+    end
     @blogs = @user.subscriptions
     if @blogs.length == 0
       redirect_to '/blogs/upload'

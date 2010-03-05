@@ -1,5 +1,13 @@
 In progress:
 
+- Background stuff works on Heroku, BUT the end message dies.
+=> "uncaught throw `Error from Twitter: Forbidden url was: http://twitter.com/direct_messages/new.json?text=Your+blogs+have+been+processed+at+http%3A%2F%2Ftwitlines.net%2Fblogs&user=mtraven'
+/disk1/home/slugs/108099_3d96461_4b8c/mnt/app/controllers/application_controller.rb:63
+
+- bug: if follow/unfollow gets an error, it's ugly.  Need a catch.
+  (ie, jhabermas today:
+  This account is currently suspended and is being investigated due to strange activity.; request: /friendships/create.json?screen_name=jhabermas'):
+
 - delayed_jobs
   - to debug
       j = Job.find(1)

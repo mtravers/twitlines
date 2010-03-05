@@ -1,6 +1,10 @@
 module Cheepnis
 
-  # start up a worker if none are active
+  # starts up a Heroku worker if none are active
+  # Author: Mike Traver Feb 2010
+
+  # usage: set environment variables HEROKU_USER and HEROKU_PASSWORD
+  # Call Cheepnis.enqueue(obj) in place of Delayed::Job.enqueue(obj)
 
   def self.enqueue(object)
     # enqueue the object in the normal way
@@ -45,8 +49,9 @@ module Cheepnis
       stop
     else
       # if there are actual jobs, fail so we will run again
-      # +++ won't work because jobs that fail many times get terminated
-      throw "Not time to stop yet"
+      # won't work because jobs that fail many times get terminated
+      # so just fall through and assume that a later terminator will run
+      # throw "Not time to stop yet"
     end
   end
 
