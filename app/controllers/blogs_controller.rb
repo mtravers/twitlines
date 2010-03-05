@@ -22,6 +22,7 @@ class BlogsController < ApplicationController
   def show
     @user = current_user
     if @user == nil
+      session[:oauth_redirect] = '/blogs'
       redirect_to "/connect"    # won't come back to blogs page I think
     else
       @blogs = @user.subscriptions
