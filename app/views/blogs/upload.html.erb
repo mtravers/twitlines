@@ -6,3 +6,6 @@ Specify an OPML file of RSS/Atom feeds.  You can usually export this file from y
 <%= file_field 'upload', 'opmlfile' %></p>
 <%= submit_tag "Upload" %>
 <% end %>
+
+<p>
+What will happen: Twitlines will examine the blogs in your OPML file, search for references to Twitter feeds, and present them to you so you can choose to follow them.   Since this takes awhile, we'll do it in the background and let you know when the results are ready.
