@@ -459,15 +459,12 @@ Timeline.loadJSON = function(url, f, fError) {
 
 Timeline._Band.prototype.scrollToRight = function(date, pad, f) {
     var pixelOffset = this._ether.dateToPixelOffset(date) + pad;
-     if (pixelOffset > this._viewLength) {
-         this.setRightVisibleDate(pixelOffset);
-    // no idea what this was for in prototype (scrollToCenter)
-    //else if (pixelOffset > 3 * this._viewLength / 2) {
-    //         this.setRightVisibleDate(this.pixelOffsetToDate(pixelOffset - this._viewLength));
-//     }
-	 this._autoScroll(Math.round(this._viewLength - pixelOffset), f);
-     }
+    if (pixelOffset > this._viewLength) {
+        this.setRightVisibleDate(pixelOffset);
+	this._autoScroll(Math.round(this._viewLength - (this._ether.dateToPixelOffset(date) + pad)), f);
+    }
 };
+
 Timeline._Band.prototype.setRightVisibleDate = function(offset) {
     if (!this._changing) {
         this._moveEther(Math.round(this._viewLength - offset));

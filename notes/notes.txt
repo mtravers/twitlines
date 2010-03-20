@@ -12,18 +12,25 @@ Dynlite theory:
 I think that will do it...wont' support scrolling to arb. date, but that's life.
 
 In progress:
-- ok, we got a decorator to work. Now need to figure out how to scroll adequately.
 
 Todo:
 
-- heroku worker hack
+- initial mode should be scrolling, and NOW bar at reasonable place (starts center now)
 
 - scrolling is utterly broken, god damn it.
-  - random scrolls way off the right end
-  - scrolling to past doesn't seem to update any more.
+   FIXED, but now animation doesn't happen, no idea wh!
+
+- BUG: still too many cases where you get duplicate tweets, sometimes as many as 4
+
+- hand-scrolling has to turn off autoscrolling like it did before.  Sucks otherwise.
+
+- I don't even know what the Now button means any more.
+  - also Reload needs a better name ("your timeline")
 
 - feature: needs a signout link.  Signing out of Twitter won't cut it.
    (deleting cookies owkrs)
+
+- feature: should be able to specify a search or person in URL, then I can pass out adverts
 
 - better images: http://twibs.com/oAuthButtons.php
 
@@ -269,3 +276,7 @@ DONE depo
 - OAuth secret is baked into the code (in application_controller).  This is bad because I can't open-source the code.  It need to be an environment variable (maybe it is actually).
    Even if you remove them (in progress) they will still be in repository history
      So, I changed them.  Hah.  (DONE)
+- heroku worker hack (DONE)
+
+- ok, we got a decorator to work. Now need to figure out how to scroll adequately.
+
