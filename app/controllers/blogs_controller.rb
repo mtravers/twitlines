@@ -10,6 +10,7 @@ class BlogsController < ApplicationController
     @blogs = read_opml(xml)
     @user = current_user
     @user.subscriptions = @blogs
+    LogEntry.log(@user.uname, "{@blogs.length} blogs uploaded")
     render :html => 'uploaded'
   end
 
