@@ -6,12 +6,17 @@ class BlogsController < ApplicationController
   end
 
   def upload_file
-    xml = XML::Document.io(params[:upload][:opmlfile])
-    @blogs = read_opml(xml)
-    @user = current_user
-    @user.subscriptions = @blogs
-    LogEntry.log(@user.tname, "{@blogs.length} blogs uploaded")
-    render :html => 'uploaded'
+    begin
+      xml = XML::Document.io(params[:upload][:opmlfile])
+      @blogs = read_opml(xml)
+      throw "No blogs found" unless @blogs
+      @user = current_user
+      @user.subscriptions = @blogs
+      LogEntry.log(@user.tname, "#{@blogs.length} blogs uploaded")
+    rescue Exception => whoops
+      flash[:warning] = "Upload failed"
+      redirect_to "/blogs"
+    end
   end
 
   def load

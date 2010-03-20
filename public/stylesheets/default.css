@@ -22,3 +22,10 @@ table td {
   background: #FFDDDD;  
   display:inline;
 }
+
+.flash {
+    background: #FFAAAA;
+    border: 2px solid red;
+    padding: 2x;
+    margin: 3px;
+}

@@ -9,6 +9,9 @@
     <%= yield :head %>    
   </head>
   <body>
+    <% flash.each do |key, msg| %>
+    <%= content_tag :p, msg, :class => "flash #{key}" %>
+    <% end %>     
     <%= yield %>
   </body>
 </html>

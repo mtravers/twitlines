@@ -28,8 +28,8 @@ class User < ActiveRecord::Base
       end
     end
     # +++ sub name of host.
-    # +++ page will have to deal with unauthenticated usr.
-    twitter_direct_message("Your blogs have been processed at http://twitlines.net/blogs")
+    # +++ page will have to deal with unauthenticated user.
+    twitter_direct_message("Your blogs have been processed: http://twitlines.net/blogs")
   end
 
   # WHOOOPS -- this needs to dm as someone...ie, the system itself.  We need a twitter ID and the means to authenticate to it!
