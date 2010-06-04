@@ -29,16 +29,18 @@ class User < ActiveRecord::Base
     end
     # +++ sub name of host.
     # +++ page will have to deal with unauthenticated user.
+    puts "Sending direct message to #{tname}"
     twitter_direct_message("Your blogs have been processed: http://twitlines.net/blogs")
   end
 
-  # WHOOOPS -- this needs to dm as someone...ie, the system itself.  We need a twitter ID and the means to authenticate to it!
+  # This works when TWITTER_USER is set to mtraven.
+  # ApplicationController.do_twitter_request('http://twitter.com/direct_messages/new.json?text=foo&user=mtraven', :post, true)
 
   def twitter_direct_message(message)
     tparams = { :user => tname , :text => message}
     url = "http://twitter.com/direct_messages/new.json?#{tparams.to_query}"
-    # should eventually be changed to _authenticated
-    # this is supposed to be a stopgap (and its not working)
+    # should eventually be changed to _authenticated (mm, no, because that requires OAuth which the server isnt equipped to get)
+    # OK, this works when done by hand, has problems from server, presumably because friendship is not set up?
     ApplicationController.do_twitter_request(url, :post, true)
   end
 

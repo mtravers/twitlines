@@ -45,13 +45,6 @@ class BlogsController < ApplicationController
     Cheepnis.enqueue(current_user)
   end
 
-  # not called, made a method on user to do this.
-  def twitter_direct_message(to, message)
-    tparams = { :user => to.tname, :text => message}
-    url = "http://twitter.com/direct_messages/new.json?#{tparams.to_query}"
-    twitter_request_authenticated(url, '', :post)
-  end
-
   def twitter_add_friend(f)
     # need to test if we are already a friend, otherwise error gets generated
     test_params = { :user_a => f, :user_b => current_user.tname}
