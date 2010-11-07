@@ -38,7 +38,8 @@ class User < ActiveRecord::Base
 
   def twitter_direct_message(message)
     tparams = { :user => tname , :text => message}
-    url = "http://twitter.com/direct_messages/new.json?#{tparams.to_query}"
+    url = "http://api.twitter.com/1/direct_messages/new.json?#{tparams.to_query}"
+    puts url
     # should eventually be changed to _authenticated (mm, no, because that requires OAuth which the server isnt equipped to get)
     # OK, this works when done by hand, has problems from server, presumably because friendship is not set up?
     ApplicationController.do_twitter_request(url, :post, true)
