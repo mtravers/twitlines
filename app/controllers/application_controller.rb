@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   
   def make_consumer
-    @user = session[:user]
+    @user = session && session[:user]
     @consumer = OAuth::Consumer.new(ENV['CONSUMER_KEY'],
                                     ENV['CONSUMER_SECRET'],
                                     { :site=>"http://twitter.com"})
@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
     ApplicationController.do_twitter_request(url, method, auth, parse)
   end
   
-  def self.do_twitter_request(url, method=:get, auth=false, parse=true)
+  def self.do_twitter_request(url, method=:get, auth=false, parse=true, args=nil)
     purl = URI.parse(url)
     res = Net::HTTP.start(purl.host, purl.port) { |http|
       req = method == :post ?
@@ -53,6 +53,9 @@ class ApplicationController < ActionController::Base
       Net::HTTP::Get.new(url, {"User-Agent" => "twitlines"})
       if auth 
         req.basic_auth(ENV['TWITTER_USER'], ENV['TWITTER_PASSWORD']) 
+      end
+      if args
+        req.set_form_data(args)
       end
       http.request(req)
     }
@@ -69,10 +72,10 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def twitter_request_authenticated(url, method = :get)
+  def twitter_request_authenticated(url, method = :get, args=nil)
     get_access
     if method == :post
-      response = @access_token.post(url, '', {"User-Agent" => "twitlines"})
+      response = @access_token.post(url, args, {"User-Agent" => "twitlines"})
     else
       response = @access_token.get(url, {"User-Agent" => "twitlines"})
     end
@@ -106,5 +109,20 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  # need to have an actual controller object for authenticated access, argh
+  def self.twitter_direct_message(uname, message)
+    c = ApplicationController.new
+    c.do_twitter_direct_message(uname, message)
+  end
+
+  def do_twitter_direct_message(uname, message)
+    tparams = { :user => uname , :text => message}
+    url = "http://api.twitter.com/1/direct_messages/new.json" # ?#{tparams.to_query}"
+    # should eventually be changed to _authenticated (mm, no, because that requires OAuth which the server isnt equipped to get)
+    # OK, this works when done by hand, has problems from server, presumably because friendship is not set up?
+    # no, uses basic_auth
+    get_access
+    self.twitter_request_authenticated(url, :post, tparams)
+  end
   
 end
