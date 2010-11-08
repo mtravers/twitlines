@@ -1,1 +1,15 @@
-TESTING
+Twitlines is a Timeline view of Twitter,
+
+Plus some other utilities.
+
+I'm using the hg/git connector described here:
+  http://hg-git.github.com/
+
+NOTE: at the moment, this repository is directly linked to heroku and nowhere else. hg push pushes to Heroku.
+
+---
+
+See revenant/misc/working/twitlines/notes
+
+Issues:
+twitter direct messages still not working

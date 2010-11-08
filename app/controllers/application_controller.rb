@@ -27,9 +27,12 @@ class ApplicationController < ActionController::Base
   end
   
   def get_access
-    if session[:user]
-      make_consumer
+    make_consumer
+    if @user
       @access_token = OAuth::AccessToken.new(@consumer, session[:access_token], session[:secret_token]) 
+    else
+      # assuming server mode, maybe should be more explict
+      @access_token = OAuth::AccessToken.new(@consumer, ENV['SYSTEM_ACCESS_TOKEN'], ENV['SYSTEM_ACCESS_TOKEN_SECRET'])
     end
   end
   
