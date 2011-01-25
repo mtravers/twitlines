@@ -1,7 +1,7 @@
 <h1>OPML upload</h1>
 Specify an OPML file of RSS/Atom feeds.  You can usually export this file from your normal blog reader.
 
-<% form_tag ({:action => 'upload_file'}, :multipart => true) do %>
+<% form_tag({:action => 'upload_file'}, :multipart => true) do %>
 <p><label for="upload_file">Select OPML File</label> : 
 <%= file_field 'upload', 'opmlfile' %></p>
 <%= submit_tag "Upload" %>
