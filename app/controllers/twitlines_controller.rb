@@ -47,7 +47,7 @@ class TwitlinesController < ApplicationController
       #      LogEntry.log(session[:logged_user], "search #{term}")
 #      reset_range
     end
-    url = "http://twitter.com/search.json?#{params.to_query}" 
+    url = "http://search.twitter.com/search.json?#{params.to_query}" 
     json = twitter_request(url)
     return { :events => json['results'].map { |evt| twitter_search_event(evt)}}
   end
