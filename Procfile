@@ -1,1 +1,2 @@
-web: bundle exec rails server mongrel -p $PORT
+web: bundle exec script/server -p $PORT 
+
