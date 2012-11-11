@@ -38,7 +38,7 @@ class TwitlinesController < ApplicationController
 
   def twitter_search(term, incremental)
     count = 100
-    params = { :q => term, :rpp => count}
+    params = { :q => term, :count => count}
     if incremental == "earlier"
       return { :events => [] }  # search API can't do this (should test)
     elsif incremental == "later"
@@ -47,13 +47,13 @@ class TwitlinesController < ApplicationController
       #      LogEntry.log(session[:logged_user], "search #{term}")
 #      reset_range
     end
-    url = "http://search.twitter.com/search.json?#{params.to_query}" 
+    url = "http://api.twitter.com1.1/search/tweets.json?#{params.to_query}" 
     json = twitter_request(url)
     return { :events => json['results'].map { |evt| twitter_search_event(evt)}}
   end
 
   def twitter_public
-    url = "http://twitter.com/statuses/public_timeline.json"
+    url = "http://stream.twitter.com/1.1/statuses/sample.json"
     json = twitter_request(url)
     return { :events => json.map { |evt| twitter_timeline_event(evt)}}
   end
@@ -72,7 +72,7 @@ class TwitlinesController < ApplicationController
     else
       reset_range
     end
-    url = "http://twitter.com/statuses/home_timeline.json?#{params.to_query}"
+    url = "http://api.twitter.com/1.1/statuses/home_timeline.json?#{params.to_query}"
     json = twitter_request_authenticated(url)
     return { :events => json.map { |evt| twitter_timeline_event(evt)}}
   end
