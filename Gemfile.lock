@@ -2,6 +2,8 @@ GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.3.2)
+    daemons (1.1.9)
+    eventmachine (1.0.0)
     excon (0.16.7)
     faraday (0.8.4)
       multipart-post (~> 1.1)
@@ -39,10 +41,15 @@ GEM
       jwt (~> 0.1.4)
       multi_json (~> 1.0)
       rack (~> 1.2)
+    pg (0.14.1)
     rack (1.4.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rubyzip (0.9.9)
+    thin (1.5.0)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
 
 PLATFORMS
   ruby
@@ -53,3 +60,5 @@ DEPENDENCIES
   json
   oauth
   oauth-plugin
+  pg
+  thin
