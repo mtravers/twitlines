@@ -1,0 +1,4 @@
+config/development_env.rb
+log
+.bundle
+db/development.sqlite3
