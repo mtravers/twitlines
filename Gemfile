@@ -7,5 +7,11 @@ gem "oauth"
 # gem "oauth-plugin"
 gem "httparty"
 # gem "thin"
-gem "pg"
-gem "sqlite3"
+
+group :production , :staging do
+  gem "pg"
+end
+
+group :development, :test do
+  gem "sqlite3"
+end
