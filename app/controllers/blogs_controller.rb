@@ -1,4 +1,5 @@
-require 'xml/libxml'
+# now a gem?
+# require 'xml/libxml'
 
 class BlogsController < ApplicationController
   
